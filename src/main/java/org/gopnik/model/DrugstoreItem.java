@@ -1,0 +1,25 @@
+package org.gopnik.model;
+
+import jakarta.persistence.*;
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "drugstore_inventory")
+public class DrugstoreItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "drugstore_id", nullable = false)
+    private Drugstore drugstore;
+
+    @ManyToOne
+    @JoinColumn(name = "drug_id", nullable = false)
+    private Drug drug;
+
+    private BigDecimal price;
+    private int quantity;
+
+    // Constructors, Getters, Setters
+}
