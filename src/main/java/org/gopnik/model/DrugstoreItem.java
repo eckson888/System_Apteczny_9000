@@ -16,7 +16,7 @@ public class DrugstoreItem {
 
     @ManyToOne
     @JoinColumn(name = "drug_id", nullable = false)
-    private Drug drug;
+    private Drug drug; //loool
 
     private BigDecimal price;
     private int quantity;
