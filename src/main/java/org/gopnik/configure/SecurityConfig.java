@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .successHandler(new CustomLoginSuccessHandler())
                         .permitAll()
                 )
                 .logout(logout -> logout.permitAll());
