@@ -1,4 +1,7 @@
 package org.gopnik.repository;
 
-public interface IDrugstoreDatabase {
+import org.gopnik.model.Drugstore;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IDrugstoreDatabase extends JpaRepository<Drugstore, Long> {
 }
