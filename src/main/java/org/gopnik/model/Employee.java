@@ -17,9 +17,11 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    public void setDrugstoreId(String drugstoreId) {this.drugstoreId= drugstoreId;}
     @NotBlank(message = "Nazwa użytkownika jest wymagana")
     private String username;
+    @NotBlank(message = "Nazwa użytkownika 2jest wymagana")
+    private String drugstoreId; // na razie cos takiego bo nw jak chcemy to zrobic
     @NotBlank(message = "Hasło jest wymagane")
     private String password;
 
@@ -45,5 +47,5 @@ public class Employee {
         return roles;
     }
 
-
+    public String getDrugstoreId() {return drugstoreId;}
 }
