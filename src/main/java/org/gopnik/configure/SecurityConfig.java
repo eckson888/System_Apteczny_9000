@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,9 +28,9 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .successHandler(new CustomLoginSuccessHandler())
                         .permitAll()
-                        .usernameParameter("username")
                         .usernameParameter("drugstoreId") //te parametry to pobiera z htmla jak cos
-                        .passwordParameter("password")
+                        .usernameParameter("username") // w takiej kolejnoscu jak jest to formularz jest username,id,password
+                        .passwordParameter("password") // niby nie powinno tak byc ale dziala wiec imo rigcz rel
                 )
                 .logout(logout -> logout.permitAll());
         return http.build();
