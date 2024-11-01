@@ -22,4 +22,8 @@ public class DrugstoreService implements IDrugstoreService {
     public List<Drugstore> fetchDrugstoreList() {
         return (List<Drugstore>) drugstoreRepository.findAll();
     }
+
+    public void delete(Long id){
+        drugstoreRepository.deleteById(id);
+    }
 }

@@ -11,6 +11,8 @@ import java.util.Collection;
 
 @Entity
 @Data
+@Getter
+@Setter
 @Table(name="drugstores")
 public class Drugstore {
     @Id
