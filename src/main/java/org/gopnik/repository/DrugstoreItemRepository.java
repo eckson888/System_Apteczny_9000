@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface InventoryRepository extends JpaRepository<DrugstoreItem, Long> {
+public interface DrugstoreItemRepository extends JpaRepository<DrugstoreItem, Long> {
     @Query("SELECT i FROM DrugstoreItem i WHERE i.drugstore.id = :drugstoreId")
     List<DrugstoreItem> getDrugstoreInventory(@Param("drugstoreId") Long drugstoreId);
 }

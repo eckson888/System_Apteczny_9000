@@ -35,9 +35,9 @@
             <th>Ilość</th>
         </tr>
         <tr th:each="drugstoreItem: ${drugstoreInventory}">
-            <td th:text="${drugstoreItem.getDrug.getName}"></td>
-            <td th:text="${drugstoreItem.getDrug.getActiveSubstance}"></td>
-            <td th:text="${drugstoreItem.getDrug.getPharmaceuticalForm}"></td>
+            <td th:text="${drugstoreItem.getDrugCommonName}"></td>
+            <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
+            <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
             <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
             <td th:text="${drugstoreItem.getQuantity}"></td>
         </tr>

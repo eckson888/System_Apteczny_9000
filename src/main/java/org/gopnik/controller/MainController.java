@@ -1,7 +1,7 @@
 package org.gopnik.controller;
 
 import org.gopnik.model.Employee;
-import org.gopnik.repository.InventoryRepository;
+import org.gopnik.service.DrugstoreItemService;
 import org.gopnik.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +14,8 @@ public class MainController {
     @Autowired
     EmployeeService employeeService;
 
-    // wyswietlanie stanu robione na szybko więc jako tako
     @Autowired
-    InventoryRepository inventoryRepository;    // TODO: tu pasuje zrobić serwis zamiast tego
+    DrugstoreItemService drugstoreItemService;
 
     @GetMapping("/main")
     public String main(Model model) {
@@ -24,7 +23,7 @@ public class MainController {
         model.addAttribute("employeeInfo", currentEmployee.toString());
 
                                                             // najkrotszy getter na umcs
-        model.addAttribute("drugstoreInventory", inventoryRepository.getDrugstoreInventory(currentEmployee.getDrugstoreId()));
+        model.addAttribute("drugstoreInventory", drugstoreItemService.getDrugstoreItems(currentEmployee.getDrugstoreId()));
 
         return "main";
     }
