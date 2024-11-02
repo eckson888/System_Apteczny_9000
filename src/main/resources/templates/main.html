@@ -11,6 +11,13 @@
         float:left;
         width:50%;
         }
+
+        table, th, td {
+            border:1px solid black;
+        }
+        th,td {
+            padding: 5px 10px;
+        }
     </style>
 </head>
 <body>
@@ -18,6 +25,23 @@
     <a href="/drugstores">Drugstores</a>
     <h3>Logged in as: <span th:text="${employeeInfo}"></span></h3>
 
+    <h2>Stan magazynowy w aptece: </h2>
+    <table>
+        <tr>
+            <th>Nazwa</th>
+            <th>Substancja aktywna</th>
+            <th>Postać</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+        </tr>
+        <tr th:each="drugstoreItem: ${drugstoreInventory}">
+            <td th:text="${drugstoreItem.getDrug.getName}"></td>
+            <td th:text="${drugstoreItem.getDrug.getActiveSubstance}"></td>
+            <td th:text="${drugstoreItem.getDrug.getPharmaceuticalForm}"></td>
+            <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
+            <td th:text="${drugstoreItem.getQuantity}"></td>
+        </tr>
+    </table>
 </div>
 
 <div class="content">
