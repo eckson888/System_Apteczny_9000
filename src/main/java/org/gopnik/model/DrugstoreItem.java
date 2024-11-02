@@ -1,10 +1,13 @@
 package org.gopnik.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "drugstore_inventory")
+@Getter
 public class DrugstoreItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +24,5 @@ public class DrugstoreItem {
     private BigDecimal price;
     private int quantity;
 
-    // Constructors, Getters, Setters
+
 }

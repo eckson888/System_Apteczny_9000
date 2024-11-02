@@ -28,6 +28,4 @@ public class Drugstore {
 
     @OneToMany(mappedBy = "drugstore", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<DrugstoreItem> inventory = new ArrayList<>();
-
-    // Getters and Setters
 }

@@ -2,9 +2,12 @@ package org.gopnik.service;
 
 
 import jakarta.transaction.Transactional;
+import org.gopnik.model.Drugstore;
 import org.gopnik.model.Employee;
 import org.gopnik.model.Role;
+//import org.gopnik.repository.DrugstoreDatabase;
 import org.gopnik.repository.EmployeeRepository;
+import org.gopnik.repository.IDrugstoreDatabase;
 import org.gopnik.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -67,6 +70,7 @@ public class EmployeeService {
     public List<Employee> getAll() {
         return this.employeeRepository.findAll();
     }
+
 
     //mozliwe ze dodac jeszcze usuwanie jakby byl jakis admin panel do zarzadzania gownem nwwmmm
 }

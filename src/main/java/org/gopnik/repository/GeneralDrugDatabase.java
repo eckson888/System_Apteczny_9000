@@ -15,8 +15,9 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
 
     @PersistenceContext
     private EntityManager entityManager;
-    private final String GET_BY_NAME= "SELECT i FROM com.gopnik.model.Drug i WHERE i.name =':name'";
-    private final String GET_ALL="FROM com.gopnik.Drug";
+    private final String GET_BY_NAME= "SELECT i FROM org.gopnik.model.Drug i WHERE i.name =':name'";
+    private final String GET_BY_ID = "SELECT i FROM org.gopnik.model.Drug i WHERE i.id =:id";
+    private final String GET_ALL="FROM org.gopnik.model.Drug";
     public GeneralDrugDatabase(EntityManager entityManager){
         this.entityManager = entityManager;
     }
@@ -35,6 +36,16 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
         TypedQuery<Drug> query = entityManager.createQuery(GET_ALL, Drug.class);
         List<Drug> result = query.getResultList();
         return result;
+    }
+    @Override
+    public Optional<Drug> getById(Long id){
+        TypedQuery<Drug> query = entityManager.createQuery(GET_BY_ID, Drug.class);
+        query.setParameter("id", id);
+        try {
+            return Optional.of(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
 
