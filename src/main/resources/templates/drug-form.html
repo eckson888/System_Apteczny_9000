@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Add drugstore</title>
+</head>
+<body>
+<div>
+    <form method="post">
+        <div>
+            <label for="name">Drug Name</label>
+            <input type="text" placeholder="Drug name" id="name"> <!--  tutaj jakis  th:field="*{drugList}" zeby pokazywalo liste tych lekow nwmm  -->
+        </div>
+        <div>
+            <label for="common_name">Common Name</label>
+            <input type="text" placeholder="Common name"  id="common_name">   <!--      tutaj trzeba bedzie to dodac do reszty pozniej jakos: th:field="*{drug.costam}" -->
+        </div>
+        <div>
+            <label for="active_substance">Active Substance</label>
+            <input type="text" placeholder="Active Substance" id="active_substance">
+        </div>
+        <div>
+            <label for="pharmaceutical_form">Pharmaceutical Form</label>
+            <input type="text" placeholder="pharmaceutical_form"  id="pharmaceutical_form">
+        </div>
+        <div>
+            <label for="quantity">Quantity</label>
+            <input type="number" placeholder="Quantity" th:field="*{drugstoreItem.quantity}" id="quantity">
+        </div>
+        <button type="submit" style="margin:5px">Add</button>
+    </form>
+</div>
+</body>
+</html>

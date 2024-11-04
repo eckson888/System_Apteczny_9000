@@ -20,10 +20,10 @@ public class MainController {
     @GetMapping("/main")
     public String main(Model model) {
         Employee currentEmployee = employeeService.getCurrentEmployee();
+        Long employeeDrugstore = (Long) model.getAttribute("chosenDrugstore");
+//        currentEmployee.setDrugstoreId(employeeDrugstore);
         model.addAttribute("employeeInfo", currentEmployee.toString());
-
-                                                            // najkrotszy getter na umcs
-        model.addAttribute("drugstoreInventory", drugstoreItemService.getDrugstoreItems(currentEmployee.getDrugstoreId()));
+//        model.addAttribute("drugstoreInventory", drugstoreItemService.getDrugstoreItems(currentEmployee.getDrugstoreId()));
 
         return "main";
     }

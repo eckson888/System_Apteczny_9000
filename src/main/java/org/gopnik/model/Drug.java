@@ -21,7 +21,7 @@ public class Drug {
     private String pharmaceuticalForm;
     //@NotBlank(message = "Nazwa leku jest wymagana") w niektorych lekach nie ma substancji aktywnej
     //to na dole ważne bo wypierdala błąd jak tego nie ma
-    @Column(updatable = true, name="activeSubstance", nullable = false, columnDefinition = "varchar(10000)")
+    @Column(updatable = true, name="activeSubstance", nullable = false, columnDefinition = "varchar(10000)") //XDDD varchar(1000000000000000000)
     private String activeSubstance;
 
     @OneToMany(mappedBy = "drug", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

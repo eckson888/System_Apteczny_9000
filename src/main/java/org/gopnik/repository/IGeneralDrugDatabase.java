@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface IGeneralDrugDatabase {
     public Optional<Drug> getByName(String name);
     public List<Drug> getAll();
+
 }

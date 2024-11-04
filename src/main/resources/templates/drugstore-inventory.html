@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Stan Apteki</title>
+</head>
+<style>
+
+    table, th, td {
+        border:1px solid black;
+    }
+    th,td {
+        padding: 5px 10px;
+    }
+</style>
+<body>
+<a th:href="@{/drugstore-inventory/add}">Dodaj Lek</a>
+<div>
+    <h2>Stan magazynowy w aptece: </h2>
+    <table>
+        <tr>
+            <th>Nazwa</th>
+            <th>Substancja aktywna</th>
+            <th>Postać</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+        </tr>
+        <tr th:each="drugstoreItem: ${drugstoreInventory}">
+            <td th:text="${drugstoreItem.getDrugCommonName}"></td>
+            <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
+            <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
+            <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
+            <td th:text="${drugstoreItem.getQuantity}"></td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
