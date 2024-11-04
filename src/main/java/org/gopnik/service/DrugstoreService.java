@@ -26,4 +26,9 @@ public class DrugstoreService implements IDrugstoreService {
     public void delete(Long id){
         drugstoreRepository.deleteById(id);
     }
+
+    public boolean checkById(Long id)
+    {
+        return drugstoreRepository.existsById(id);
+    }
 }

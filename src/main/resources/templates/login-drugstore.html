@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:method="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Wybierz Apteke</title>
+</head>
+<body>
+
+<form th:action="@{/login/drugstore}" method="post" class="loginPanel">
+    <h1 class="loginHeader">Wybierz apteke</h1>
+    <div class="loginDiv">
+        <input type="number" class="drugstoreInput" id="drugstore_id" name="drugstore_id" placeholder="ID Apteki" required/>
+    </div>
+    <div class="loginDiv">
+        <button type="submit" class="loginButton">Dalej</button>
+    </div>
+    <div th:if="${errorMessage}" th:text="${errorMessage}" class="msg"></div>
+    <div th:if="${logoutMessage}" th:text="${logoutMessage}" class="msg"></div>
+    <div th:if="${message}" th:text="${message}" class="msg"></div>
+</form>
+</body>
+</html>

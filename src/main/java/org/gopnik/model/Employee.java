@@ -2,6 +2,8 @@ package org.gopnik.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Setter;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +18,7 @@ public class Employee {
     @NotBlank(message = "Nazwa użytkownika jest wymagana")
     private String username;
 
-    @NotBlank(message = "Nazwa użytkownika 2jest wymagana")
+    @Setter
     private Long drugstoreId; // na razie cos takiego bo nw jak chcemy to zrobic
 
     @NotBlank(message = "Hasło jest wymagane")
@@ -48,10 +50,6 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setDrugstoreId(Long drugstoreId) {
-        this.drugstoreId = drugstoreId;
     }
 
     public Collection<Role> getRoles() {

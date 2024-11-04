@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:method="http://www.w3.org/1999/xhtml">
 <head>
-<!--    <base href="/">-->
-<!--    <link rel="stylesheet" th:href="@{styles/login.css}"/>-->
-<!--    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>-->
-<!--    <script type="text/javascript" th:src="@{/scripts/baza-script.js}"></script>-->
-<!--    <script src="/static/scripts/baza-script.js"></script>-->
     <title>Login</title>
 </head>
 <body>
@@ -15,15 +10,9 @@
 <form th:action="@{/login}" method="post" class="loginPanel">
     <h1 class="loginHeader">Logowanie</h1>
     <div class="loginDiv">
-        <!--        <label for="username">Nazwa użytkownika:</label>-->
         <input type="text" class="loginInput" id="username" name="username" placeholder="username" required/>
     </div>
     <div class="loginDiv">
-        <!--        <label for="password">Hasło:</label>-->
-        <input type="number" step="1" class="drugstoreIdInput" id="drugstoreId" name="drugstoreId" placeholder="drugstoreId" required /> <!-- tu jest wazny ten name -->
-    </div>
-    <div class="loginDiv">
-        <!--        <label for="password">Hasło:</label>-->
         <input type="password" class="passwordInput" id="password" name="password" placeholder="password" required />
     </div>
     <div class="loginDiv">
@@ -32,9 +21,6 @@
     <div th:if="${errorMessage}" th:text="${errorMessage}" class="msg"></div>
     <div th:if="${logoutMessage}" th:text="${logoutMessage}" class="msg"></div>
     <div th:if="${message}" th:text="${message}" class="msg"></div>
-    <!--    <div class="loginDiv">-->
-    <!--        <button onclick="location.href='/register'" type="button" class="registerButton">Zarejestruj sie</button>-->
-    <!--    </div>-->
 </form>
 </body>
 </html>
