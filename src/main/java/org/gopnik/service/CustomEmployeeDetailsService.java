@@ -1,5 +1,6 @@
 package org.gopnik.service;
 
+import org.gopnik.model.Drugstore;
 import org.gopnik.model.Employee;
 import org.gopnik.model.Role;
 import org.gopnik.repository.EmployeeRepository;
@@ -40,4 +41,5 @@ public class CustomEmployeeDetailsService implements UserDetailsService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
+
 }
