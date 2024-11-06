@@ -21,12 +21,14 @@
     <table>
         <tr>
             <th>Nazwa</th>
+            <th>Common Nazwa</th>
             <th>Substancja aktywna</th>
             <th>Postać</th>
             <th>Cena</th>
             <th>Ilość</th>
         </tr>
         <tr th:each="drugstoreItem: ${drugstoreInventory}">
+            <td th:text="${drugstoreItem.getDrugName}"></td>
             <td th:text="${drugstoreItem.getDrugCommonName}"></td>
             <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
             <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>

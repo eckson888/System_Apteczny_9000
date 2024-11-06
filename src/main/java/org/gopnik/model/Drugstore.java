@@ -13,13 +13,13 @@ import java.util.Collection;
 @Data
 @Getter
 @Setter
-@Table(name="drugstores")
+@Table(name = "drugstores")
 public class Drugstore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @NotBlank(message = "ID apteki jest wymagane")
+    //    @NotBlank(message = "ID apteki jest wymagane")
 //    private String drugstoreID;
     @NotBlank()
     private String city;
@@ -28,6 +28,4 @@ public class Drugstore {
 
     @OneToMany(mappedBy = "drugstore", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<DrugstoreItem> inventory = new ArrayList<>();
-
-    // Getters and Setters
 }
