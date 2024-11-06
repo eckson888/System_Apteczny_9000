@@ -1,0 +1,25 @@
+package org.gopnik.service;
+
+import org.gopnik.model.Drug;
+import org.gopnik.model.Drugstore;
+import org.gopnik.repository.GeneralDrugDatabase;
+import org.gopnik.repository.IDrugstoreDatabase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class DrugService {
+
+    @Autowired
+    GeneralDrugDatabase generalDrugDatabase;
+
+    public Optional<List<String>> get100ByAll(String keyword)   //to raczej trzeba bedzie zmienic na Obiekt Drug a nie string //TODO
+    {
+        return generalDrugDatabase.get100ByAll(keyword);
+    }
+
+
+}

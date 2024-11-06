@@ -9,17 +9,31 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class GeneralDrugDatabase implements IGeneralDrugDatabase{
 
     @PersistenceContext
     private EntityManager entityManager;
-    private final String GET_BY_NAME= "SELECT i FROM com.gopnik.model.Drug i WHERE i.name =':name'";
-    private final String GET_ALL="FROM com.gopnik.Drug";
+
+    private final String GET_BY_NAME= "SELECT i FROM Drug i WHERE i.name =':name'";
+    private final String GET_100_BY_ALL=
+            "SELECT i FROM Drug i " +
+                    "WHERE i.name LIKE :keyword " +
+                    "OR i.activeSubstance LIKE :keyword " +         //to query moznaby zmienic jakos zeby lepsze bylo
+                    "OR i.pharmaceuticalForm LIKE :keyword " +      //TODO
+                    "ORDER BY i.name";
+
+    private final String GET_ALL="FROM com.gopnik.Drug";    //zostawiam to bo nie moge XDDDXDXDD medal dla uzytkownika zouek
+
+
     public GeneralDrugDatabase(EntityManager entityManager){
         this.entityManager = entityManager;
     }
+
+
+
     @Override
     public Optional<Drug> getByName(String name) {
         TypedQuery<Drug> query = entityManager.createQuery(GET_BY_NAME, Drug.class);
@@ -30,6 +44,26 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<List<String>> get100ByAll(String keyword) {
+        TypedQuery<Drug> query = entityManager.createQuery(GET_100_BY_ALL, Drug.class);
+        query.setParameter("keyword", "%" + keyword + "%");
+        query.setMaxResults(5);         //tutaj ustawione na zwracanie 5 wynikow, mozna to potem sparametryzowac albo ustawic wiecej nwmmm
+
+        List<Drug> result = query.getResultList();
+        if (result.isEmpty()) {
+            return Optional.empty();
+        }
+
+        List<String> resultStrings = result.stream()    //no i tutaj te stringi na obiekty Drug tez potem chyba trza bedzie zmienic //TODO
+                .map(Drug::toString)
+                .collect(Collectors.toList());
+        return Optional.of(resultStrings);
+    }
+
+
+
     @Override
     public List<Drug> getAll() {
         TypedQuery<Drug> query = entityManager.createQuery(GET_ALL, Drug.class);

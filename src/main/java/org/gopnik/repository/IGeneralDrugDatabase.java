@@ -7,6 +7,9 @@ import java.util.Optional;
 
 public interface IGeneralDrugDatabase {
     public Optional<Drug> getByName(String name);
+
+    Optional<List<String>> get100ByAll(String name);
+
     public List<Drug> getAll();
 
 }
