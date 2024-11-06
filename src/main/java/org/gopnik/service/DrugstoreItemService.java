@@ -1,5 +1,6 @@
 package org.gopnik.service;
 
+import jakarta.transaction.Transactional;
 import org.gopnik.model.DrugstoreItem;
 import org.gopnik.repository.DrugstoreItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,27 @@ public class DrugstoreItemService {
     private DrugstoreItemRepository drugstoreItemRepository;
 
     public List<DrugstoreItem> fetchDrugstoreItemList() {
-        return (List<DrugstoreItem>) drugstoreItemRepository.findAll();
+        return (List<DrugstoreItem>) drugstoreItemRepository.getAll();
     }
+
+
+    @Transactional
+    public List<DrugstoreItem> getByKeyword(String keyword) {
+
+        return this.drugstoreItemRepository.findByKeyword(keyword);
+    }
+
 
     public List<DrugstoreItem> getDrugstoreItems(Long id) {
         return drugstoreItemRepository.getDrugstoreInventory(id);
     }
+
     public void addDrugstoreItem(DrugstoreItem item){
         drugstoreItemRepository.save(item);
+    }
+
+    public List<DrugstoreItem> getAll()
+    {
+        return this.drugstoreItemRepository.getAll();
     }
 }

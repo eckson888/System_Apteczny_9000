@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,5 +28,5 @@ public class Drugstore {
     private String address;
 
     @OneToMany(mappedBy = "drugstore", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Collection<DrugstoreItem> inventory = new ArrayList<>();
+    private List<DrugstoreItem> inventory = new ArrayList<>();
 }

@@ -15,6 +15,12 @@
     }
 </style>
 <body>
+
+<form method="get" th:action="@{/global-inventory/search}" >
+    <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
+    <button type="submit" class="searchButton">Search</button>
+</form>
+
 <div>
     <h2>Stan magazynowy w aptekach: </h2>
     <table>
@@ -42,7 +48,8 @@
             </tr>
         </th:block>
     </table>
-
 </div>
 </body>
 </html>
+
+

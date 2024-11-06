@@ -1,6 +1,7 @@
 package org.gopnik.service;
 
 import org.gopnik.model.Drugstore;
+import org.gopnik.model.DrugstoreItem;
 
 import java.util.List;
 

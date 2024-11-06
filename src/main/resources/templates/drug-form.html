@@ -46,7 +46,7 @@
     <td th:text="${drug.getPharmaceuticalForm}"></td>
     <td th:text="${drug.getActiveSubstance}"></td>
     <td>
-        <button onclick="document.getElementById('id01').style.display='block'" class="addButton">Dodaj</button>
+        <button onclick="document.getElementById('id01').style.display='block'" th:action=@{/drugstore-inventory/add/search/{id}(id=${drug.id})}" class="addButton">Dodaj</button>
 
         <div id="id01" class="modal">
             <form class="modal-content" method="post">
@@ -58,7 +58,7 @@
 
                         <button type="button" id="cancel" onclick="document.getElementById('id01').style.display='none'">Powrót</button>
                         <form method="post">
-                            <input type="hidden" th:name="id" th:value="${drug.getId}"/>
+                            <input type="text" th:name="id" th:value="${drug.getId}"/>
                         <div>
                             <label for="quantity">Quantity</label>
                             <input type="text" placeholder="Quantity" th:field="*{drugstoreItem.quantity}" id="quantity">
