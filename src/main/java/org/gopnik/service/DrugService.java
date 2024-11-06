@@ -20,6 +20,11 @@ public class DrugService {
     {
         return generalDrugDatabase.get100ByAll(keyword);
     }
-
+    public List<Drug> getByKeyword(String keyword){
+        return generalDrugDatabase.getByKeyword(keyword);
+    }
+    public Drug findById(int id){
+        return generalDrugDatabase.getById(id).orElseThrow();
+    }
 
 }

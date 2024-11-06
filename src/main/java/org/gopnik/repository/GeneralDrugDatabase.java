@@ -20,13 +20,14 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
     private final String GET_BY_NAME= "SELECT i FROM Drug i WHERE i.name =':name'";
     private final String GET_100_BY_ALL=
             "SELECT i FROM Drug i " +
-                    "WHERE i.name LIKE :keyword " +
-                    "OR i.activeSubstance LIKE :keyword " +         //to query moznaby zmienic jakos zeby lepsze bylo
-                    "OR i.pharmaceuticalForm LIKE :keyword " +      //TODO
+                    "WHERE LOWER(i.name) LIKE LOWER(:keyword) " +
+                    "OR LOWER(i.activeSubstance) LIKE LOWER(:keyword) " +         //to query moznaby zmienic jakos zeby lepsze bylo
+                    "OR LOWER(i.pharmaceuticalForm) LIKE LOWER(:keyword) " +      //TODO
                     "ORDER BY i.name";
 
     private final String GET_ALL="FROM com.gopnik.Drug";    //zostawiam to bo nie moge XDDDXDXDD medal dla uzytkownika zouek
-
+    private final String GET_BY_ID="SELECT i FROM Drug i " +
+            "WHERE i.id = :id";
 
     public GeneralDrugDatabase(EntityManager entityManager){
         this.entityManager = entityManager;
@@ -44,11 +45,21 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
             return Optional.empty();
         }
     }
+    @Override
+    public Optional<Drug> getById(int id){
+        TypedQuery<Drug> query = entityManager.createQuery(GET_BY_ID, Drug.class);
+        query.setParameter("id", id);
+        try {
+            return Optional.of(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
 
     @Override
     public Optional<List<String>> get100ByAll(String keyword) {
         TypedQuery<Drug> query = entityManager.createQuery(GET_100_BY_ALL, Drug.class);
-        query.setParameter("keyword", "%" + keyword + "%");
+        query.setParameter("keyword", keyword + "%");
         query.setMaxResults(5);         //tutaj ustawione na zwracanie 5 wynikow, mozna to potem sparametryzowac albo ustawic wiecej nwmmm
 
         List<Drug> result = query.getResultList();
@@ -60,6 +71,12 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
                 .map(Drug::toString)
                 .collect(Collectors.toList());
         return Optional.of(resultStrings);
+    }
+    @Override
+    public List<Drug> getByKeyword(String keyword){
+        TypedQuery<Drug> query = entityManager.createQuery(GET_100_BY_ALL, Drug.class);
+        query.setParameter("keyword", keyword + "%");
+        return query.getResultList();
     }
 
 

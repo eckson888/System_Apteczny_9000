@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class Employee { // alias "DrugDealer"
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -2,10 +2,13 @@ package org.gopnik.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "drugstore_inventory")
 public class DrugstoreItem {
     @Id

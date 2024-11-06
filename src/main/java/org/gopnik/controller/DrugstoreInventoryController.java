@@ -1,11 +1,13 @@
 package org.gopnik.controller;
 
+import org.gopnik.model.Drug;
 import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.gopnik.model.Employee;
 import org.gopnik.repository.GeneralDrugDatabase;
 import org.gopnik.service.DrugService;
 import org.gopnik.service.DrugstoreItemService;
+import org.gopnik.service.DrugstoreService;
 import org.gopnik.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,9 +29,9 @@ public class DrugstoreInventoryController {
 
     @Autowired
     private DrugService drugService;
-
     @Autowired
-    private GeneralDrugDatabase generalDrugDatabase;
+    private DrugstoreService drugstoreService;
+
 
     @GetMapping("")
     public String main(Model model) {
@@ -44,14 +46,29 @@ public class DrugstoreInventoryController {
         model.addAttribute("drugstoreItem", new DrugstoreItem());   //TODO
         return "drug-form";
     }
+    @RequestMapping(path = "/add/search", method = RequestMethod.POST)
+    public String addItem(@ModelAttribute DrugstoreItem drugstoreItem, @RequestParam("id") int id){
 
-    @GetMapping("/search")
-    @ResponseBody
-    public Optional<List<String>> search(@RequestParam("keyword") String keyword) {
-        System.out.println("keyword:" + keyword);
-        System.out.println(drugService.get100ByAll(keyword));   //< ^ debug
-        return drugService.get100ByAll(keyword);
+        drugstoreItem.setDrugstore(drugstoreService.getById(employeeService.getCurrentEmployee().getDrugstoreId()).orElseThrow());
+        drugstoreItem.setDrug(drugService.findById(id));
+       // System.out.println(item.getDrugstore().getId() + "tutaj");
+        drugstoreItemService.addDrugstoreItem(drugstoreItem);
+        return "drug-form";
     }
+
+    @RequestMapping(path = "/add/search",method=RequestMethod.GET)
+    public String search(@RequestParam String keyword, Model model)
+    {
+        model.addAttribute("drugstoreItem", new DrugstoreItem());
+
+        if (keyword != null) {
+            List<Drug> list = drugService.getByKeyword(keyword);
+            model.addAttribute("drugs", list);
+            model.addAttribute("keyword",keyword);
+        }
+        return "drug-form";
+    }
+
 
 
 }

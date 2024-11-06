@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DrugstoreService implements IDrugstoreService {
@@ -30,5 +31,8 @@ public class DrugstoreService implements IDrugstoreService {
     public boolean checkById(Long id)
     {
         return drugstoreRepository.existsById(id);
+    }
+    public Optional<Drugstore> getById(Long id){
+        return drugstoreRepository.findById(id);
     }
 }

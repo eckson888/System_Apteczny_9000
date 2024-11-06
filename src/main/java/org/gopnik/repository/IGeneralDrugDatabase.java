@@ -9,7 +9,9 @@ public interface IGeneralDrugDatabase {
     public Optional<Drug> getByName(String name);
 
     Optional<List<String>> get100ByAll(String name);
+    public List<Drug> getByKeyword(String keyword);
 
     public List<Drug> getAll();
+    public Optional<Drug> getById(int id);
 
 }

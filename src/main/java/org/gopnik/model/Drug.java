@@ -25,8 +25,7 @@ public class Drug {
     @Column(updatable = true, name="activeSubstance", nullable = false, columnDefinition = "varchar(10000)") //XDDD varchar(1000000000000000000)
     private String activeSubstance;
 
-    @OneToMany(mappedBy = "drug", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Collection<DrugstoreItem> inventory = new ArrayList<>();
+
 
     public Drug(int id){this.id = id;}
 

@@ -19,4 +19,7 @@ public class DrugstoreItemService {
     public List<DrugstoreItem> getDrugstoreItems(Long id) {
         return drugstoreItemRepository.getDrugstoreInventory(id);
     }
+    public void addDrugstoreItem(DrugstoreItem item){
+        drugstoreItemRepository.save(item);
+    }
 }
