@@ -16,7 +16,7 @@ public class DruglistController {
 
     @GetMapping("")
     public String drugs(Model model) {
-        model.addAttribute("drugitemList", drugstoreItemService.fetchDrugsFromDatabase());
+        model.addAttribute("drugitemList", drugstoreItemService.fetchDrugstoreItemList());
         return "druglist";
     }
 }

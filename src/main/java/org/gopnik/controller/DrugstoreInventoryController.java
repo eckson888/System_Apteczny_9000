@@ -47,7 +47,7 @@ public class DrugstoreInventoryController {
         return "drug-form";
     }
     @RequestMapping(path = "/add/search", method = RequestMethod.POST)
-    public String addItem(@ModelAttribute DrugstoreItem drugstoreItem, @RequestParam("id") int id){
+    public String addItem(@ModelAttribute DrugstoreItem drugstoreItem, @RequestParam("drugId") int id){
 
         drugstoreItem.setDrugstore(drugstoreService.getById(employeeService.getCurrentEmployee().getDrugstoreId()).orElseThrow());
         drugstoreItem.setDrug(drugService.findById(id));
