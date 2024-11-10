@@ -32,6 +32,9 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
     private final String GET_ALL="SELECT i FROM DrugstoreItem i ORDER BY i.name";
 
+    private final String GET_BY_KEYWORD_AND_DRUGSTOREID = "SELECT i from DrugstoreItem i WHERE (LOWER (i.drug.name)" +
+            " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword)) AND i.drugstore.id = :id";
+
 
     @Override
     public List<DrugstoreItem> getDrugstoreInventory(Long drugstoreId) {
@@ -60,7 +63,17 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
     }
 
     @Override
-    public List<DrugstoreItem> findByKeyword(String keyword) {
+    public List<DrugstoreItem> findByKeywordInSomeDrugstore(String keyword, Long id) {
+        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_KEYWORD_AND_DRUGSTOREID, DrugstoreItem.class);
+        query.setParameter("keyword", "%" + keyword + "%");
+        query.setParameter("id",id);
+
+        List<DrugstoreItem> result = query.getResultList();
+        return result;
+    }
+
+    @Override
+    public List<DrugstoreItem> findByKeywordInAllDrugstores(String keyword) {
         TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_NAME_AND_COMMONNAME, DrugstoreItem.class);
         query.setParameter("keyword", "%" + keyword + "%");
 

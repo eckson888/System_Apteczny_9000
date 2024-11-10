@@ -57,7 +57,7 @@ public class DrugstoreInventoryController {
     }
 
     @RequestMapping(path = "/add/search",method=RequestMethod.GET)
-    public String search(@RequestParam String keyword, Model model)
+    public String search_add(@RequestParam String keyword, Model model)
     {
         model.addAttribute("drugstoreItem", new DrugstoreItem());
 
@@ -67,6 +67,21 @@ public class DrugstoreInventoryController {
             model.addAttribute("keyword",keyword);
         }
         return "drug-form";
+    }
+
+    @RequestMapping(path = "/search",method= RequestMethod.GET)
+    public String search(@RequestParam String keyword, Model model)
+    {
+        if (keyword.length()>2) {
+//            List<String> keywords = List.of(keyword.split("\\s+"));
+            List<DrugstoreItem> list = drugstoreItemService.getByKeywordInSomeDrugstore(keyword,employeeService.getCurrentEmployee().getDrugstoreId()); // xdd
+            model.addAttribute("drugstoreInventory", list);
+            model.addAttribute("keyword",keyword);
+        } else {
+            List<DrugstoreItem> list = drugstoreItemService.getDrugstoreItems(employeeService.getCurrentEmployee().getDrugstoreId());
+            model.addAttribute("drugstoreInventory", list);
+        }
+        return "/drugstore-inventory";
     }
 
 

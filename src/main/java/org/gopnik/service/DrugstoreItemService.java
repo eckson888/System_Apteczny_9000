@@ -21,8 +21,15 @@ public class DrugstoreItemService {
     @Transactional
     public List<DrugstoreItem> getByKeyword(String keyword) {
 
-        return this.drugstoreItemRepository.findByKeyword(keyword);
+        return this.drugstoreItemRepository.findByKeywordInAllDrugstores(keyword);
     }
+
+    @Transactional
+    public List<DrugstoreItem> getByKeywordInSomeDrugstore(String keyword, Long id) {
+
+        return this.drugstoreItemRepository.findByKeywordInSomeDrugstore(keyword,id);
+    }
+
 
 
     public List<DrugstoreItem> getDrugstoreItems(Long id) {

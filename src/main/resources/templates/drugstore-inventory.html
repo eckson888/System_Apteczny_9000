@@ -18,6 +18,12 @@
 <a th:href="@{/drugstore-inventory/add}">Dodaj Lek</a>
 <div>
     <h2>Stan magazynowy w aptece: </h2>
+
+    <form method="get" th:action="@{/drugstore-inventory/search}" >
+        <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
+        <button type="submit" class="searchButton">Search</button>
+    </form>
+
     <table>
         <tr>
             <th>Nazwa</th>

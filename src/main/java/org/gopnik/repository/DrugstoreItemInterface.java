@@ -14,7 +14,9 @@ public interface DrugstoreItemInterface {
     @Query("SELECT i FROM DrugstoreItem i WHERE i.drugstore.id = :drugstoreId")
     List<DrugstoreItem> getDrugstoreInventory(@Param("drugstoreId") Long drugstoreId);
 
-    List<DrugstoreItem> findByKeyword(String keyword);
+    List<DrugstoreItem> findByKeywordInSomeDrugstore(String keyword, Long id);
+
+    List<DrugstoreItem> findByKeywordInAllDrugstores(String keyword);
 
     List<DrugstoreItem> getAll();
 
