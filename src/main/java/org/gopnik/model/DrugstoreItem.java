@@ -44,4 +44,10 @@ public class DrugstoreItem {
     }
 
 
+    public Drugstore getDrugstore() {
+        return drugstore;
+    }
+
+
+
 }

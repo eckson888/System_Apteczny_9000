@@ -30,7 +30,7 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
     private final String GET_BY_NAME_AND_COMMONNAME= "SELECT i FROM DrugstoreItem i WHERE LOWER (i.drug.name) " +
             " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword)";
 
-    private final String GET_ALL="SELECT i FROM DrugstoreItem i ORDER BY i.name";
+    private final String GET_ALL="SELECT i FROM DrugstoreItem i ORDER BY i.id";
 
     private final String GET_BY_KEYWORD_AND_DRUGSTOREID = "SELECT i from DrugstoreItem i WHERE (LOWER (i.drug.name)" +
             " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword)) AND i.drugstore.id = :id";

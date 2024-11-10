@@ -16,6 +16,8 @@
 </style>
 <body>
 
+<a th:href="@{/main}">Powrót</a>
+
 <form method="get" th:action="@{/global-inventory/search}" >
     <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
     <button type="submit" class="searchButton">Search</button>
@@ -36,17 +38,17 @@
         <!-- TUTAJ DODAC KOLEJNEGO FOR EACH ZEBY JESZCZE WSZYSTKIE DRUGSTORY BRALO PO KOLEI, PARAMETR W KONTROLERZE JUZ WSTAWIONY - "allDrugstores" -->
         <!-- STUPID ASS PO CO ODDZIELNIE PODAWAĆ DO MODELU DRUGSTORY I OGÓLNE INVENTORY JAK MOZNA Z KAZDEGO DRUGSTORA SB BRAC INVENTORY
              PO DRUGIE ZAGNIEZDZONE PETLE NIE ISTNIEJA TRZEBA SIE DOKOPYWAC DO OTCHLANI STACKA ZEBY ZNALEZC INFO O JAKIMS TH:BLOCK-->
-        <th:block th:each="drugstore: ${allDrugstores}">
-            <tr th:each="drugstoreItem: ${drugstore.getInventory}">
+<!--        <th:block th:each="drugstore: ${allDrugstores}">-->
+            <tr th:each="drugstoreItem: ${allDrugstoreItems}">
                 <td th:text="${drugstoreItem.getDrugName}"></td>
                 <td th:text="${drugstoreItem.getDrugCommonName}"></td>
                 <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
                 <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
                 <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
                 <td th:text="${drugstoreItem.getQuantity}"></td>
-                <td th:text="${drugstore.getAddress + ', ' + drugstore.getCity}"></td>
+                <td th:text="${drugstoreItem.getDrugstore.getAddress + ', ' + drugstoreItem.getDrugstore.getCity}"></td>
             </tr>
-        </th:block>
+<!--        </th:block>-->
     </table>
 </div>
 </body>

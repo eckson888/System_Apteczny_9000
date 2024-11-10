@@ -14,6 +14,11 @@
     </style>
 </head>
 <body>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit" class="logoutButton">Wyloguj się</button>
+</form>
+
 <div class="content">
     <h3>Logged in as: <span th:text="${employeeInfo}"></span></h3>
     <a href="/drugstores">Drugstores (adminpanel)</a> <!--    ja bym to wyjebal xdd po chuj to apteczniakowi, tak samo dodawanie aptek-->

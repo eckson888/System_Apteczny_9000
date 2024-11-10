@@ -35,6 +35,7 @@
     </style>
 </head>
 <body>
+<a th:href="@{/drugstore-inventory}">Powrót</a>
 <form method="get" th:action="@{/drugstore-inventory/add/search}">
     <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
     <button type="submit" class="searchButton">Search</button>
