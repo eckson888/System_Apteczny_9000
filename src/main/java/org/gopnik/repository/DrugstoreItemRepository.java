@@ -15,7 +15,6 @@ import java.util.Optional;
 public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
 
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -25,16 +24,18 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
     private final String GET_BY_ID = "SELECT i FROM DrugstoreItem i WHERE i.id = :id";
 
-    private final String GET_BY_DRUGSTORE_ID="SELECT i FROM DrugstoreItem i WHERE i.drugstore.id = :id";
+    private final String GET_BY_DRUGSTORE_ID = "SELECT i FROM DrugstoreItem i WHERE i.drugstore.id = :id";
 
-    private final String GET_BY_NAME_AND_COMMONNAME= "SELECT i FROM DrugstoreItem i WHERE LOWER (i.drug.name) " +
+    private final String GET_BY_NAME_AND_COMMONNAME = "SELECT i FROM DrugstoreItem i WHERE LOWER (i.drug.name) " +
             " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword)";
 
-    private final String GET_ALL="SELECT i FROM DrugstoreItem i ORDER BY i.id";
+    private final String GET_ALL = "SELECT i FROM DrugstoreItem i ORDER BY i.id";
 
     private final String GET_BY_KEYWORD_AND_DRUGSTOREID = "SELECT i from DrugstoreItem i WHERE (LOWER (i.drug.name)" +
             " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword)) AND i.drugstore.id = :id";
 
+    private final String GET_BY_ID_AND_DRUGSTOREID = "SELECT i from DrugstoreItem i WHERE " +
+            "i.drug.id = :drugid AND i.drugstore.id = :drugstoreid";
 
     @Override
     public List<DrugstoreItem> getDrugstoreInventory(Long drugstoreId) {
@@ -42,11 +43,9 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         query.setParameter("id", drugstoreId);
         query.setMaxResults(1);
         DrugstoreItem result = query.getSingleResult();
-        if(result==null)
-        {
+        if (result == null) {
             return null; //TODO lepszy return zrobic
-        }
-        else {
+        } else {
             return result.getDrugstore().getInventory();
         }
     }
@@ -66,7 +65,7 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
     public List<DrugstoreItem> findByKeywordInSomeDrugstore(String keyword, Long id) {
         TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_KEYWORD_AND_DRUGSTOREID, DrugstoreItem.class);
         query.setParameter("keyword", "%" + keyword + "%");
-        query.setParameter("id",id);
+        query.setParameter("id", id);
 
         List<DrugstoreItem> result = query.getResultList();
         return result;
@@ -82,18 +81,24 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
     }
 
     @Override
+    public List<DrugstoreItem> findByIdInGivenDrugstore(int drugid, Long drugstoreid) {
+        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_ID_AND_DRUGSTOREID, DrugstoreItem.class);
+        query.setParameter("drugid", drugid);
+        query.setParameter("drugstoreid", drugstoreid);
+
+        return query.getResultList();
+    }
+
+    @Override
     public List<DrugstoreItem> getAll() {
         TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_ALL, DrugstoreItem.class);
         List<DrugstoreItem> result = query.getResultList();
         return result;
     }
 
-    public void save(DrugstoreItem item)
-    {
+    public void save(DrugstoreItem item) {
         this.jpaDrugstoreItemInterface.save(item);
     }
-
-
 
 
 }
