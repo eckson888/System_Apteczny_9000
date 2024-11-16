@@ -18,6 +18,8 @@ public interface DrugstoreItemInterface {
 
     List<DrugstoreItem> findByKeywordInAllDrugstores(String keyword);
 
+    List<DrugstoreItem> findByIdInGivenDrugstore(int drugid, Long drugstoreid);
+
     List<DrugstoreItem> getAll();
 
 

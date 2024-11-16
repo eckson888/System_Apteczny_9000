@@ -1,6 +1,7 @@
 package org.gopnik.controller;
 
 
+import org.gopnik.model.Employee;
 import org.gopnik.service.DrugstoreService;
 import org.gopnik.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,26 +38,24 @@ public class LoginController {
     @RequestMapping(path = "/login/drugstore", method = RequestMethod.GET)
     public String drugstore_get(Model model) {
 
-        model.addAttribute("drugstore_id",new String());
+        model.addAttribute("drugstore_id", new String());
         return "login-drugstore";
     }
-    
+
     @PostMapping("/login/drugstore")
-    public String drugstore_post(@RequestParam Long drugstore_id)
-    {
+    public String drugstore_post(@RequestParam Long drugstore_id) {
         System.out.println(drugstore_id);
-        if(drugstoreService.checkById(drugstore_id))
+        if (drugstoreService.checkById(drugstore_id))
         {
-            employeeService.getCurrentEmployee().setDrugstoreId(drugstore_id);
-            employeeService.save(employeeService.getCurrentEmployee());
+            Employee currentEmpl = employeeService.getCurrentEmployee();
+            if (!drugstore_id.equals(currentEmpl.getDrugstoreId()))
+            {
+                currentEmpl.setDrugstoreId(drugstore_id);
+                employeeService.save(currentEmpl);
+            }
             return "redirect:/main";
-        }
-        else {
+        } else {
             return "redirect:/login/drugstore";
         }
-
-
-
     }
-
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 
 @Entity
@@ -35,19 +36,27 @@ public class DrugstoreItem {
         return drug.getCommonName();
     }
 
-    public String getDrugPharmaceuticalForm(){
+    public String getDrugPharmaceuticalForm() {
         return drug.getPharmaceuticalForm();
     }
 
-    public String getDrugActiveSubstance(){
+    public String getDrugActiveSubstance() {
         return drug.getActiveSubstance();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DrugstoreItem that = (DrugstoreItem) o;
+        return Objects.equals(getDrugstore().getId(), that.getDrugstore().getId()) && Objects.equals(getDrug().getId(), that.getDrug().getId()) && Objects.equals(getPrice(), that.getPrice());
+    }
 
     public Drugstore getDrugstore() {
         return drugstore;
     }
 
-
-
+    public void addQuantity(int amount) {
+        this.quantity += amount;
+    }
 }
