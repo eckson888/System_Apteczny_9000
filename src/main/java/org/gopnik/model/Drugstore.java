@@ -29,4 +29,9 @@ public class Drugstore {
 
     @OneToMany(mappedBy = "drugstore", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<DrugstoreItem> inventory = new ArrayList<>();
+
+    public String getFullAddress()
+    {
+        return this.city + "," + this.address;
+    }
 }

@@ -8,6 +8,7 @@ import org.gopnik.model.DrugstoreItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,14 +42,13 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_DRUGSTORE_ID, DrugstoreItem.class);
         query.setParameter("id", drugstoreId);
         query.setMaxResults(1);
-        DrugstoreItem result = query.getSingleResult();
-        if(result==null)
-        {
-            return null; //TODO lepszy return zrobic
-        }
-        else {
+        try{
+            DrugstoreItem result = query.getSingleResult();
             return result.getDrugstore().getInventory();
+        }catch (NoResultException e){
+            return new ArrayList<>();
         }
+
     }
 
     @Override

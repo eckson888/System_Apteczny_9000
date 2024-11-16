@@ -33,12 +33,8 @@
             <th>Postać</th>
             <th>Cena</th>
             <th>Ilość</th>
-            <th>Adres apteki</th>
+            <th>Akcje</th>
         </tr>
-        <!-- TUTAJ DODAC KOLEJNEGO FOR EACH ZEBY JESZCZE WSZYSTKIE DRUGSTORY BRALO PO KOLEI, PARAMETR W KONTROLERZE JUZ WSTAWIONY - "allDrugstores" -->
-        <!-- STUPID ASS PO CO ODDZIELNIE PODAWAĆ DO MODELU DRUGSTORY I OGÓLNE INVENTORY JAK MOZNA Z KAZDEGO DRUGSTORA SB BRAC INVENTORY
-             PO DRUGIE ZAGNIEZDZONE PETLE NIE ISTNIEJA TRZEBA SIE DOKOPYWAC DO OTCHLANI STACKA ZEBY ZNALEZC INFO O JAKIMS TH:BLOCK-->
-<!--        <th:block th:each="drugstore: ${allDrugstores}">-->
             <tr th:each="drugstoreItem: ${allDrugstoreItems}">
                 <td th:text="${drugstoreItem.getDrugName}"></td>
                 <td th:text="${drugstoreItem.getDrugCommonName}"></td>
@@ -46,9 +42,14 @@
                 <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
                 <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
                 <td th:text="${drugstoreItem.getQuantity}"></td>
-                <td th:text="${drugstoreItem.getDrugstore.getAddress + ', ' + drugstoreItem.getDrugstore.getCity}"></td>
+                <td>
+                    <form th:action="@{/closest-drugstore}" method="get">
+                        <button class="editButton">Pokaz najblizsza apteke</button>
+                    </form>
+                </td>
+<!--                <td th:text="${drugstoreItem.getDrugstore.getAddress + ', ' + drugstoreItem.getDrugstore.getCity}"></td>-->
             </tr>
-<!--        </th:block>-->
+
     </table>
 </div>
 </body>
