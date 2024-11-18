@@ -4,10 +4,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,8 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
 
     private final String GET_BY_ID = "SELECT i FROM DrugstoreItem i WHERE i.id = :id";
+
+    private final String GET_DRUGSTORE_ITEM_BY_DRUG_ID = "SELECT i FROM DrugstoreItem i WHERE i.drug.id = :id AND i.drugstore.id != :drugstoreId";
 
     private final String GET_BY_DRUGSTORE_ID = "SELECT i FROM DrugstoreItem i WHERE i.drugstore.id = :id";
 
@@ -49,6 +53,32 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
             return result.getDrugstore().getInventory();
         }
     }
+
+    @Override
+    public List<Drugstore> getDrugstoresByDrugstoreItemId(Long drugstoreItemId,Long currentDrugstoreId)
+    {
+        DrugstoreItem temp = getById(drugstoreItemId).orElse(null);
+        Long forbiddenDrugstoreId = currentDrugstoreId;
+        Long drugId = (long) temp.getDrug().getId();
+        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_DRUGSTORE_ITEM_BY_DRUG_ID, DrugstoreItem.class);
+        query.setParameter("id", drugId);
+        query.setParameter("drugstoreId",forbiddenDrugstoreId);
+        List<DrugstoreItem> query_results;
+        try {
+             query_results = Optional.of(query.getResultList()).orElse(null);
+        } catch (NoResultException e) {
+             query_results = null;
+        }
+
+        List<Drugstore> result = new ArrayList<>();
+        for(DrugstoreItem d: query_results)
+        {
+                result.add(d.getDrugstore());
+
+        }
+        return result;
+    }
+
 
     @Override
     public Optional<DrugstoreItem> getById(Long id) {

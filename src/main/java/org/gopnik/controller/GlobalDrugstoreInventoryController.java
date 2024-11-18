@@ -30,11 +30,9 @@ public class GlobalDrugstoreInventoryController {
     @GetMapping("")
     public String main(Model model) {
 
-        // TODO: POZBYC SIE NIEPOTRZEBNYCH RZECZY
+
         Employee currentEmployee = employeeService.getCurrentEmployee();
         model.addAttribute("employeeInfo", currentEmployee.toString());
-//        model.addAttribute("drugstoreInventory", drugstoreItemService.getDrugstoreItems(currentEmployee.getDrugstoreId()));
-//        model.addAttribute("allDrugstores", drugstoreService.fetchDrugstoreList());
         model.addAttribute("allDrugstoreItems",drugstoreItemService.getAll());
         return "global-inventory";
     }
@@ -44,13 +42,12 @@ public class GlobalDrugstoreInventoryController {
     public String search(@RequestParam String keyword, Model model)
     {
         if (keyword.length()>2) {
-//            List<String> keywords = List.of(keyword.split("\\s+"));
             List<DrugstoreItem> list = drugstoreItemService.getByKeyword(keyword);
             model.addAttribute("allDrugstoreItems", list);
             model.addAttribute("keyword",keyword);
         } else {
             List<DrugstoreItem> list = drugstoreItemService.getAll();
-            model.addAttribute("allDrugstoreItems", list);
+            model.addAttribute("allDrugstoreItems", list);  // TODO: wyjebac pokazywanie lekow z current apteki w global inventory
         }
         return "/global-inventory";
     }

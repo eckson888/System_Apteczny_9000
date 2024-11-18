@@ -1,5 +1,6 @@
 package org.gopnik.repository;
 
+import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,6 +23,8 @@ public interface DrugstoreItemInterface {
 
     List<DrugstoreItem> getAll();
 
+
+    List<Drugstore> getDrugstoresByDrugstoreItemId(Long drugstoreItemId,Long currentDrugstoreId);
 
     Optional<DrugstoreItem> getById(Long id);
 }

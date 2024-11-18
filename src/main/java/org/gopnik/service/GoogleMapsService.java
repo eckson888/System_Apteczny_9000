@@ -41,6 +41,7 @@ public class GoogleMapsService
             for (int i = 0; i < matrix.rows[0].elements.length; i++)
             {
                 DistanceMatrixElement element = matrix.rows[0].elements[i];
+                System.out.println(element.distance.inMeters);
                 if (element.distance != null && element.distance.inMeters < shortestDistance)
                 {
                     shortestDistance = element.distance.inMeters;
