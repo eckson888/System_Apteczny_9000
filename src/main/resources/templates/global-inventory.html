@@ -43,14 +43,13 @@
                 <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
                 <td th:text="${drugstoreItem.getQuantity}"></td>
                 <td>
-                    <form th:action="@{/closest-drugstore/{id}(id=${drugstoreItem.id})}" method="get">
+                    <form th:action="@{global-inventory/closest-drugstore/{id}(id=${drugstoreItem.id})}" method="get">
                         <button class="editButton">Pokaz najblizsza apteke</button>
                     </form>
                 </td>
-<!--                <td th:text="${drugstoreItem.getDrugstore.getAddress + ', ' + drugstoreItem.getDrugstore.getCity}"></td>-->
             </tr>
-
     </table>
+    <h3>Najblizsza apteka:  <span th:text="${closestDrugstore}"></span></h3>
 </div>
 </body>
 </html>
