@@ -57,17 +57,19 @@ public class GlobalDrugstoreInventoryController {
 
     @GetMapping(path = "/closest-drugstore/{id}")
     @ResponseBody
-    public String findClosestDrugstore(@PathVariable Long id, Model model)
+    public String findClosestAndCheapestDrugstore(@PathVariable Long id, Model model)
     {
         //  TODO: TU CHYBA MOŻNA 'ODCHUDZIĆ' LETKO METODE BO TERAZ ZWRACA WARTOSC A NIE TEMPLATE
         Long currentDrugstoreID = employeeService.getCurrentDrugstoreId();
         List<Drugstore> drugstores = drugstoreItemService.getDrugstoresByDrugstoreItemId(id, currentDrugstoreID);
-
         String currentDrugstoreAddress = drugstoreService.getDrugstoreAddressById(currentDrugstoreID);
-
         String result = googleMapsService.findClosestDrugstore(currentDrugstoreAddress, drugstores);
         model.addAttribute("closestDrugstore",result);
         return result;
+
+
+
+
         //return "global-inventory";
     }
 }

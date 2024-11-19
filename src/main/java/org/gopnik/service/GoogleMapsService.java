@@ -30,18 +30,17 @@ public class GoogleMapsService
     public String findClosestDrugstore(String currentAddress, List<Drugstore> drugstores)
     {
         List<String> fullAddresses = drugstores.stream().map(Drugstore::getFullAddress).collect(Collectors.toList());
-        System.out.println(fullAddresses);  //debug
+
 
         try {
             DistanceMatrix matrix = DistanceMatrixApi.newRequest(context).origins(currentAddress).destinations(fullAddresses.toArray(new String[0])).await();
 
             int closestIndex = -1;
-            long shortestDistance = Long.MAX_VALUE;
+            float shortestDistance = Float.MAX_VALUE;
 
             for (int i = 0; i < matrix.rows[0].elements.length; i++)
             {
                 DistanceMatrixElement element = matrix.rows[0].elements[i];
-                System.out.println(element.distance.inMeters);
                 if (element.distance != null && element.distance.inMeters < shortestDistance)
                 {
                     shortestDistance = element.distance.inMeters;
@@ -50,7 +49,7 @@ public class GoogleMapsService
             }
 
             if (closestIndex != -1) {
-                return drugstores.get(closestIndex).getFullAddress() + " dystans = " + shortestDistance + " metrow";
+                return drugstores.get(closestIndex).getFullAddress() + " dystans = " + shortestDistance/1000 + " km";
             } else {
                 return "nie udalo sie znalezc apteki";
             }

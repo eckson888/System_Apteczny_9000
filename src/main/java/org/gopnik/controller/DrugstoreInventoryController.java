@@ -43,9 +43,10 @@ public class DrugstoreInventoryController {
 
     @RequestMapping(path = "/add", method = RequestMethod.GET)
     public String add(Model model) {
-        model.addAttribute("drugstoreItem", new DrugstoreItem());   //TODO
+        model.addAttribute("drugstoreItem", new DrugstoreItem());
         return "drug-form";
     }
+
     @RequestMapping(path = "/add/search", method = RequestMethod.POST)
     public String addItem(@ModelAttribute DrugstoreItem drugstoreItem, @RequestParam("drugId") int id){
 

@@ -20,6 +20,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/drugstores/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/resources/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
@@ -28,8 +29,6 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .successHandler(new CustomLoginSuccessHandler())
                         .permitAll()
-//                        .usernameParameter("username") // w takiej kolejnoscu jak jest to formularz jest username,id,password
-//                        .passwordParameter("password") // niby nie powinno tak byc ale dziala wiec imo rigcz rel
                 )
                 .logout(logout -> logout.permitAll());
         return http.build();

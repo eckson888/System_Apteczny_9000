@@ -28,7 +28,7 @@ public class CustomEmployeeDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "Nie znaleziono pracownika z takim loginem: " + username));
 
-        System.out.println(employee.getUsername() + employee.getPassword()); //to jakis debug mozliwe ze do wyjebania potem
+
 
 
         return new org.springframework.security.core.userdetails.User(employee.getUsername(),

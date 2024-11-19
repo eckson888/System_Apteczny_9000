@@ -21,10 +21,7 @@ public class MainController {
     public String main(Model model) {
         Employee currentEmployee = employeeService.getCurrentEmployee();
         Long employeeDrugstore = (Long) model.getAttribute("chosenDrugstore");
-//        currentEmployee.setDrugstoreId(employeeDrugstore);
         model.addAttribute("employeeInfo", currentEmployee.toString());
-//        model.addAttribute("drugstoreInventory", drugstoreItemService.getDrugstoreItems(currentEmployee.getDrugstoreId()));
-
         return "main";
     }
 }

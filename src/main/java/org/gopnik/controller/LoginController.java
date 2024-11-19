@@ -44,7 +44,6 @@ public class LoginController {
 
     @PostMapping("/login/drugstore")
     public String drugstore_post(@RequestParam Long drugstore_id) {
-        System.out.println(drugstore_id);
         if (drugstoreService.checkById(drugstore_id))
         {
             Employee currentEmpl = employeeService.getCurrentEmployee();
