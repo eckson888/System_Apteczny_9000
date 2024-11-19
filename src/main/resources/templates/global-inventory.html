@@ -18,7 +18,7 @@
 
 <a th:href="@{/main}">Powrót</a>
 
-<form method="get" th:action="@{/global-inventory/search}" >
+<form method="get" th:action="@{/global-inventory/search}">
     <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
     <button type="submit" class="searchButton">Search</button>
 </form>
@@ -35,23 +35,40 @@
             <th>Ilość</th>
             <th>Akcje</th>
         </tr>
-            <tr th:each="drugstoreItem: ${allDrugstoreItems}">
-                <td th:text="${drugstoreItem.getDrugName}"></td>
-                <td th:text="${drugstoreItem.getDrugCommonName}"></td>
-                <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
-                <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
-                <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
-                <td th:text="${drugstoreItem.getQuantity}"></td>
-                <td>
-                    <form th:action="@{global-inventory/closest-drugstore/{id}(id=${drugstoreItem.id})}" method="get">
-                        <button class="editButton">Pokaz najblizsza apteke</button>
-                    </form>
-                </td>
-            </tr>
+        <tr th:each="drugstoreItem: ${allDrugstoreItems}">
+            <td th:text="${drugstoreItem.getDrugName}"></td>
+            <td th:text="${drugstoreItem.getDrugCommonName}"></td>
+            <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
+            <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
+            <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
+            <td th:text="${drugstoreItem.getQuantity}"></td>
+            <td>
+                <!--                <form th:action="@{global-inventory/closest-drugstore/{id}(id=${drugstoreItem.id})}" method="get">-->
+                <button th:onclick="closestDrugstore([[${drugstoreItem.id}]])" class="editButton">Pokaz najblizsza apteke
+                </button>
+            </td>
+        </tr>
     </table>
-    <h3>Najblizsza apteka:  <span th:text="${closestDrugstore}"></span></h3>
+    <h3>Najblizsza apteka: <span th:text="${closestDrugstore}" id="closestDrugstore"></span></h3>
 </div>
 </body>
+
+<script th:inline="javascript">
+    function closestDrugstore(drugstoreItemId) {
+        let targetField = document.getElementById('closestDrugstore');
+        let link = "http://localhost:8080/global-inventory/closest-drugstore/" + drugstoreItemId;
+
+        fetch(link)
+            .then(res => res.text())
+            .then((resText) => {
+                targetField.textContent = resText;
+                console.log("Return GETa = ( " + resText + " )")
+            })
+            .catch(err => {
+                targetField.textContent = "ERROR";
+            });
+    }
+</script>
 </html>
 
 
