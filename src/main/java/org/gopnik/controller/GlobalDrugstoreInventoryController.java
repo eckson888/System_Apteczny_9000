@@ -26,14 +26,8 @@ public class GlobalDrugstoreInventoryController {
     private DrugstoreItemService drugstoreItemService;
     @Autowired
     private DrugstoreService drugstoreService;
-
     @Autowired
     private GoogleMapsService googleMapsService;
-
-    @Autowired
-    private IDrugstoreDatabase drugstoreRepository;
-    @Autowired
-    private DrugstoreItemRepository drugstoreItemRepository;    //TODO zrobic te metody w serwisach
 
 
 
@@ -42,7 +36,7 @@ public class GlobalDrugstoreInventoryController {
 
         Employee currentEmployee = employeeService.getCurrentEmployee();
 //        model.addAttribute("employeeInfo", currentEmployee.toString());
-        model.addAttribute("allDrugstoreItems",drugstoreItemService.getAll());
+        model.addAttribute("allDrugstoreItems",drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId()));
         return "global-inventory";
     }
 
@@ -51,12 +45,12 @@ public class GlobalDrugstoreInventoryController {
     public String search(@RequestParam String keyword, Model model)
     {
         if (keyword.length()>2) {
-            List<DrugstoreItem> list = drugstoreItemService.getByKeyword(keyword);
+            List<DrugstoreItem> list = drugstoreItemService.getItemsByKeywordExcludingCurrentDrugstoreId(keyword, employeeService.getCurrentDrugstoreId());
             model.addAttribute("allDrugstoreItems", list);
             model.addAttribute("keyword",keyword);
         } else {
-            List<DrugstoreItem> list = drugstoreItemService.getAll();
-            model.addAttribute("allDrugstoreItems", list);  // TODO: wyjebac pokazywanie lekow z current apteki w global inventory
+            List<DrugstoreItem> list = drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId());
+            model.addAttribute("allDrugstoreItems", list);
         }
         return "global-inventory";
     }
@@ -64,10 +58,10 @@ public class GlobalDrugstoreInventoryController {
     @RequestMapping(path = "/closest-drugstore/{id}", method = RequestMethod.GET)
     public String findClosestDrugstore(@PathVariable Long id, Model model)
     {
-        Long currentDrugstoreID = employeeService.getCurrentEmployee().getDrugstoreId();
-        List<Drugstore> drugstores = drugstoreItemRepository.getDrugstoresByDrugstoreItemId(id,currentDrugstoreID);
+        Long currentDrugstoreID = employeeService.getCurrentDrugstoreId();
+        List<Drugstore> drugstores = drugstoreItemService.getDrugstoresByDrugstoreItemId(id, currentDrugstoreID);
 
-        String currentDrugstoreAddress = drugstoreRepository.findById(currentDrugstoreID).get().getAddress();   //TODO zrobic te metody w serwisach
+        String currentDrugstoreAddress = drugstoreService.getDrugstoreAddressById(currentDrugstoreID);
 
         String result = googleMapsService.findClosestDrugstore(currentDrugstoreAddress, drugstores);
         model.addAttribute("closestDrugstore",result);

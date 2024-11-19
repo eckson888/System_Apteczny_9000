@@ -1,6 +1,7 @@
 package org.gopnik.service;
 
 import jakarta.transaction.Transactional;
+import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.gopnik.repository.DrugstoreItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class DrugstoreItemService {
 
         return this.drugstoreItemRepository.findByKeywordInSomeDrugstore(keyword, id);
     }
+    @Transactional
+    public List<DrugstoreItem> getItemsByKeywordExcludingCurrentDrugstoreId(String keyword, Long id)
+    {
+        return this.drugstoreItemRepository.findItemsExcludeCurrentDrugstoreId(keyword,id);
+    }
 
     public List<DrugstoreItem> getDrugstoreItems(Long id) {
         return drugstoreItemRepository.getDrugstoreInventory(id);
@@ -50,5 +56,9 @@ public class DrugstoreItemService {
 
     public List<DrugstoreItem> getAll() {
         return this.drugstoreItemRepository.getAll();
+    }
+    public List<DrugstoreItem> getAllExcludingCurrentDrugstoreId(Long drugstoreId) { return this.drugstoreItemRepository.getAllExcludingCurrentDrugstoreId(drugstoreId);}
+    public List<Drugstore> getDrugstoresByDrugstoreItemId(Long itemId, Long currentDrugstoreId){
+        return drugstoreItemRepository.getDrugstoresByDrugstoreItemId(itemId,currentDrugstoreId);
     }
 }

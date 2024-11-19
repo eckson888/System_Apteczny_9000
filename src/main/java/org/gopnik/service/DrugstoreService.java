@@ -35,4 +35,5 @@ public class DrugstoreService implements IDrugstoreService {
     public Optional<Drugstore> getById(Long id){
         return drugstoreRepository.findById(id);
     }
+    public String getDrugstoreAddressById(Long id) {return drugstoreRepository.findById(id).get().getAddress();}
 }

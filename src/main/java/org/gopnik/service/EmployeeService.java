@@ -38,6 +38,11 @@ public class EmployeeService {
         String username = ((UserDetails) principal).getUsername();
         return employeeRepository.findByUsername(username).orElse(null);
     }
+    @Transactional
+    public Long getCurrentDrugstoreId(){
+        return getCurrentEmployee().getDrugstoreId();
+    }
+
 
 
     @Transactional
