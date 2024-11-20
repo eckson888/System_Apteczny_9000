@@ -18,6 +18,7 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
     private EntityManager entityManager;
 
     private final String GET_BY_NAME= "SELECT i FROM Drug i WHERE i.name =':name'";
+
     private final String GET_100_BY_ALL=
             "SELECT i FROM Drug i " +
                     "WHERE LOWER(i.name) LIKE LOWER(:keyword) " +
@@ -26,14 +27,15 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
                     "ORDER BY i.name";
 
     private final String GET_ALL="FROM com.gopnik.Drug";    //zostawiam to bo nie moge XDDDXDXDD medal dla uzytkownika zouek
+
     private final String GET_BY_ID="SELECT i FROM Drug i " +
             "WHERE i.id = :id";
+
+
 
     public GeneralDrugDatabase(EntityManager entityManager){
         this.entityManager = entityManager;
     }
-
-
 
     @Override
     public Optional<Drug> getByName(String name) {
@@ -45,6 +47,7 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
             return Optional.empty();
         }
     }
+
     @Override
     public Optional<Drug> getById(int id){
         TypedQuery<Drug> query = entityManager.createQuery(GET_BY_ID, Drug.class);
@@ -72,14 +75,13 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
                 .collect(Collectors.toList());
         return Optional.of(resultStrings);
     }
+
     @Override
     public List<Drug> getByKeyword(String keyword){
         TypedQuery<Drug> query = entityManager.createQuery(GET_100_BY_ALL, Drug.class);
         query.setParameter("keyword", keyword + "%");
         return query.getResultList();
     }
-
-
 
     @Override
     public List<Drug> getAll() {

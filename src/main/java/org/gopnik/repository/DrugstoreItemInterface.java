@@ -33,4 +33,6 @@ public interface DrugstoreItemInterface {
 
 
     List<DrugstoreItem> getAllExcludingCurrentDrugstoreId(Long drugstoreId);
+
+    List<DrugstoreItem> getDrugstoreItemsByDrug(DrugstoreItem drugstoreItem, Long drugstoreId);
 }

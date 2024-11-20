@@ -1,6 +1,7 @@
 package org.gopnik.service;
 
 import jakarta.transaction.Transactional;
+import org.gopnik.model.Drug;
 import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.gopnik.repository.DrugstoreItemRepository;
@@ -29,10 +30,16 @@ public class DrugstoreItemService {
 
         return this.drugstoreItemRepository.findByKeywordInSomeDrugstore(keyword, id);
     }
+
     @Transactional
     public List<DrugstoreItem> getItemsByKeywordExcludingCurrentDrugstoreId(String keyword, Long id)
     {
         return this.drugstoreItemRepository.findItemsExcludeCurrentDrugstoreId(keyword,id);
+    }
+
+    public DrugstoreItem getDrugstoreItemById(Long id)    {
+
+        return this.drugstoreItemRepository.getById(id).orElse(null);
     }
 
     public List<DrugstoreItem> getDrugstoreItems(Long id) {
@@ -52,6 +59,11 @@ public class DrugstoreItemService {
         }
 
         drugstoreItemRepository.save(item);
+    }
+
+    public List<DrugstoreItem> getDrugstoreItemsByDrug(DrugstoreItem drugstoreItem,Long drugstoreId)
+    {
+        return drugstoreItemRepository.getDrugstoreItemsByDrug(drugstoreItem,drugstoreId);
     }
 
     public List<DrugstoreItem> getAll() {

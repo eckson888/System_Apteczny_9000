@@ -31,8 +31,6 @@
             <th>Common Nazwa</th>
             <th>Substancja aktywna</th>
             <th>Postać</th>
-            <th>Cena</th>
-            <th>Ilość</th>
             <th>Akcje</th>
         </tr>
         <tr th:each="drugstoreItem: ${allDrugstoreItems}">
@@ -40,8 +38,8 @@
             <td th:text="${drugstoreItem.getDrugCommonName}"></td>
             <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
             <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
-            <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
-            <td th:text="${drugstoreItem.getQuantity}"></td>
+<!--            <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>-->
+<!--            <td th:text="${drugstoreItem.getQuantity}"></td>-->
             <td>
                 <!--                <form th:action="@{global-inventory/closest-drugstore/{id}(id=${drugstoreItem.id})}" method="get">-->
                 <button th:onclick="closestDrugstore([[${drugstoreItem.id}]])" class="editButton">Pokaz najblizsza apteke
@@ -49,24 +47,38 @@
             </td>
         </tr>
     </table>
-    <h3>Najblizsza apteka: <span th:text="${closestDrugstore}" id="closestDrugstore"></span></h3>
+    <h3>Najblizsza apteka: <span  id="closestDrugstore"></span></h3>
+    <h3>Najtansza apteka: <span  id="cheapestDrugstore"></span></h3>
 </div>
 </body>
 
 <script th:inline="javascript">
-    function closestDrugstore(drugstoreItemId) {
-        let targetField = document.getElementById('closestDrugstore');
+    function closestDrugstore(drugstoreItemId)
+    {
+        console.log(drugstoreItemId);
+        let closestField = document.getElementById('closestDrugstore');
+        let cheapestField = document.getElementById('cheapestDrugstore');
         let link = "http://localhost:8080/global-inventory/closest-drugstore/" + drugstoreItemId;
 
         fetch(link)
-            .then(res => res.text())
-            .then((resText) => {
-                targetField.textContent = resText;
-                console.log("Return GETa = ( " + resText + " )")
-            })
+            .then(res => res.json()) // Assuming the controller returns a JSON array
+            .then((resArray) => {
+            if (Array.isArray(resArray))
+            {
+                closestField.textContent = resArray[0]; // First string
+                cheapestField.textContent = resArray[1]; // Second string
+                console.log("Najblizsza apteka: " + resArray[0]);
+                console.log("Najtansza apteka: " + resArray[1]);
+            } else {
+                closestField.textContent = "Invalid response";
+                cheapestField.textContent = "Invalid response";
+            }
+        })
             .catch(err => {
-                targetField.textContent = "ERROR";
-            });
+            closestField.textContent = "ERROR";
+            cheapestField.textContent = "ERROR";
+            console.error("Error fetching data: ", err);
+        });
     }
 </script>
 </html>

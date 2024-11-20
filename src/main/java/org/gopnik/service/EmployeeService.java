@@ -38,12 +38,11 @@ public class EmployeeService {
         String username = ((UserDetails) principal).getUsername();
         return employeeRepository.findByUsername(username).orElse(null);
     }
+
     @Transactional
     public Long getCurrentDrugstoreId(){
         return getCurrentEmployee().getDrugstoreId();
     }
-
-
 
     @Transactional
     public String registerEmployee(Employee employee) {
@@ -77,5 +76,4 @@ public class EmployeeService {
     }
 
 
-    //mozliwe ze dodac jeszcze usuwanie jakby byl jakis admin panel do zarzadzania gownem nwwmmm
 }

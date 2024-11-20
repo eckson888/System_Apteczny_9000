@@ -46,16 +46,19 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
     private final String GET_BY_KEYWORD_AND_DRUGSTOREID = "SELECT i from DrugstoreItem i WHERE (LOWER (i.drug.name)" +
             " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword)) AND i.drugstore.id = :id";
 
+
     private final String GET_BY_KEYWORD_EXCLUDE_CURRENT_ID = "SELECT i FROM DrugstoreItem i " +
-            "WHERE i.id IN (" +
-            "  SELECT MIN(innerItem.id) FROM DrugstoreItem innerItem " +
-            "  WHERE (LOWER(innerItem.drug.name) LIKE LOWER(:keyword) OR LOWER(innerItem.drug.commonName) LIKE LOWER(:keyword)) " +
-            "  AND innerItem.drugstore.id != :id " +
-            "  GROUP BY innerItem.drug.id" +
-            ")";
+                "WHERE i.id IN (" +
+                "  SELECT MIN(innerItem.id) FROM DrugstoreItem innerItem " +
+                "  WHERE (LOWER(innerItem.drug.name) LIKE LOWER(:keyword) OR LOWER(innerItem.drug.commonName) LIKE LOWER(:keyword)) " +
+                "  AND innerItem.drugstore.id != :id " +
+                "  GROUP BY innerItem.drug.id" +
+                ")";
 
     private final String GET_BY_ID_AND_DRUGSTOREID = "SELECT i from DrugstoreItem i WHERE " +
             "i.drug.id = :drugid AND i.drugstore.id = :drugstoreid";
+
+
 
     @Override
     public List<DrugstoreItem> getDrugstoreInventory(Long drugstoreId) {
@@ -155,7 +158,6 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_ALL_EXCLUDE_CURRENT_ID, DrugstoreItem.class);
         query.setParameter("id",drugstoreId);
         List<DrugstoreItem> result = query.getResultList();
-
         return result;
     }
 
@@ -163,5 +165,15 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         this.jpaDrugstoreItemInterface.save(item);
     }
 
+    @Override
+    public List<DrugstoreItem> getDrugstoreItemsByDrug(DrugstoreItem drugstoreItem, Long drugstoreId)
+    {
+        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_DRUGSTORE_ITEM_BY_DRUG_ID, DrugstoreItem.class);
 
+        query.setParameter("id",drugstoreItem.getDrug().getId());
+        query.setParameter("drugstoreId",drugstoreId);
+
+        List<DrugstoreItem> result = query.getResultList();
+        return result;
+    }
 }

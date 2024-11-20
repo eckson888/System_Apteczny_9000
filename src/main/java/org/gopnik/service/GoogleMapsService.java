@@ -26,7 +26,6 @@ public class GoogleMapsService
                 .build();
     }
 
-
     public String findClosestDrugstore(String currentAddress, List<Drugstore> drugstores)
     {
         List<String> fullAddresses = drugstores.stream().map(Drugstore::getFullAddress).collect(Collectors.toList());
@@ -49,7 +48,7 @@ public class GoogleMapsService
             }
 
             if (closestIndex != -1) {
-                return drugstores.get(closestIndex).getFullAddress() + " dystans = " + shortestDistance/1000 + " km";
+                return drugstores.get(closestIndex).getFullAddress() + " dystans = " + shortestDistance/1000 + " km";   //TODO zrobic zaokraglenie do 1 miejsca po przecinku
             } else {
                 return "nie udalo sie znalezc apteki";
             }

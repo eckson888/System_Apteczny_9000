@@ -21,7 +21,6 @@ public class CustomEmployeeDetailsService implements UserDetailsService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         Employee employee = employeeRepository.findByUsername(username)

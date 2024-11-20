@@ -16,7 +16,7 @@ public class DrugService {
     @Autowired
     GeneralDrugDatabase generalDrugDatabase;
 
-    public Optional<List<String>> get100ByAll(String keyword)   //to raczej trzeba bedzie zmienic na Obiekt Drug a nie string //TODO
+    public Optional<List<String>> get100ByAll(String keyword)   //TODO to raczej trzeba bedzie zmienic na Obiekt Drug a nie string
     {
         return generalDrugDatabase.get100ByAll(keyword);
     }

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,7 +30,6 @@ public class GlobalDrugstoreInventoryController {
     private DrugstoreService drugstoreService;
     @Autowired
     private GoogleMapsService googleMapsService;
-
 
 
     @GetMapping("")
@@ -57,19 +58,33 @@ public class GlobalDrugstoreInventoryController {
 
     @GetMapping(path = "/closest-drugstore/{id}")
     @ResponseBody
-    public String findClosestAndCheapestDrugstore(@PathVariable Long id, Model model)
+    public List<String> findClosestAndCheapestDrugstore(@PathVariable Long id, Model model)
     {
-        //  TODO: TU CHYBA MOŻNA 'ODCHUDZIĆ' LETKO METODE BO TERAZ ZWRACA WARTOSC A NIE TEMPLATE
+
         Long currentDrugstoreID = employeeService.getCurrentDrugstoreId();
-        List<Drugstore> drugstores = drugstoreItemService.getDrugstoresByDrugstoreItemId(id, currentDrugstoreID);
         String currentDrugstoreAddress = drugstoreService.getDrugstoreAddressById(currentDrugstoreID);
-        String result = googleMapsService.findClosestDrugstore(currentDrugstoreAddress, drugstores);
+
+        List<Drugstore> drugstores = drugstoreItemService.getDrugstoresByDrugstoreItemId(id, currentDrugstoreID);
+        List<String> result = new ArrayList<>();
+
+        result.add(googleMapsService.findClosestDrugstore(currentDrugstoreAddress, drugstores));
+
+        List<DrugstoreItem> cheapestList = drugstoreItemService.getDrugstoreItemsByDrug(drugstoreItemService.getDrugstoreItemById(id),currentDrugstoreID);
+
+        DrugstoreItem cheapestItem = cheapestList.get(0);
+        for(DrugstoreItem d: cheapestList)
+        {
+            if(d.getPrice().compareTo(cheapestItem.getPrice()) <0)
+            {
+                cheapestItem=d;
+            }
+        }
+
+        String cheapestItemString = cheapestItem.getDrugstore().getFullAddress() +". Cena: " + cheapestItem.getPrice().toString()+"zł";
+        result.add(cheapestItemString);
         model.addAttribute("closestDrugstore",result);
         return result;
-
-
-
-
-        //return "global-inventory";
     }
+
+
 }
