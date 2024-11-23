@@ -2,6 +2,7 @@ package org.gopnik.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Collection;
@@ -10,6 +11,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employees")
+@Setter
+@Getter
 public class Employee { // alias "DrugDealer"
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +21,6 @@ public class Employee { // alias "DrugDealer"
     @NotBlank(message = "Nazwa użytkownika jest wymagana")
     private String username;
 
-    @Setter
     private Long drugstoreId; // na razie cos takiego bo nw jak chcemy to zrobic
 
     @NotBlank(message = "Hasło jest wymagane")
@@ -31,34 +33,10 @@ public class Employee { // alias "DrugDealer"
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
-    public String getUsername() {
-        return this.username;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public Long getDrugstoreId() {
-        return drugstoreId;
-    }
 
     @Override
     public String toString() {

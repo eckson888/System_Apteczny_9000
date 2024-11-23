@@ -176,4 +176,7 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         List<DrugstoreItem> result = query.getResultList();
         return result;
     }
+    public void removeItem(DrugstoreItem item){
+        jpaDrugstoreItemInterface.delete(item);
+    }
 }

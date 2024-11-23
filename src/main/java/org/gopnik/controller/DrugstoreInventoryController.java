@@ -1,14 +1,8 @@
 package org.gopnik.controller;
 
-import org.gopnik.model.Drug;
-import org.gopnik.model.Drugstore;
-import org.gopnik.model.DrugstoreItem;
-import org.gopnik.model.Employee;
+import org.gopnik.model.*;
 import org.gopnik.repository.GeneralDrugDatabase;
-import org.gopnik.service.DrugService;
-import org.gopnik.service.DrugstoreItemService;
-import org.gopnik.service.DrugstoreService;
-import org.gopnik.service.EmployeeService;
+import org.gopnik.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +25,8 @@ public class DrugstoreInventoryController {
     private DrugService drugService;
     @Autowired
     private DrugstoreService drugstoreService;
+    @Autowired
+    private CartService cartService;
 
 
     @GetMapping("")
@@ -83,6 +79,14 @@ public class DrugstoreInventoryController {
             model.addAttribute("drugstoreInventory", list);
         }
         return "/drugstore-inventory";
+    }
+    @RequestMapping(path="/buy/{itemId}/{quantity}", method = RequestMethod.GET)
+    public String addToCart(@PathVariable Long itemId, @PathVariable int quantity){
+        cartService.addToCart(itemId,quantity);
+        //System.out.println(employeeService.getCurrentEmployee().getCart().getItems().getFirst().getQuantity());
+        System.out.println(employeeService.getCurrentEmployee().getCart().getItems());
+
+        return "redirect:/drugstore-inventory";
     }
 
 }

@@ -3,6 +3,7 @@ package org.gopnik.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.parameters.P;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -58,5 +59,9 @@ public class DrugstoreItem {
 
     public void addQuantity(int amount) {
         this.quantity += amount;
+    }
+    @Override
+    public String toString(){
+        return STR."id: \{getId()} nazwa: \{getDrug().getName()} quantity: \{getQuantity()}";
     }
 }

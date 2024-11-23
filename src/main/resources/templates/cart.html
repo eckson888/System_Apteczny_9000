@@ -1,0 +1,29 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<h1>Koszyk kwacha do testow</h1>
+<div th:if="${cart.items.isEmpty()}">
+    <p>Koszyk pusty.</p>
+</div>
+<div th:unless="${cart.items.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Ilość</th>
+            <th>Id</th>
+            <!--<th>Usuń</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cart.items}">
+            <td th:text="${item.getQuantity}"></td>
+            <td th:text="${item.getId}"></td>
+            <!--<td>
+                <form th:action="@{/cart/remove/{bookId}(bookId=${item.book.id})}" method="get">
+                    <button type="submit">usuń</button>
+                </form>
+            </td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
