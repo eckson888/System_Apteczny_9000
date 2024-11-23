@@ -1,9 +1,10 @@
 package org.gopnik.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
+@AllArgsConstructor
 @Table(name="cart_item")
 @Setter
 @Getter
@@ -24,5 +25,8 @@ public class CartItem {
         this.cart=cart;
         this.drugstoreItem=item;
         this.quantity=quantity;
+    }
+    public CartItem(){
+
     }
 }

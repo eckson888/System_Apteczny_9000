@@ -12,12 +12,14 @@
             <th>Ilość</th>
             <th>Id</th>
             <!--<th>Usuń</th>-->
+
         </tr>
         </thead>
         <tbody>
         <tr th:each="item : ${cart.items}">
             <td th:text="${item.getQuantity}"></td>
-            <td th:text="${item.getId}"></td>
+            <td th:text="${item.drugstoreItem.id}"></td>
+            <!--            TODO tom stronke jakos zeby miala sens-->
             <!--<td>
                 <form th:action="@{/cart/remove/{bookId}(bookId=${item.book.id})}" method="get">
                     <button type="submit">usuń</button>
