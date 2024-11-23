@@ -1,6 +1,8 @@
 package org.gopnik.controller;
 
+import org.gopnik.model.Cart;
 import org.gopnik.model.Employee;
+import org.gopnik.service.CartService;
 import org.gopnik.service.DrugstoreItemService;
 import org.gopnik.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ public class MainController {
 
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    CartService cartService;
 
     @Autowired
     DrugstoreItemService drugstoreItemService;
@@ -23,5 +27,12 @@ public class MainController {
         Long employeeDrugstore = (Long) model.getAttribute("chosenDrugstore");
         model.addAttribute("employeeInfo", currentEmployee.toString());
         return "main";
+    }
+    @GetMapping("/cart")                    //TODO wyjebac to gdzies indziej dalem to tu zeby testowac
+    public String getCart(Model model){
+        Cart cart = cartService.getCart();
+        System.out.println(cart.getItems());
+        model.addAttribute("cart", cart);
+        return "cart";
     }
 }

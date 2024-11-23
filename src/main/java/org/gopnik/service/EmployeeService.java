@@ -2,6 +2,7 @@ package org.gopnik.service;
 
 
 import jakarta.transaction.Transactional;
+import org.gopnik.model.Cart;
 import org.gopnik.model.Drugstore;
 import org.gopnik.model.Employee;
 import org.gopnik.model.Role;
@@ -51,6 +52,7 @@ public class EmployeeService {
         }
 
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+        employee.setCart(new Cart());
         Role employeeRole = roleRepository.findByName("EMPLOYEE").orElse(null);
 
         if (employeeRole != null) {
@@ -74,6 +76,8 @@ public class EmployeeService {
     public List<Employee> getAll() {
         return this.employeeRepository.findAll();
     }
+
+
 
 
 }

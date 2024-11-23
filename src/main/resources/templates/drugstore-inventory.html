@@ -41,6 +41,7 @@
             <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
             <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
             <td th:text="${drugstoreItem.getQuantity}"></td>
+            <a th:href="@{/drugstore-inventory/buy/{itemId}/1(itemId=${drugstoreItem.getId})}">Add to cart</a>
         </tr>
     </table>
 

@@ -73,4 +73,13 @@ public class DrugstoreItemService {
     public List<Drugstore> getDrugstoresByDrugstoreItemId(Long itemId, Long currentDrugstoreId){
         return drugstoreItemRepository.getDrugstoresByDrugstoreItemId(itemId,currentDrugstoreId);
     }
+    public void removeDrugstoreItemById(Long id){
+        DrugstoreItem item = drugstoreItemRepository.getById(id).orElseThrow(()->new RuntimeException("item not found"));
+        if(item.getQuantity()>1){
+            item.setQuantity(item.getQuantity()-1);
+        }
+        else {
+            drugstoreItemRepository.removeItem(item);
+        }
+    }
 }

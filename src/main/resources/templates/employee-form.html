@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Add drugstore</title>
+</head>
+<body>
+<a th:href="@{/drugstores}">Powrót</a>
+<div>
+    <form method="post">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" placeholder="Address" th:field="*{employee.username}" id="username">
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" placeholder="password" th:field="*{employee.password}" id="password">
+        </div>
+        <div>
+            <label for="drugstoreId">Drugstore_id</label>
+            <input type="text" placeholder="drugstoreId" th:field="*{employee.drugstoreId}" id="drugstoreId">
+        </div>
+        <button type="submit" style="margin:5px">Add</button>
+    </form>
+</div>
+</body>
+</html>
