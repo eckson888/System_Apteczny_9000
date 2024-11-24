@@ -33,11 +33,11 @@ public class Cart {
         items.add(new CartItem(this, item, quantity));
     }
 
-    public void removeItem(DrugstoreItem item){
+    public void removeItem(DrugstoreItem item, int quantityToSell){
         for(CartItem i : items){
             if(i.getDrugstoreItem() == item){
-                if(i.getQuantity()>1){
-                    i.setQuantity((i.getQuantity()-1));
+                if(i.getQuantity()>quantityToSell){
+                    i.setQuantity((i.getQuantity()-quantityToSell));
                     return;
                 }
                 else {

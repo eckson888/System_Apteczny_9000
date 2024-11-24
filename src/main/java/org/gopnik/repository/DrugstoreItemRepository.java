@@ -1,18 +1,19 @@
 package org.gopnik.repository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
@@ -57,6 +58,8 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
     private final String GET_BY_ID_AND_DRUGSTOREID = "SELECT i from DrugstoreItem i WHERE " +
             "i.drug.id = :drugid AND i.drugstore.id = :drugstoreid";
+
+    private final String DELETE_DRUGSTORE_ITEM = "DELETE FROM DrugstoreItem WHERE id=:id";
 
 
 
@@ -176,8 +179,24 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         List<DrugstoreItem> result = query.getResultList();
         return result;
     }
-    public void removeItem(DrugstoreItem item){
-        this.jpaDrugstoreItemInterface.delete(item);  //TODO nie działa to nwm czemu
 
+    @Transactional
+    @Modifying
+    public void removeItem(DrugstoreItem item){
+        log.info(item.toString());
+        Query query = entityManager.createQuery(DELETE_DRUGSTORE_ITEM);//TODO wypiedala sie w chuj
+        query.setParameter("id", item.getId());
+        query.executeUpdate();
     }
+
+
 }
+
+
+
+
+
+
+
+
+

@@ -44,9 +44,10 @@ public class CartService {
     public Cart removeFromCart(Long itemId){
         Cart cart = getCart();
         DrugstoreItem item = drugstoreItemRepository.getById(itemId).orElseThrow(()-> new RuntimeException("item not found"));
-        cart.removeItem(item);
+        cart.removeItem(item,1);
         return cartRepository.save(cart);
     }
+
     @Transactional
     public Cart sellAllItems(){
         Cart cart =getCart();
@@ -58,12 +59,10 @@ public class CartService {
             //log.info("obrót pętli: "+ i);
             toBeSold = (cart.getItems().get(i).getDrugstoreItem());
             quantitiesToSell = (cart.getItems().get(i).getQuantity());
-            cart.removeItem(toBeSold);
+            log.info(String.valueOf(quantitiesToSell));
+            cart.removeItem(toBeSold,quantitiesToSell);
             drugstoreItemService.removeDrugstoreItem(toBeSold, quantitiesToSell);
-
         }
-
-
         return cartRepository.save(cart);
     }
 }

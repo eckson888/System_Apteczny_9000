@@ -59,7 +59,7 @@ public class DrugstoreItemService {
         }
 
         drugstoreItemRepository.save(item);
-    }
+    }   //TODO naprawic zeby sie nie duplikowalo przy dodawaniu mimo takiej samej ceny (html-kontroler poprawic)
 
     public List<DrugstoreItem> getDrugstoreItemsByDrug(DrugstoreItem drugstoreItem,Long drugstoreId)
     {

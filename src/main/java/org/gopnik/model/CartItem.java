@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @AllArgsConstructor
 @Table(name="cart_item")
 @Setter
@@ -14,8 +17,10 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantity;
+
     @ManyToOne
     private DrugstoreItem drugstoreItem;
+
     @ManyToOne
     @JoinColumn(name="cart_id")
     private Cart cart;

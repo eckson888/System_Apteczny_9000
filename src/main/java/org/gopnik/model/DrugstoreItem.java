@@ -3,12 +3,13 @@ package org.gopnik.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.parameters.P;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
-
+@ToString
 @Entity
 @Getter
 @Setter
