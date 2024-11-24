@@ -82,4 +82,14 @@ public class DrugstoreItemService {
             drugstoreItemRepository.removeItem(item);
         }
     }
+    public void removeDrugstoreItem(DrugstoreItem item, int quantity){
+        if(item.getQuantity()>quantity){
+            item.setQuantity(item.getQuantity()-quantity);
+            drugstoreItemRepository.save(item);
+        }
+        else {
+            drugstoreItemRepository.removeItem(item);
+        }
+
+    }
 }

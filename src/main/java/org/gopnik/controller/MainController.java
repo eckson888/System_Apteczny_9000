@@ -28,11 +28,5 @@ public class MainController {
         model.addAttribute("employeeInfo", currentEmployee.toString());
         return "main";
     }
-    @GetMapping("/cart")                    //TODO wyjebac to gdzies indziej dalem to tu zeby testowac
-    public String getCart(Model model){
-        Cart cart = cartService.getCart();
-        System.out.println(cart.getItems());
-        model.addAttribute("cart", cart);
-        return "cart";
-    }
+
 }

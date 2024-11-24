@@ -17,6 +17,7 @@
 <body>
 <a th:href="@{/drugstore-inventory/add}">Dodaj Lek</a>
 <a th:href="@{/main}">Powrót</a>
+<a th:href="@{/drugstore-inventory/cart}">Sprzedaj</a>
 <div>
     <h2>Stan magazynowy w aptece: </h2>
 
@@ -33,6 +34,7 @@
             <th>Postać</th>
             <th>Cena</th>
             <th>Ilość</th>
+            <th>Dodaj do zamówienia</th>
         </tr>
         <tr th:each="drugstoreItem: ${drugstoreInventory}">
             <td th:text="${drugstoreItem.getDrugName}"></td>
@@ -41,7 +43,9 @@
             <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
             <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
             <td th:text="${drugstoreItem.getQuantity}"></td>
-            <a th:href="@{/drugstore-inventory/buy/{itemId}/1(itemId=${drugstoreItem.getId})}">Add to cart</a>
+            <td>
+                <a th:href="@{/drugstore-inventory/buy/{itemId}/1(itemId=${drugstoreItem.getId})}">Add to cart </a>
+            </td>
         </tr>
     </table>
 

@@ -38,10 +38,15 @@ public class Cart {
             if(i.getDrugstoreItem() == item){
                 if(i.getQuantity()>1){
                     i.setQuantity((i.getQuantity()-1));
+                    return;
                 }
-                else items.remove(i);
+                else {
+                    items.remove(i);
+                    return;
+                }
+
             }
-            return;
+
         }
     }
 }

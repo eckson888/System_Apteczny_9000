@@ -1,5 +1,6 @@
 package org.gopnik.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.gopnik.model.*;
 import org.gopnik.repository.GeneralDrugDatabase;
 import org.gopnik.service.*;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@Slf4j
 @RequestMapping(path = "/drugstore-inventory")
 public class DrugstoreInventoryController {
 
@@ -87,6 +89,24 @@ public class DrugstoreInventoryController {
         System.out.println(employeeService.getCurrentEmployee().getCart().getItems());
 
         return "redirect:/drugstore-inventory";
+    }
+    @GetMapping("/cart")
+    public String getCart(Model model){
+        Cart cart = cartService.getCart();
+        System.out.println(cart.getItems());
+        model.addAttribute("cart", cart);
+        return "cart";
+    }
+    @RequestMapping(path = "/cart/remove/{drugstoreItemId}", method = RequestMethod.GET)
+    public String removeFromCart(@PathVariable Long drugstoreItemId){
+        log.info("DrugItemId pobiernay z htmla: " + drugstoreItemId);
+        cartService.removeFromCart(drugstoreItemId);
+        return "redirect:/drugstore-inventory/cart";
+    }
+    @RequestMapping(path = "/cart/sell", method = RequestMethod.GET)
+    public String sellAllItems(){
+        cartService.sellAllItems();
+        return "redirect:/drugstore-inventory/cart";
     }
 
 }

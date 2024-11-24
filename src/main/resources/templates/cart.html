@@ -1,6 +1,24 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
-      xmlns="http://www.w3.org/1999/html">
-<h1>Koszyk kwacha do testow</h1>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>koszyk by kwaśny</title>
+</head>
+<style>
+
+    table, th, td {
+        border:1px solid black;
+    }
+    th,td {
+        padding: 5px 10px;
+    }
+</style>
+<body>
+<a th:href="@{/drugstore-inventory}">Powrót</a>
+<form th:action="@{/drugstore-inventory/cart/sell}" method="get">
+    <button type="submit">Potwierdź sprzedaż</button>
+</form>
 <div th:if="${cart.items.isEmpty()}">
     <p>Koszyk pusty.</p>
 </div>
@@ -9,23 +27,34 @@
         <thead>
         <tr>
             <th>Nazwa</th>
+            <th>Common Nazwa</th>
+            <th>Substancja aktywna</th>
+            <th>Postać</th>
+            <th>Cena</th>
             <th>Ilość</th>
-            <th>Id</th>
-            <!--<th>Usuń</th>-->
+            <th>UsuŃ</th>
+            <th>id do testu</th>
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="item : ${cart.items}">
+            <td th:text="${item.drugstoreItem.getDrugName}"></td>
+            <td th:text="${item.drugstoreItem.getDrugCommonName}"></td>
+            <td th:text="${item.drugstoreItem.getDrugActiveSubstance}"></td>
+            <td th:text="${item.drugstoreItem.getDrugPharmaceuticalForm}"></td>
+            <td th:text="${item.drugstoreItem.getPrice} + ' zł'"></td>
             <td th:text="${item.getQuantity}"></td>
-            <td th:text="${item.drugstoreItem.id}"></td>
             <!--            TODO tom stronke jakos zeby miala sens-->
-            <!--<td>
-                <form th:action="@{/cart/remove/{bookId}(bookId=${item.book.id})}" method="get">
+            <td>
+                <form th:action="@{/drugstore-inventory/cart/remove/{drugstoreItemId}(drugstoreItemId=${item.drugstoreItem.id})}" method="get">
                     <button type="submit">usuń</button>
                 </form>
-            </td>-->
+            </td>
+            <td th:text="${item.drugstoreItem.getId}"></td>
         </tr>
         </tbody>
     </table>
 </div>
+</body>
+</html>

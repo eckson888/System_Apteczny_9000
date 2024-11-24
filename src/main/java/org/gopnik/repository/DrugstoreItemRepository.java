@@ -177,6 +177,7 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         return result;
     }
     public void removeItem(DrugstoreItem item){
-        jpaDrugstoreItemInterface.delete(item);
+        this.jpaDrugstoreItemInterface.delete(item);  //TODO nie działa to nwm czemu
+
     }
 }
