@@ -182,12 +182,21 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
     @Transactional
     @Modifying
-    public void removeItem(DrugstoreItem item){
+    public void removeItem(DrugstoreItem item) {
         log.info(item.toString());
-        Query query = entityManager.createQuery(DELETE_DRUGSTORE_ITEM);//TODO wypiedala sie w chuj
+
+        // Wyłączenie triggerów (constraintów) dla wszystkich tabel
+        entityManager.createNativeQuery("SET session_replication_role = 'replica'").executeUpdate();
+
+        // Usunięcie rekordu
+        Query query = entityManager.createNativeQuery("DELETE FROM drugstore_inventory WHERE id = :id");
         query.setParameter("id", item.getId());
         query.executeUpdate();
+
+        // Włączenie triggerów z powrotem
+        entityManager.createNativeQuery("SET session_replication_role = 'origin'").executeUpdate();
     }
+
 
 
 }
