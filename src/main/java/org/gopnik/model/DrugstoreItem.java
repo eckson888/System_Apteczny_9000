@@ -51,7 +51,8 @@ public class DrugstoreItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DrugstoreItem that = (DrugstoreItem) o;
-        return Objects.equals(getDrugstore().getId(), that.getDrugstore().getId()) && Objects.equals(getDrug().getId(), that.getDrug().getId()) && Objects.equals(getPrice(), that.getPrice());
+        boolean bigDecimalBoolean = (getPrice().compareTo(that.getPrice())) == 0;
+        return Objects.equals(getDrugstore().getId(), that.getDrugstore().getId()) && Objects.equals(getDrug().getId(), that.getDrug().getId()) && bigDecimalBoolean;
     }
 
     public Drugstore getDrugstore() {
