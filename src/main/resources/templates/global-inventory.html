@@ -69,12 +69,12 @@
         let link = "http://localhost:8080/global-inventory/closest-drugstore/" + drugstoreItemId;
 
         fetch(link)
-            .then(res => res.json()) // Assuming the controller returns a JSON array
+            .then(res => res.json())
             .then((resArray) => {
             if (Array.isArray(resArray))
             {
-                closestField.textContent = resArray[0]; // First string
-                cheapestField.textContent = resArray[1]; // Second string
+                closestField.textContent = resArray[0];
+                cheapestField.textContent = resArray[1];
                 console.log("Najblizsza apteka: " + resArray[0]);
                 console.log("Najtansza apteka: " + resArray[1]);
             } else {
