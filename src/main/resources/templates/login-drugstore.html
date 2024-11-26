@@ -2,9 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:method="http://www.w3.org/1999/xhtml">
 <head>
     <title>Wybierz Apteke</title>
+    <base href="/">
+    <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
+    <link rel="stylesheet" th:href="@{styles/login-drugstore-style.css}"/>
+
 </head>
 <body>
-<a th:href="@{/login}">Powrót</a>
+<div class="navigationBar">
+    <a class="returnButton" th:href="@{/login}">Powrót</a>
+</div>
+
 <form th:action="@{/login/drugstore}" method="post" class="loginPanel">
     <h1 class="loginHeader">Wybierz apteke</h1>
     <div class="loginDiv">

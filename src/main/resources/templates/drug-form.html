@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Add drugstoreItem</title>
+    <base href="/">
+    <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
     <style>
         .modal {
     display: none;
@@ -35,7 +37,15 @@
     </style>
 </head>
 <body>
-<a th:href="@{/drugstore-inventory}">Powrót</a>
+
+<div class="navigationBar">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logoutButton">Wyloguj się</button>
+    </form>
+    <p  class="employeeInfo" th:text="${employeeInfo}"></p>
+    <a class="returnButton" th:href="@{/main}">Powrót</a>
+</div>
+
 <form method="get" th:action="@{/drugstore-inventory/add/search}">
     <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
     <button type="submit" class="searchButton">Search</button>

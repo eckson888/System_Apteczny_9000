@@ -40,6 +40,6 @@ public class Employee { // alias "DrugDealer"
 
     @Override
     public String toString() {
-        return String.format("User: %s DrugstoreID: %s", this.getUsername(), this.getDrugstoreId());
+        return String.format("Witaj %s, Aktualna apteka: %s", this.getUsername(), this.getDrugstoreId());
     }
 }

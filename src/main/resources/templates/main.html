@@ -1,36 +1,39 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Main</title>
-    <style>
-        .content {
-        float:left;
-        width:50%;
-        }
-    </style>
+    <base href="/">
+    <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
+    <link rel="stylesheet" th:href="@{styles/main-style.css}"/>
+    <link rel="shortcut icon" type="image/png" th:href="@{img/favicon.png}"/>
+    <title>System Apteczny 9000</title>
 </head>
 <body>
-
-<form th:action="@{/logout}" method="post">
-    <button type="submit" class="logoutButton">Wyloguj się</button>
-</form>
-
-<div class="content">
-    <h3>Logged in as: <span th:text="${employeeInfo}"></span></h3>
-    <a href="/drugstores">Drugstores (adminpanel)</a> <!--    ja bym to wyjebal xdd po chuj to apteczniakowi, tak samo dodawanie aptek-->
-    <a href="/drugstore-inventory">Stan magazynowy w aptece</a>
-    <a href="/global-inventory">Stan innych aptek</a>
-
+<div class="navigationBar">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logoutButton">Wyloguj się</button>
+    </form>
+    <p  class="employeeInfo" th:text="${employeeInfo}"></p>
 </div>
 
+<div class="container">
 <div class="content">
-    <img src="https://i.pinimg.com/736x/19/08/e8/1908e804e7d03e972a06ff95d71883b7.jpg">
+    <a class="mainHref" href="/drugstore-inventory">Stan magazynowy w aptece</a>
+    <a class="mainHref" href="/global-inventory">Stan innych aptek</a>
+</div>
+<div class="content2">
+    <a class="mainHref" href="/drugstores">Drugstores (adminpanel)</a>
+    <a class="mainHref" href="/log">Logi jakies nwm</a>
+</div>
+</div>
+
+
+<div class="nuta">
     <iframe width="0%" height="0" allow="autoplay"
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1254606874&color=%23ffb28a&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1905128156&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
 
 
 </div>
