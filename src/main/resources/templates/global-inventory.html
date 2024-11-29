@@ -19,22 +19,21 @@
 <body>
 
 <div class="navigationBar">
+
+    <form method="get" th:action="@{/global-inventory/search}">
+        <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
+        <button type="submit" class="searchButton">Search</button>
+    </form>
+
     <a class="returnButton" th:href="@{/main}">Powrót</a>
+
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="logoutButton">Wyloguj się</button>
     </form>
-    <p  class="employeeInfo" th:text="${employeeInfo}"></p>
 
 </div>
 
-
-
-<form method="get" th:action="@{/global-inventory/search}">
-    <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
-    <button type="submit" class="searchButton">Search</button>
-</form>
-
-<div>
+<div class="content">
     <h2>Stan magazynowy w aptekach: </h2>
     <table>
         <tr>
@@ -50,14 +49,18 @@
             <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
             <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
             <td>
-                <button th:onclick="closestDrugstore([[${drugstoreItem.id}]])" class="editButton">Pokaz info
-                </button>
+                <button th:onclick="closestDrugstore([[${drugstoreItem.id}]])" class="editButton">Pokaz info</button>
             </td>
         </tr>
     </table>
     <h3>Najblizsza apteka: <span  id="closestDrugstore"></span></h3>
     <h3>Najtansza apteka: <span  id="cheapestDrugstore"></span></h3>
 </div>
+
+<div class="stupka">
+    <p>eckson888 / kacper dega / zouuek</p>
+</div>
+
 </body>
 
 <script th:inline="javascript">

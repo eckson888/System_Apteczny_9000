@@ -42,4 +42,6 @@ public class Employee { // alias "DrugDealer"
     public String toString() {
         return String.format("Witaj %s, Aktualna apteka: %s", this.getUsername(), this.getDrugstoreId());
     }
+
+
 }

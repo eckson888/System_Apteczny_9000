@@ -13,29 +13,49 @@
 </head>
 <body>
 <div class="navigationBar">
+
+    <img src="img/napis-logo.png" class="textLogo">
+
+    <div class="employeeInfo">
+        <img src="img/user.png" class="infoIcon">
+        <p  class="employeeText" th:text="${employeeName}"></p>
+    </div>
+
+    <div class="employeeInfo">
+        <img src="img/drugstore_icon.png" class="infoIcon">
+        <p class="employeeText" th:text="${employeeDrugstore}"></p>
+    </div>
+
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="logoutButton">Wyloguj się</button>
     </form>
-    <p  class="employeeInfo" th:text="${employeeInfo}"></p>
+
 </div>
 
-<div class="container">
 <div class="content">
-    <a class="mainHref" href="/drugstore-inventory">Stan magazynowy w aptece</a>
-    <a class="mainHref" href="/global-inventory">Stan innych aptek</a>
-</div>
-<div class="content2">
-    <a class="mainHref" href="/drugstores">Drugstores (adminpanel)</a>
-    <a class="mainHref" href="/log">Logi jakies nwm</a>
-</div>
+    <a class="mainHref" href="/drugstore-inventory">
+        <img src="" class="mainImage">
+        <span class="overlayText">Stan Apteki</span>
+    </a>
+    <a class="mainHref" href="/global-inventory">
+        <img src="" class="mainImage">
+        <span class="overlayText">Stan innych Aptek</span>
+    </a>
+    <a class="mainHref" href="/logs">
+        <img src="" class="mainImage">
+        <span class="overlayText">Historia Sprzedaży</span>
+    </a>
 </div>
 
-
-<div class="nuta">
-    <iframe width="0%" height="0" allow="autoplay"
+<div class="nuta" style="display:none;">
+    <iframe width="0%" height="0" allow="autoplay" style="display:none;"
             src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1905128156&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
 
-
 </div>
+
+<div class="stupka">
+    <p>eckson888 / kacper dega / zouuek</p>
+</div>
+
 </body>
 </html>

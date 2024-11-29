@@ -1,38 +1,54 @@
 html,body{
-    background-color: rgba(255, 255, 255, 1);
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 33%, rgba(168, 247, 255, 1) 80%);
     width: 100%;
     height:100%;
     margin:0;
     font-family: Roboto Mono, monospace;
+    background-color: rgba(218, 216, 208, 1);
 }
 
 .navigationBar{
+    display:flex;
+    justify-content:end;
     align-content:center;
     text-align:center;
     align-items:center;
-    height: 60px;
+    height: 10%;
     width: 100%;
-    background-color: rgba(168, 247, 255, 1);
     color: black;
-    -webkit-box-shadow: 0px 49px 32px 7px rgba(168, 247, 255, 1);
-    -moz-box-shadow: 0px 49px 32px 7px rgba(168, 247, 255, 1);
-    box-shadow: 0px 49px 32px 7px rgba(168, 247, 255, 1);
+    border-bottom:1px solid gray;
+}
 
+.textLogo{
+    height:70%;
+    margin: auto auto auto 20px;
 }
 
 .employeeInfo{
-    margin-right:10px;
+
+    margin-right:20px;
     padding:0;
     float:right;
     font-size:15px;
 }
 
+.employeeText{
+    float:left;
+}
+
+
+.infoIcon{
+    margin-top:3px;
+    width:40px;
+    height:40px;
+    margin-right:10px;
+    float:left;
+}
+
 .logoutButton{
 
-    margin: auto 10px auto 0px;
+    margin: auto 20px auto 0px;
     width:150px;
-    padding: 15px;
+    padding: 13px;
     float: right;
     transition-duration: 0.4s;
     text-decoration: none;
@@ -46,7 +62,7 @@ html,body{
 .logoutButton:hover{
     color: black;
     background-color: white;
-    border: 2px, solid rgba(168, 247, 255, 1);
+    border: 2px, solid rgba(0, 0, 0, 1);
 }
 .returnButton{
     font-size: 15px;
@@ -67,5 +83,19 @@ html,body{
 .returnButton:hover{
     color: black;
     background-color: white;
-    border: 2px, solid rgba(168, 247, 255, 1);
+    border: 2px, solid black;
+}
+
+.content{
+    height: 80%;
+    width: 100%;
+    border-bottom:1px solid gray;
+
+}
+
+.stupka{
+    height:auto;
+    justify-content:center;
+    text-align:center;
+    color:gray;
 }
