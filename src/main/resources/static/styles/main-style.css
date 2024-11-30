@@ -61,3 +61,9 @@
     background-size: cover;
     background-position: center;
 }
+
+.content .mainHref:nth-child(3) {
+    background-image: url("../img/killer-upset.gif");
+    background-size: cover;
+    background-position: center;
+}
