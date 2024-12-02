@@ -6,6 +6,10 @@ import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.gopnik.repository.DrugstoreItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,9 +36,8 @@ public class DrugstoreItemService {
     }
 
     @Transactional
-    public List<DrugstoreItem> getItemsByKeywordExcludingCurrentDrugstoreId(String keyword, Long id)
-    {
-        return this.drugstoreItemRepository.findItemsExcludeCurrentDrugstoreId(keyword,id);
+    public List<DrugstoreItem> getItemsByKeywordExcludingCurrentDrugstoreId(String keyword, Long drugstoreId, int page, int size) {
+        return drugstoreItemRepository.getItemsByKeywordExcludingCurrentDrugstoreId(keyword, drugstoreId, page, size);
     }
 
     public DrugstoreItem getDrugstoreItemById(Long id)    {
@@ -69,7 +72,11 @@ public class DrugstoreItemService {
     public List<DrugstoreItem> getAll() {
         return this.drugstoreItemRepository.getAll();
     }
-    public List<DrugstoreItem> getAllExcludingCurrentDrugstoreId(Long drugstoreId) { return this.drugstoreItemRepository.getAllExcludingCurrentDrugstoreId(drugstoreId);}
+
+    public List<DrugstoreItem> getAllExcludingCurrentDrugstoreId(Long drugstoreId, int page, int size) {
+        return drugstoreItemRepository.getAllExcludingCurrentDrugstoreId(drugstoreId, page, size);
+    }
+
     public List<Drugstore> getDrugstoresByDrugstoreItemId(Long itemId, Long currentDrugstoreId){
         return drugstoreItemRepository.getDrugstoresByDrugstoreItemId(itemId,currentDrugstoreId);
     }
@@ -91,5 +98,14 @@ public class DrugstoreItemService {
             drugstoreItemRepository.removeItem(item);
         }
 
+    }
+
+    public int countByKeywordExcludingCurrentDrugstoreId(String keyword, Long currentDrugstoreId)
+    {
+        return drugstoreItemRepository.countByKeywordExcludingCurrentDrugstoreId(keyword,currentDrugstoreId);
+    }
+
+    public int countAllExcludingCurrentDrugstoreId(Long currentDrugstoreId) {
+        return drugstoreItemRepository.countAllExcludingCurrentDrugstoreId(currentDrugstoreId);
     }
 }

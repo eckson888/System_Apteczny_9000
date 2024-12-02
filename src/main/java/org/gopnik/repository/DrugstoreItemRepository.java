@@ -6,8 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,13 +71,9 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
     public List<DrugstoreItem> getDrugstoreInventory(Long drugstoreId) {
         TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_DRUGSTORE_ID, DrugstoreItem.class);
         query.setParameter("id", drugstoreId);
-        query.setMaxResults(1);
-        DrugstoreItem result = query.getSingleResult();
-        if (result == null) {
-            return null; //TODO lepszy return zrobic
-        } else {
-            return result.getDrugstore().getInventory();
-        }
+        List<DrugstoreItem> result;
+        result = query.getResultList();
+        return result;
     }
 
     @Override
@@ -101,6 +101,14 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         return result;
     }
 
+    public List<DrugstoreItem> getAllExcludingCurrentDrugstoreId(Long drugstoreId, int page, int size) {
+        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_ALL_EXCLUDE_CURRENT_ID,DrugstoreItem.class);
+        query.setParameter("id", drugstoreId);
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
+        return query.getResultList();
+    }
+
 
     @Override
     public Optional<DrugstoreItem> getById(Long id) {
@@ -122,14 +130,21 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         List<DrugstoreItem> result = query.getResultList();
         return result;
     }
-    @Override
-    public List<DrugstoreItem> findItemsExcludeCurrentDrugstoreId(String keyword, Long id) {
-        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_KEYWORD_EXCLUDE_CURRENT_ID, DrugstoreItem.class);
-        query.setParameter("keyword", "%" + keyword + "%");
-        query.setParameter("id", id);
 
-        List<DrugstoreItem> result = query.getResultList();
-        return result;
+    @Override
+    public List<DrugstoreItem> getItemsByKeywordExcludingCurrentDrugstoreId(String keyword, Long drugstoreId, int page, int size)
+    {
+        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_KEYWORD_EXCLUDE_CURRENT_ID,DrugstoreItem.class);
+
+        query.setParameter("id", drugstoreId);
+        query.setParameter("keyword", "%" + keyword + "%");
+
+        System.out.println(query.getResultList().size());
+        System.out.println("page: "+page+" size: "+size);
+
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
+        return query.getResultList();
     }
 
     @Override
@@ -156,13 +171,14 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         List<DrugstoreItem> result = query.getResultList();
         return result;
     }
-    @Override
-    public List<DrugstoreItem> getAllExcludingCurrentDrugstoreId(Long drugstoreId) {
-        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_ALL_EXCLUDE_CURRENT_ID, DrugstoreItem.class);
-        query.setParameter("id",drugstoreId);
-        List<DrugstoreItem> result = query.getResultList();
-        return result;
-    }
+
+//    @Override
+//    public List<DrugstoreItem> getAllExcludingCurrentDrugstoreId(Long drugstoreId) {
+//        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_ALL_EXCLUDE_CURRENT_ID, DrugstoreItem.class);
+//        query.setParameter("id",drugstoreId);
+//        List<DrugstoreItem> result = query.getResultList();
+//        return result;
+//    }
 
     public void save(DrugstoreItem item) {
         this.jpaDrugstoreItemInterface.save(item);
@@ -189,7 +205,7 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         entityManager.createNativeQuery("SET session_replication_role = 'replica'").executeUpdate();
 
         // Usunięcie rekordu
-        Query query = entityManager.createNativeQuery("DELETE FROM drugstore_inventory WHERE id = :id");
+        Query query = (Query) entityManager.createNativeQuery("DELETE FROM drugstore_inventory WHERE id = :id");
         query.setParameter("id", item.getId());
         query.executeUpdate();
 
@@ -198,6 +214,24 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
     }
 
 
+    public int countAllExcludingCurrentDrugstoreId(Long drugstoreId) {
+        Query query = entityManager.createQuery(
+                "SELECT COUNT(i) FROM DrugstoreItem i WHERE i.drugstore.id != :id"
+        );
+        query.setParameter("id", drugstoreId);
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+    public int countByKeywordExcludingCurrentDrugstoreId(String keyword, Long drugstoreId) {
+        Query query = entityManager.createQuery(
+                "SELECT COUNT(i) FROM DrugstoreItem i " +
+                        "WHERE i.drugstore.id != :drugstoreId " +
+                        "AND i.drug.name LIKE :keyword"
+        );
+        query.setParameter("drugstoreId", drugstoreId);
+        query.setParameter("keyword", "%" + keyword + "%");
+        return ((Long) query.getSingleResult()).intValue();
+    }
 
 }
 

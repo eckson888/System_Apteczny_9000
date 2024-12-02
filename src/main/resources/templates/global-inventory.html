@@ -53,6 +53,19 @@
             </td>
         </tr>
     </table>
+    <div>
+        <span th:text="'Page ' + (${currentPage + 1}) + ' of ' + ${totalPages}"></span>
+
+        <a th:if="${currentPage > 0}"
+           th:href="@{/global-inventory/{page}/{size}(page=${currentPage - 1}, size=${size})}">
+            Previous
+        </a>
+
+        <a th:if="${currentPage < totalPages - 1}"
+           th:href="@{/global-inventory/{page}/{size}(page=${currentPage + 1}, size=${size})}">
+            Next
+        </a>
+    </div>
     <h3>Najblizsza apteka: <span  id="closestDrugstore"></span></h3>
     <h3>Najtansza apteka: <span  id="cheapestDrugstore"></span></h3>
 </div>

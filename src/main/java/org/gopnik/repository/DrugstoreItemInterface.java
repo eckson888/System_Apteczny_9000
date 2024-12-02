@@ -17,7 +17,7 @@ public interface DrugstoreItemInterface {
 
     List<DrugstoreItem> findByKeywordInSomeDrugstore(String keyword, Long id);
 
-    List<DrugstoreItem> findItemsExcludeCurrentDrugstoreId(String keyword, Long id);
+    List<DrugstoreItem> getItemsByKeywordExcludingCurrentDrugstoreId(String keyword, Long drugstoreId, int page, int size);
 
     List<DrugstoreItem> findByKeywordInAllDrugstores(String keyword);
 
@@ -29,10 +29,6 @@ public interface DrugstoreItemInterface {
     List<Drugstore> getDrugstoresByDrugstoreItemId(Long drugstoreItemId,Long currentDrugstoreId);
 
     Optional<DrugstoreItem> getById(Long id);
-
-
-
-    List<DrugstoreItem> getAllExcludingCurrentDrugstoreId(Long drugstoreId);
 
     List<DrugstoreItem> getDrugstoreItemsByDrug(DrugstoreItem drugstoreItem, Long drugstoreId);
 }

@@ -10,6 +10,7 @@ import org.gopnik.service.DrugstoreService;
 import org.gopnik.service.EmployeeService;
 import org.gopnik.service.GoogleMapsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,27 +33,47 @@ public class GlobalDrugstoreInventoryController {
     private GoogleMapsService googleMapsService;
 
 
-    @GetMapping("")
-    public String main(Model model) {
+    @GetMapping("/{page}/{size}")
+    public String main(@PathVariable int page, @PathVariable int size,  Model model) {      //TODO zmienic na requestparam z default value tego page i size
+
+
 
         Employee currentEmployee = employeeService.getCurrentEmployee();
-//        model.addAttribute("employeeInfo", currentEmployee.toString());
-        model.addAttribute("allDrugstoreItems",drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId()));
+        List<DrugstoreItem> items = drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId(), page, size);
+        int totalItems = drugstoreItemService.countAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId());
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+
+        // Add attributes to the model
+        model.addAttribute("allDrugstoreItems", items); // Items for the current page
+        model.addAttribute("currentPage", page); // Current page
+        model.addAttribute("totalPages", totalPages); // Total number of pages
+        model.addAttribute("size", size); // Page size
+
         return "global-inventory";
     }
 
 
-    @RequestMapping(path = "/search",method= RequestMethod.GET)
-    public String search(@RequestParam String keyword, Model model)
-    {
-        if (keyword.length()>2) {
-            List<DrugstoreItem> list = drugstoreItemService.getItemsByKeywordExcludingCurrentDrugstoreId(keyword, employeeService.getCurrentDrugstoreId());
-            model.addAttribute("allDrugstoreItems", list);
-            model.addAttribute("keyword",keyword);
+    @RequestMapping(path = "/search", method = RequestMethod.GET)
+    public String search(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,                                    //TODO zrobic paginacje gdy jest duzo itemow po szukaniu keywordem
+            @RequestParam(defaultValue = "10") int size,                                    //mozliwe ze juz zadziala ale nie testuje bo mi sie nie chce dodawac itemow
+            Model model) {
+        List<DrugstoreItem> items;
+        int totalItems;
+        if (keyword.length() > 2) {
+            items = drugstoreItemService.getItemsByKeywordExcludingCurrentDrugstoreId(keyword, employeeService.getCurrentDrugstoreId(), page, size);
+            totalItems = drugstoreItemService.countByKeywordExcludingCurrentDrugstoreId(keyword, employeeService.getCurrentDrugstoreId());
+            model.addAttribute("keyword", keyword);
         } else {
-            List<DrugstoreItem> list = drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId());
-            model.addAttribute("allDrugstoreItems", list);
+            items = drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId(), page, size);
+            totalItems = drugstoreItemService.countAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId());
         }
+        int totalPages = (int) Math.ceil ((double) totalItems / size);
+        model.addAttribute("allDrugstoreItems", items);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("size", size);
         return "global-inventory";
     }
 
