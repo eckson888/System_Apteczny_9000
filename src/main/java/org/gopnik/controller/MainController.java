@@ -32,4 +32,9 @@ public class MainController {
         return "main";
     }
 
+    @GetMapping("")
+    public String mainRedirect() {
+        return "redirect:/main";
+    }
+
 }

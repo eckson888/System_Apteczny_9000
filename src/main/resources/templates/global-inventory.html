@@ -57,12 +57,16 @@
         <span th:text="'Page ' + (${currentPage + 1}) + ' of ' + ${totalPages}"></span>
 
         <a th:if="${currentPage > 0}"
-           th:href="@{/global-inventory/{page}/{size}(page=${currentPage - 1}, size=${size})}">
+           th:href="${isSearch} ?
+                @{/global-inventory/search(keyword=${keyword}, page=${currentPage - 1})} :
+                @{/global-inventory(page=${currentPage - 1})}">
             Previous
         </a>
 
         <a th:if="${currentPage < totalPages - 1}"
-           th:href="@{/global-inventory/{page}/{size}(page=${currentPage + 1}, size=${size})}">
+           th:href="${isSearch} ?
+                @{/global-inventory/search(keyword=${keyword}, page=${currentPage + 1})} :
+                @{/global-inventory(page=${currentPage + 1})}">
             Next
         </a>
     </div>

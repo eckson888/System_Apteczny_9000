@@ -64,6 +64,6 @@ public class DrugstoreItem {
     }
     @Override
     public String toString(){
-        return STR."id: \{getId()} nazwa: \{getDrug().getName()} quantity: \{getQuantity()}";
+        return String.format("id: %s nazwa: %s quantity: %s", getId(), getDrug().getName(), getQuantity());
     }
 }

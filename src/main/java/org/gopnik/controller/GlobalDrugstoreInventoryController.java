@@ -33,8 +33,8 @@ public class GlobalDrugstoreInventoryController {
     private GoogleMapsService googleMapsService;
 
 
-    @GetMapping("/{page}/{size}")
-    public String main(@PathVariable int page, @PathVariable int size,  Model model) {      //TODO zmienic na requestparam z default value tego page i size
+    @GetMapping("")
+    public String main(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,  Model model) {
 
 
 
@@ -48,6 +48,7 @@ public class GlobalDrugstoreInventoryController {
         model.addAttribute("currentPage", page); // Current page
         model.addAttribute("totalPages", totalPages); // Total number of pages
         model.addAttribute("size", size); // Page size
+        model.addAttribute("isSearch", 0); // TO MA WIEKSZY SENS NIZ SIE MOZE WYDAWAC
 
         return "global-inventory";
     }
@@ -59,12 +60,13 @@ public class GlobalDrugstoreInventoryController {
             @RequestParam(defaultValue = "0") int page,                                    //TODO zrobic paginacje gdy jest duzo itemow po szukaniu keywordem
             @RequestParam(defaultValue = "10") int size,                                    //mozliwe ze juz zadziala ale nie testuje bo mi sie nie chce dodawac itemow
             Model model) {
+        model.addAttribute("keyword", keyword);
         List<DrugstoreItem> items;
         int totalItems;
         if (keyword.length() > 2) {
             items = drugstoreItemService.getItemsByKeywordExcludingCurrentDrugstoreId(keyword, employeeService.getCurrentDrugstoreId(), page, size);
             totalItems = drugstoreItemService.countByKeywordExcludingCurrentDrugstoreId(keyword, employeeService.getCurrentDrugstoreId());
-            model.addAttribute("keyword", keyword);
+            //
         } else {
             items = drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId(), page, size);
             totalItems = drugstoreItemService.countAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId());
@@ -74,6 +76,7 @@ public class GlobalDrugstoreInventoryController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("size", size);
+        model.addAttribute("isSearch", 1);
         return "global-inventory";
     }
 
