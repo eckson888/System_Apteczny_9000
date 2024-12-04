@@ -23,12 +23,15 @@
         <button type="submit" class="logoutButton">Wyloguj się</button>
     </form>
     <p  class="employeeInfo" th:text="${employeeInfo}"></p>
-    <a class="returnButton" th:href="@{/main}">Powrót</a>
+    <a class="returnButton" th:href="@{/drugstore-inventory}">Powrót</a>
 </div>
 
 <form th:action="@{/drugstore-inventory/cart/sell}" method="get">
     <button type="submit">Potwierdź sprzedaż</button>
 </form>
+
+<p th:text="'Suma: ' + ${cartPrice} + ' zł'"></p>
+
 <div th:if="${cart.items.isEmpty()}">
     <p>Koszyk pusty.</p>
 </div>
