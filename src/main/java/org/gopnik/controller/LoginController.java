@@ -2,6 +2,8 @@ package org.gopnik.controller;
 
 
 import org.gopnik.model.Employee;
+import org.gopnik.repository.CartRepository;
+import org.gopnik.service.CartService;
 import org.gopnik.service.DrugstoreService;
 import org.gopnik.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class LoginController {
 
     @Autowired
     DrugstoreService drugstoreService;
+
+    @Autowired
+    CartService cartService;
 
     @GetMapping("/login")
     public String login(
@@ -37,7 +42,7 @@ public class LoginController {
 
     @RequestMapping(path = "/login/drugstore", method = RequestMethod.GET)
     public String drugstore_get(Model model) {
-
+        cartService.clearCart();
         model.addAttribute("drugstore_id", new String());
         return "login-drugstore";
     }
