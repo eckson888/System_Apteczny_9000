@@ -14,20 +14,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GoogleMapsService
-{
+public class GoogleMapsService {
 
     private final GeoApiContext context;
 
-    public GoogleMapsService(@Value("${google.api.key}") String apiKey)
-    {
+    public GoogleMapsService(@Value("${google.api.key}") String apiKey) {
         this.context = new GeoApiContext.Builder()
                 .apiKey(apiKey)
                 .build();
     }
 
-    public String findClosestDrugstore(String currentAddress, List<Drugstore> drugstores)
-    {
+    public String findClosestDrugstore(String currentAddress, List<Drugstore> drugstores) {
         List<String> fullAddresses = drugstores.stream().map(Drugstore::getFullAddress).collect(Collectors.toList());
 
 
@@ -37,24 +34,22 @@ public class GoogleMapsService
             int closestIndex = -1;
             float shortestDistance = Float.MAX_VALUE;
 
-            for (int i = 0; i < matrix.rows[0].elements.length; i++)
-            {
+            for (int i = 0; i < matrix.rows[0].elements.length; i++) {
                 DistanceMatrixElement element = matrix.rows[0].elements[i];
-                if (element.distance != null && element.distance.inMeters < shortestDistance)
-                {
+                if (element.distance != null && element.distance.inMeters < shortestDistance) {
                     shortestDistance = element.distance.inMeters;
                     closestIndex = i;
                 }
             }
 
             if (closestIndex != -1) {
-                return drugstores.get(closestIndex).getFullAddress() + " dystans = " + shortestDistance/1000 + " km";   //TODO zrobic zaokraglenie do 1 miejsca po przecinku
+                String dystans = String.format("%.2f", shortestDistance / 1000).replace(',', '.') + " km";
+                return drugstores.get(closestIndex).getFullAddress() + " dystans = " + dystans;
             } else {
                 return "nie udalo sie znalezc apteki";
             }
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException("jakis blad nwm", e);
         }
     }

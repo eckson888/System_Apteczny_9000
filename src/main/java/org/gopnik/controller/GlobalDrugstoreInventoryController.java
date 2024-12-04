@@ -58,8 +58,8 @@ public class GlobalDrugstoreInventoryController {
     public String search(
             @RequestParam String keyword,
             @RequestParam(defaultValue = "0") int page,                                    //TODO zrobic paginacje gdy jest duzo itemow po szukaniu keywordem
-            @RequestParam(defaultValue = "10") int size,                                    //mozliwe ze juz zadziala ale nie testuje bo mi sie nie chce dodawac itemow
-            Model model) {
+            @RequestParam(defaultValue = "10") int size,                                    //EDIT: zrobilem ale nie testowalem bo nie ma tyle wpisuw zeby wgl byly strony
+            Model model) {                                                                 // zakladam ze dziala 
         model.addAttribute("keyword", keyword);
         List<DrugstoreItem> items;
         int totalItems;

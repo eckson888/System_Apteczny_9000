@@ -33,6 +33,7 @@ public class DrugstoreInventoryController {
 
     @GetMapping("")
     public String main(Model model) {
+        //TODO: PAGINACJA
         Employee currentEmployee = employeeService.getCurrentEmployee();
         model.addAttribute("employeeInfo", currentEmployee.toString());
         model.addAttribute("drugstoreInventory", drugstoreItemService.getDrugstoreItems(currentEmployee.getDrugstoreId()));
