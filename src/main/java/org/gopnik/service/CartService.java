@@ -27,10 +27,8 @@ public class CartService {
     private DrugstoreItemService drugstoreItemService;
     @Transactional
     public Cart getCart(){
-        log.error("!! LOMBOK EMERGENCY !!"); //wazne
-
+        log.info("!! wchodze do koszyka !!"); //wazne
         return employeeService.getCurrentEmployee().getCart();
-
     }
     @Transactional
     public Cart addToCart(Long itemId, int quantity){
@@ -50,15 +48,15 @@ public class CartService {
 
     @Transactional
     public Cart sellAllItems(){
-        Cart cart =getCart();
+        Cart cart = getCart();
         DrugstoreItem toBeSold;
         Integer quantitiesToSell;
-//        log.info("itemsy w koszyku przy sellaniu: "+ cart.getItems());
-//        log.info("cart size: "+ cart.getItems().size());
-        for(int i = 0;i<cart.getItems().size();i++){
-            //log.info("obrót pętli: "+ i);
-            toBeSold = (cart.getItems().get(i).getDrugstoreItem());
-            quantitiesToSell = (cart.getItems().get(i).getQuantity());
+        int initial_size = cart.getItems().size();
+
+        for(int i = 0;i<initial_size;i++)
+        {
+            toBeSold = (cart.getItems().get(0).getDrugstoreItem());
+            quantitiesToSell = (cart.getItems().get(0).getQuantity());
             log.info(String.valueOf(quantitiesToSell));
             cart.removeItem(toBeSold,quantitiesToSell);
             drugstoreItemService.removeDrugstoreItem(toBeSold, quantitiesToSell);

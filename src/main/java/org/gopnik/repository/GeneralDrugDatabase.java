@@ -59,22 +59,6 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
         }
     }
 
-    @Override
-    public Optional<List<String>> get100ByAll(String keyword) {
-        TypedQuery<Drug> query = entityManager.createQuery(GET_100_BY_ALL, Drug.class);
-        query.setParameter("keyword", keyword + "%");
-        query.setMaxResults(5);         //tutaj ustawione na zwracanie 5 wynikow, mozna to potem sparametryzowac albo ustawic wiecej nwmmm
-
-        List<Drug> result = query.getResultList();
-        if (result.isEmpty()) {
-            return Optional.empty();
-        }
-
-        List<String> resultStrings = result.stream()    //no i tutaj te stringi na obiekty Drug tez potem chyba trza bedzie zmienic //TODO
-                .map(Drug::toString)
-                .collect(Collectors.toList());
-        return Optional.of(resultStrings);
-    }
 
     @Override
     public List<Drug> getByKeyword(String keyword){
