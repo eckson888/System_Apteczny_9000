@@ -59,7 +59,23 @@
             </td>
         </tr>
     </table>
+    <div>
+        <span th:text="'Page ' + (${currentPage + 1}) + ' of ' + ${totalPages}"></span>
 
+        <a th:if="${currentPage > 0}"
+           th:href="${isSearch} ?
+                @{/drugstore-inventory/search(keyword=${keyword}, page=${currentPage - 1})} :
+                @{/drugstore-inventory(page=${currentPage - 1})}">
+            Previous
+        </a>
+
+        <a th:if="${currentPage < totalPages - 1}"
+           th:href="${isSearch} ?
+                @{/drugstore-inventory/search(keyword=${keyword}, page=${currentPage + 1})} :
+                @{/drugstore-inventory(page=${currentPage + 1})}">
+            Next
+        </a>
+    </div>
 </div>
 </body>
 </html>

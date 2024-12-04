@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -31,14 +28,14 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
     private final String GET_BY_ID = "SELECT i FROM DrugstoreItem i WHERE i.id = :id";
 
-    private final String GET_DRUGSTORE_ITEM_BY_DRUG_ID = "SELECT i FROM DrugstoreItem i WHERE i.drug.id = :id AND i.drugstore.id != :drugstoreId";
+    private final String GET_DRUGSTORE_ITEM_BY_DRUG_ID = "SELECT i FROM DrugstoreItem i WHERE i.drug.id = :id AND i.drugstore.id != :drugstoreId ORDER BY i.drug.name ASC";
 
-    private final String GET_BY_DRUGSTORE_ID = "SELECT i FROM DrugstoreItem i WHERE i.drugstore.id = :id";
+    private final String GET_BY_DRUGSTORE_ID = "SELECT i FROM DrugstoreItem i WHERE i.drugstore.id = :id ORDER BY i.drug.name ASC";
 
     private final String GET_BY_NAME_AND_COMMONNAME = "SELECT i FROM DrugstoreItem i WHERE LOWER (i.drug.name) " +
-            " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword)";
+            " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword) ORDER BY i.drug.name ASC";
 
-    private final String GET_ALL = "SELECT i FROM DrugstoreItem i ORDER BY i.id";
+    private final String GET_ALL = "SELECT i FROM DrugstoreItem i ORDER BY i.drug.name ASC";
 
     private final String GET_ALL_EXCLUDE_CURRENT_ID = "SELECT i FROM DrugstoreItem i " +
             "WHERE i.id IN (" +
@@ -49,7 +46,7 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
             "ORDER BY i.drug.name";
 
     private final String GET_BY_KEYWORD_AND_DRUGSTOREID = "SELECT i from DrugstoreItem i WHERE (LOWER (i.drug.name)" +
-            " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword)) AND i.drugstore.id = :id";
+            " LIKE LOWER(:keyword) OR LOWER(i.drug.commonName) LIKE LOWER(:keyword)) AND i.drugstore.id = :id ORDER BY i.drug.name ASC";
 
 
     private final String GET_BY_KEYWORD_EXCLUDE_CURRENT_ID = "SELECT i FROM DrugstoreItem i " +
@@ -58,12 +55,10 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
                 "  WHERE (LOWER(innerItem.drug.name) LIKE LOWER(:keyword) OR LOWER(innerItem.drug.commonName) LIKE LOWER(:keyword)) " +
                 "  AND innerItem.drugstore.id != :id " +
                 "  GROUP BY innerItem.drug.id" +
-                ")";
+                ")ORDER BY i.drug.name ASC";
 
     private final String GET_BY_ID_AND_DRUGSTOREID = "SELECT i from DrugstoreItem i WHERE " +
-            "i.drug.id = :drugid AND i.drugstore.id = :drugstoreid";
-
-    private final String DELETE_DRUGSTORE_ITEM = "DELETE FROM DrugstoreItem WHERE id=:id";
+            "i.drug.id = :drugid AND i.drugstore.id = :drugstoreid ORDER BY i.drug.name ASC";
 
 
 
@@ -138,10 +133,6 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
         query.setParameter("id", drugstoreId);
         query.setParameter("keyword", "%" + keyword + "%");
-
-        System.out.println(query.getResultList().size());
-        System.out.println("page: "+page+" size: "+size);
-
         query.setFirstResult(page * size);
         query.setMaxResults(size);
         return query.getResultList();
@@ -226,12 +217,56 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         Query query = entityManager.createQuery(
                 "SELECT COUNT(i) FROM DrugstoreItem i " +
                         "WHERE i.drugstore.id != :drugstoreId " +
-                        "AND i.drug.name LIKE :keyword"
+                        "AND (LOWER (i.drug.name) LIKE LOWER(:keyword)"+
+                        " OR LOWER(i.drug.commonName) LIKE LOWER(:keyword))"
         );
         query.setParameter("drugstoreId", drugstoreId);
         query.setParameter("keyword", "%" + keyword + "%");
         return ((Long) query.getSingleResult()).intValue();
     }
+
+    public int countAllByCurrentDrugstoreId(Long drugstoreId) {
+        Query query = entityManager.createQuery(
+                "SELECT COUNT(i) FROM DrugstoreItem i WHERE i.drugstore.id = :id"
+        );
+        query.setParameter("id", drugstoreId);
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+    public int countByKeywordAndCurrentDrugstoreId(String keyword, Long drugstoreId) {
+        Query query = entityManager.createQuery(
+                "SELECT COUNT(i) FROM DrugstoreItem i " +
+                        "WHERE i.drugstore.id = :drugstoreId " +
+                        "AND (LOWER (i.drug.name) LIKE LOWER(:keyword)"+
+                        "OR LOWER(i.drug.commonName) LIKE LOWER(:keyword))"
+        );
+        query.setParameter("drugstoreId", drugstoreId);
+        query.setParameter("keyword", "%" + keyword + "%");
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+    public List<DrugstoreItem> getAllPagedDrugstoreItems(Long drugstoreId, int page, int size)
+    {
+        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_DRUGSTORE_ID,DrugstoreItem.class);
+
+        query.setParameter("id", drugstoreId);
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<DrugstoreItem> getPagedItemsByKeywordAndCurrentDrugstoreId(String keyword, Long drugstoreId, int page, int size)
+    {
+        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_BY_KEYWORD_AND_DRUGSTOREID,DrugstoreItem.class);
+
+        query.setParameter("id", drugstoreId);
+        query.setParameter("keyword", "%" + keyword + "%");
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
+        return query.getResultList();
+    }
+
 
 }
 

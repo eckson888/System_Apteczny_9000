@@ -31,4 +31,6 @@ public interface DrugstoreItemInterface {
     Optional<DrugstoreItem> getById(Long id);
 
     List<DrugstoreItem> getDrugstoreItemsByDrug(DrugstoreItem drugstoreItem, Long drugstoreId);
+
+    List<DrugstoreItem> getPagedItemsByKeywordAndCurrentDrugstoreId(String keyword, Long drugstoreId, int page, int size);
 }

@@ -1,15 +1,10 @@
 package org.gopnik.service;
 
 import jakarta.transaction.Transactional;
-import org.gopnik.model.Drug;
 import org.gopnik.model.Drugstore;
 import org.gopnik.model.DrugstoreItem;
 import org.gopnik.repository.DrugstoreItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -107,5 +102,25 @@ public class DrugstoreItemService {
 
     public int countAllExcludingCurrentDrugstoreId(Long currentDrugstoreId) {
         return drugstoreItemRepository.countAllExcludingCurrentDrugstoreId(currentDrugstoreId);
+    }
+
+    public int countByKeywordAndCurrentDrugstoreId(String keyword, Long currentDrugstoreId)
+    {
+        return drugstoreItemRepository.countByKeywordAndCurrentDrugstoreId(keyword,currentDrugstoreId);
+    }
+
+    public int countAllByCurrentDrugstoreId(Long currentDrugstoreId) {
+        return drugstoreItemRepository.countAllByCurrentDrugstoreId(currentDrugstoreId);
+    }
+    @Transactional
+    public List<DrugstoreItem> getAllPagedDrugstoreItems(Long currentDrugstoreId, int page, int size)
+    {
+        return drugstoreItemRepository.getAllPagedDrugstoreItems(currentDrugstoreId, page, size);
+    }
+
+    @Transactional
+    public List<DrugstoreItem> getPagedItemsByKeywordAndCurrentDrugstoreId(String keyword, Long drugstoreId, int page, int size)
+    {
+        return drugstoreItemRepository.getPagedItemsByKeywordAndCurrentDrugstoreId(keyword, drugstoreId, page, size);
     }
 }

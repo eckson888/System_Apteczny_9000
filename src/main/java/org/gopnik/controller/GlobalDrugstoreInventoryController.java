@@ -36,8 +36,6 @@ public class GlobalDrugstoreInventoryController {
     @GetMapping("")
     public String main(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,  Model model) {
 
-
-
         Employee currentEmployee = employeeService.getCurrentEmployee();
         List<DrugstoreItem> items = drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId(), page, size);
         int totalItems = drugstoreItemService.countAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId());

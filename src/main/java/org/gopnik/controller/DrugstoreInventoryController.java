@@ -2,7 +2,6 @@ package org.gopnik.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.gopnik.model.*;
-import org.gopnik.repository.GeneralDrugDatabase;
 import org.gopnik.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -30,15 +28,24 @@ public class DrugstoreInventoryController {
     @Autowired
     private CartService cartService;
 
-
     @GetMapping("")
-    public String main(Model model) {
-        //TODO: PAGINACJA
+    public String main(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,  Model model) {
+
         Employee currentEmployee = employeeService.getCurrentEmployee();
+        List<DrugstoreItem> items = drugstoreItemService.getAllPagedDrugstoreItems(employeeService.getCurrentDrugstoreId(), page, size);
+        int totalItems = drugstoreItemService.countAllByCurrentDrugstoreId(currentEmployee.getDrugstoreId());
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+
         model.addAttribute("employeeInfo", currentEmployee.toString());
-        model.addAttribute("drugstoreInventory", drugstoreItemService.getDrugstoreItems(currentEmployee.getDrugstoreId()));
+        model.addAttribute("drugstoreInventory", items);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("size", size);
+        model.addAttribute("isSearch", 0); // TO MA WIEKSZY SENS NIZ SIE MOZE WYDAWAC
+
         return "drugstore-inventory";
     }
+
 
     @RequestMapping(path = "/add", method = RequestMethod.GET)
     public String add(Model model) {
@@ -69,24 +76,37 @@ public class DrugstoreInventoryController {
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public String search(@RequestParam String keyword, Model model) {
+    public String search(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,                                    //TODO zrobic paginacje gdy jest duzo itemow po szukaniu keywordem
+            @RequestParam(defaultValue = "10") int size,                                   //EDIT: zrobilem ale nie testowalem bo nie ma tyle wpisuw zeby wgl byly strony
+            Model model){                                                                  // zakladam ze dziala
+        model.addAttribute("keyword", keyword);
+        List<DrugstoreItem> items;
+        int totalItems;
         if (keyword.length() > 2) {
-//            List<String> keywords = List.of(keyword.split("\\s+"));
-            List<DrugstoreItem> list = drugstoreItemService.getByKeywordInSomeDrugstore(keyword, employeeService.getCurrentEmployee().getDrugstoreId()); // xdd
-            model.addAttribute("drugstoreInventory", list);
-            model.addAttribute("keyword", keyword);
+            items = drugstoreItemService.getPagedItemsByKeywordAndCurrentDrugstoreId(keyword, employeeService.getCurrentDrugstoreId(), page, size);
+            totalItems = drugstoreItemService.countByKeywordAndCurrentDrugstoreId(keyword, employeeService.getCurrentDrugstoreId());
+
         } else {
-            List<DrugstoreItem> list = drugstoreItemService.getDrugstoreItems(employeeService.getCurrentEmployee().getDrugstoreId());
-            model.addAttribute("drugstoreInventory", list);
+            items = drugstoreItemService.getAllPagedDrugstoreItems(employeeService.getCurrentDrugstoreId(), page, size);
+            totalItems = drugstoreItemService.countAllByCurrentDrugstoreId(employeeService.getCurrentDrugstoreId());
         }
-        return "/drugstore-inventory";
+        System.out.println(items);
+        System.out.println(totalItems);
+
+        int totalPages = (int) Math.ceil ((double) totalItems / size);
+        model.addAttribute("drugstoreInventory", items);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("size", size);
+        model.addAttribute("isSearch", 1);
+        return "drugstore-inventory";
     }
 
     @RequestMapping(path = "/buy/{itemId}/{quantity}", method = RequestMethod.GET)
     public String addToCart(@PathVariable Long itemId, @PathVariable int quantity) {
         cartService.addToCart(itemId, quantity);
-        //System.out.println(employeeService.getCurrentEmployee().getCart().getItems().getFirst().getQuantity());
-        System.out.println(employeeService.getCurrentEmployee().getCart().getItems());
 
         return "redirect:/drugstore-inventory";
     }
