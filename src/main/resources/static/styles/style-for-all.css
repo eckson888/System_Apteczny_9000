@@ -68,8 +68,8 @@ html,body{
     font-size: 15px;
     cursor: pointer;
     width:150px;
-    margin: auto 10px auto 0px;
-    padding:15px;
+    margin: auto auto auto 20px;
+    padding:13px;
     text-decoration:none;
     color:black;
     border: 2px solid black;

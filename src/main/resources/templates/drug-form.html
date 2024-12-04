@@ -39,11 +39,15 @@
 <body>
 
 <div class="navigationBar">
+
+    <a class="returnButton" th:href="@{/drugstore-inventory}">Powrót</a>
+
+    <p  class="employeeInfo" th:text="${employeeInfo}"></p>
+
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="logoutButton">Wyloguj się</button>
     </form>
-    <p  class="employeeInfo" th:text="${employeeInfo}"></p>
-    <a class="returnButton" th:href="@{/drugstore-inventory}">Powrót</a>
+
 </div>
 
 <form method="get" th:action="@{/drugstore-inventory/add/search}">

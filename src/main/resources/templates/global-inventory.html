@@ -20,12 +20,12 @@
 
 <div class="navigationBar">
 
+    <a class="returnButton" th:href="@{/main}">Powrót</a>
+
     <form method="get" th:action="@{/global-inventory/search}">
         <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
         <button type="submit" class="searchButton">Search</button>
     </form>
-
-    <a class="returnButton" th:href="@{/main}">Powrót</a>
 
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="logoutButton">Wyloguj się</button>
