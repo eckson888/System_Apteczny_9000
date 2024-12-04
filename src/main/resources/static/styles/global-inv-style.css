@@ -7,3 +7,43 @@
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
 }
+
+.searchInput{
+    width: 500px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: initial;
+    border: 2px solid black;
+    font-size: 20px;
+}
+
+table, td, tr{
+    text-align:center;
+    padding:5px;
+    border:solid 1px black;
+    border-collapse: collapse;
+    border-spacing:0px;
+}
+
+table{
+    width:90%;
+    height:auto;
+}
+
+td{
+    white-space: nowrap;
+    padding:5px;
+    overflow:hidden;
+    max-width:100px;
+    height:40px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+

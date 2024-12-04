@@ -5,40 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Stan Apteki</title>
     <base href="/">
+    <link rel="stylesheet" th:href="@{styles/drugstore-inv-style.css}"/>
     <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
 </head>
-<style>
-
-    table, th, td {
-        border:1px solid black;
-    }
-    th,td {
-        padding: 5px 10px;
-    }
-</style>
 <body>
 
-<div class="navigationBar">
+<div class="navigationBar_">
 
-    <a class="returnButton" th:href="@{/main}">Powrót</a>
+    <div class="navigationThird">
+        <a class="returnButton" th:href="@{/main}">Powrót</a>
+
+        <a class="addDrugButton" th:href="@{/drugstore-inventory/add}">Dodaj Lek</a>
+
+        <a class="sellButton" th:href="@{/drugstore-inventory/cart}">Sprzedaj</a>
+    </div>
+
+    <form method="get" th:action="@{/drugstore-inventory/search}" class="searchForm_">
+        <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
+        <button type="submit" class="searchButton">Search</button>
+    </form>
 
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="logoutButton">Wyloguj się</button>
     </form>
-    <p  class="employeeInfo" th:text="${employeeInfo}"></p>
 
 </div>
 
-<a th:href="@{/drugstore-inventory/add}">Dodaj Lek</a>
-<a th:href="@{/drugstore-inventory/cart}">Sprzedaj</a>
 
-<div>
+
+<div class="content">
     <h2>Stan magazynowy w aptece: </h2>
-
-    <form method="get" th:action="@{/drugstore-inventory/search}" >
-        <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
-        <button type="submit" class="searchButton">Search</button>
-    </form>
 
     <table>
         <tr>

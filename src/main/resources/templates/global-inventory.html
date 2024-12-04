@@ -6,23 +6,16 @@
     <title>Stan Apteki</title>
     <base href="/">
     <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
+    <link rel="stylesheet" th:href="@{styles/global-inv-style.css}"/>
 </head>
-<style>
 
-    table, th, td {
-        border:1px solid black;
-    }
-    th,td {
-        padding: 5px 10px;
-    }
-</style>
 <body>
 
 <div class="navigationBar">
 
     <a class="returnButton" th:href="@{/main}">Powrót</a>
 
-    <form method="get" th:action="@{/global-inventory/search}">
+    <form method="get" th:action="@{/global-inventory/search}" class="searchForm">
         <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
         <button type="submit" class="searchButton">Search</button>
     </form>
@@ -53,6 +46,7 @@
             </td>
         </tr>
     </table>
+    <!--      TODO wyrownac ta jebana tabelke zeby kazda komurka byla ruwna -->
     <div>
         <span th:text="'Page ' + (${currentPage + 1}) + ' of ' + ${totalPages}"></span>
 

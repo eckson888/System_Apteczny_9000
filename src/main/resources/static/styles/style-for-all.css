@@ -4,6 +4,8 @@ html,body{
     margin:0;
     font-family: Roboto Mono, monospace;
     background-color: rgba(218, 216, 208, 1);
+    font-weight: bold;
+    color:black;
 }
 
 .navigationBar{
@@ -46,7 +48,7 @@ html,body{
 
 .logoutButton{
 
-    margin: auto 20px auto 0px;
+    margin: 0px 20px 0px 0px;
     width:150px;
     padding: 13px;
     float: right;
@@ -65,10 +67,10 @@ html,body{
     border: 2px, solid rgba(0, 0, 0, 1);
 }
 .returnButton{
+    margin: 0px 0px 0px 20px;
     font-size: 15px;
     cursor: pointer;
-    width:150px;
-    margin: auto auto auto 20px;
+    width:120px;
     padding:13px;
     text-decoration:none;
     color:black;
@@ -98,4 +100,7 @@ html,body{
     justify-content:center;
     text-align:center;
     color:gray;
+}
+.searchForm{
+    margin:auto auto auto auto;
 }
