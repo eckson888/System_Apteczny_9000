@@ -11,6 +11,8 @@
 <!--<div class="navigationBar">-->
 <!--    <a class="returnButton" th:href="@{/login}">Powrót</a>-->
 <!--</div>-->
+<div class="kontencik">
+<img src="img/napis-logo.png">
 
 <div class="drugstoreLoginContent">
     <form th:action="@{/login/drugstore}" method="post" class="loginPanel">
@@ -29,6 +31,6 @@
         <div th:if="${message}" th:text="${message}" class="msg"></div>
     </form>
 </div>
-
+</div>
 </body>
 </html>

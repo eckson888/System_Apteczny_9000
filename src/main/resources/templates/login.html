@@ -7,8 +7,11 @@
     <link rel="stylesheet" th:href="@{styles/login-style.css}"/>
 </head>
 <body>
+<div class="kontencik">
+    <img src="img/napis-logo.png">
 
-<div class="loginContent">
+    <div class="loginContent">
+
     <form th:action="@{/login}" method="post" class="loginPanel">
         <h1 class="loginHeader">Logowanie</h1>
         <div class="loginDiv">
@@ -26,6 +29,6 @@
 
     </form>
 </div>
-
+</div>
 </body>
 </html>

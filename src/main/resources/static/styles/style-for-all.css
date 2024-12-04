@@ -3,7 +3,7 @@ html,body{
     height:100%;
     margin:0;
     font-family: Roboto Mono, monospace;
-    background-color: rgba(218, 216, 208, 1);
+    background-color: #d0d2da;
     font-weight: bold;
     color:black;
 }

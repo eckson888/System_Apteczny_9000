@@ -64,8 +64,8 @@
             Next
         </a>
     </div>
-    <h3>Najblizsza apteka: <span  id="closestDrugstore"></span></h3>
-    <h3>Najtansza apteka: <span  id="cheapestDrugstore"></span></h3>
+    <h3><span  id="closestDrugstore"></span></h3>
+    <h3><span  id="cheapestDrugstore"></span></h3>
 </div>
 
 <div class="stupka">
@@ -87,8 +87,8 @@
             .then((resArray) => {
             if (Array.isArray(resArray))
             {
-                closestField.textContent = resArray[0];
-                cheapestField.textContent = resArray[1];
+                closestField.textContent = "Najblizsza apteka: " + resArray[0];
+                cheapestField.textContent = "Najtansza apteka: " + resArray[1];
                 console.log("Najblizsza apteka: " + resArray[0]);
                 console.log("Najtansza apteka: " + resArray[1]);
             } else {

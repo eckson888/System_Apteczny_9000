@@ -12,12 +12,13 @@
     width: 500px;
     height: 40px;
     border-radius: 10px;
-    background-color: initial;
+    background-color: #ecedf0;
     border: 2px solid black;
     font-size: 20px;
 }
 
 table, td, tr{
+    background-color: #ecedf0;
     text-align:center;
     padding:5px;
     border:solid 1px black;
@@ -28,6 +29,10 @@ table, td, tr{
 table{
     width:90%;
     height:auto;
+}
+
+th {
+    background-color: #b5b6bd;
 }
 
 td{

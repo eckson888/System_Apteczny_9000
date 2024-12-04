@@ -1,47 +1,61 @@
- body {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     height: 100vh;
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
- .drugstoreLoginContent {
-     background-color: white;
-     padding: 20px;
-     border-radius: 8px;
-     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-     width: fit-content;
+.kontencik {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
- h1 {
-     text-align: center;
+img {
+    margin-top: -200px;
 }
 
- input {
-     display:flex;
-     margin:0 auto;
-     padding: 10px;
-     margin-bottom: 10px;
-     border: 1px solid rgba(0, 0, 0, 0.33);
-     border-radius: 6px;
+.drugstoreLoginContent {
+    margin-top: 100px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    width: fit-content;
 }
 
- input:focus {
+h1 {
+    text-align: center;
+}
+
+input {
+    display:flex;
+    margin:0 auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.33);
+    border-radius: 6px;
+}
+
+input:focus {
     outline: none;
     border: 1px solid rgba(0, 0, 0, 1);
 }
 
- button {
-     padding: 10px;
-     background-color: rgba(218, 216, 208, 0.5);
-     border: none;
-     border-radius: 6px;
-     cursor: pointer;
-     font-size: 16px;
+button {
+    padding: 10px;
+    background-color: #d0d2da;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
- button:hover{
-     background-color:rgba(218, 216, 208, 1);
+button:hover{
+    background-color: #b5b6bd;
 }
 
 .msg {
