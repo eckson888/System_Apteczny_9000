@@ -22,8 +22,8 @@ public class GeneralDrugDatabase implements IGeneralDrugDatabase{
     private final String GET_100_BY_ALL=
             "SELECT i FROM Drug i " +
                     "WHERE LOWER(i.name) LIKE LOWER(:keyword) " +
-                    "OR LOWER(i.activeSubstance) LIKE LOWER(:keyword) " +         //to query moznaby zmienic jakos zeby lepsze bylo
-                    "OR LOWER(i.pharmaceuticalForm) LIKE LOWER(:keyword) " +      //TODO
+                    "OR LOWER(i.activeSubstance) LIKE LOWER(:keyword) " +
+                    "OR LOWER(i.pharmaceuticalForm) LIKE LOWER(:keyword) " +
                     "ORDER BY i.name";
 
     private final String GET_ALL="FROM com.gopnik.Drug";    //zostawiam to bo nie moge XDDDXDXDD medal dla uzytkownika zouek

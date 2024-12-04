@@ -163,13 +163,6 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
         return result;
     }
 
-//    @Override
-//    public List<DrugstoreItem> getAllExcludingCurrentDrugstoreId(Long drugstoreId) {
-//        TypedQuery<DrugstoreItem> query = entityManager.createQuery(GET_ALL_EXCLUDE_CURRENT_ID, DrugstoreItem.class);
-//        query.setParameter("id",drugstoreId);
-//        List<DrugstoreItem> result = query.getResultList();
-//        return result;
-//    }
 
     public void save(DrugstoreItem item) {
         this.jpaDrugstoreItemInterface.save(item);
@@ -206,23 +199,17 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
 
 
     public int countAllExcludingCurrentDrugstoreId(Long drugstoreId) {
-        Query query = entityManager.createQuery(
-                "SELECT COUNT(i) FROM DrugstoreItem i WHERE i.drugstore.id != :id"
-        );
+        Query query = entityManager.createQuery(GET_ALL_EXCLUDE_CURRENT_ID,DrugstoreItem.class);
         query.setParameter("id", drugstoreId);
-        return ((Long) query.getSingleResult()).intValue();
+
+        return query.getResultList().size();
     }
 
     public int countByKeywordExcludingCurrentDrugstoreId(String keyword, Long drugstoreId) {
-        Query query = entityManager.createQuery(
-                "SELECT COUNT(i) FROM DrugstoreItem i " +
-                        "WHERE i.drugstore.id != :drugstoreId " +
-                        "AND (LOWER (i.drug.name) LIKE LOWER(:keyword)"+
-                        " OR LOWER(i.drug.commonName) LIKE LOWER(:keyword))"
-        );
-        query.setParameter("drugstoreId", drugstoreId);
+        Query query = entityManager.createQuery(GET_BY_KEYWORD_EXCLUDE_CURRENT_ID,DrugstoreItem.class);
+        query.setParameter("id", drugstoreId);
         query.setParameter("keyword", "%" + keyword + "%");
-        return ((Long) query.getSingleResult()).intValue();
+        return query.getResultList().size();
     }
 
     public int countAllByCurrentDrugstoreId(Long drugstoreId) {
@@ -234,15 +221,10 @@ public class DrugstoreItemRepository implements DrugstoreItemInterface {
     }
 
     public int countByKeywordAndCurrentDrugstoreId(String keyword, Long drugstoreId) {
-        Query query = entityManager.createQuery(
-                "SELECT COUNT(i) FROM DrugstoreItem i " +
-                        "WHERE i.drugstore.id = :drugstoreId " +
-                        "AND (LOWER (i.drug.name) LIKE LOWER(:keyword)"+
-                        "OR LOWER(i.drug.commonName) LIKE LOWER(:keyword))"
-        );
-        query.setParameter("drugstoreId", drugstoreId);
+        Query query = entityManager.createQuery(GET_BY_KEYWORD_AND_DRUGSTOREID,DrugstoreItem.class);
+        query.setParameter("id", drugstoreId);
         query.setParameter("keyword", "%" + keyword + "%");
-        return ((Long) query.getSingleResult()).intValue();
+        return query.getResultList().size();
     }
 
     public List<DrugstoreItem> getAllPagedDrugstoreItems(Long drugstoreId, int page, int size)

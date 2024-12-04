@@ -78,9 +78,9 @@ public class DrugstoreInventoryController {
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public String search(
             @RequestParam String keyword,
-            @RequestParam(defaultValue = "0") int page,                                    //TODO zrobic paginacje gdy jest duzo itemow po szukaniu keywordem
-            @RequestParam(defaultValue = "10") int size,                                   //EDIT: zrobilem ale nie testowalem bo nie ma tyle wpisuw zeby wgl byly strony
-            Model model){                                                                  // zakladam ze dziala
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model){
         model.addAttribute("keyword", keyword);
         List<DrugstoreItem> items;
         int totalItems;

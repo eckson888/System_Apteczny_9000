@@ -59,8 +59,8 @@ public class CartService {
             quantitiesToSell = (cart.getItems().get(0).getQuantity());
             log.info(String.valueOf(quantitiesToSell));
             cart.removeItem(toBeSold,quantitiesToSell);
-            drugstoreItemService.removeDrugstoreItem(toBeSold, quantitiesToSell);
-        }
+            drugstoreItemService.removeDrugstoreItem(toBeSold, quantitiesToSell);                           //TODO zrobic ze jak leci logout usera to jego koszyk sie czysci
+        }                                                                                                   //albo cos zeby sie nie nakladaly te koszyki z roznych aptek nwm
         return cartRepository.save(cart);
     }
 
