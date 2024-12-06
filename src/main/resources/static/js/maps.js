@@ -16,6 +16,8 @@ function initMap() {
         zoom: 12,
         center: lubLeanCenter,
         mapTypeId: "roadmap",
+        mapTypeControl: false,
+        streetViewControl: false,
     });
 }
 
