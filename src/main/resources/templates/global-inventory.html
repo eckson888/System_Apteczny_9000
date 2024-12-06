@@ -7,6 +7,7 @@
     <base href="/">
     <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
     <link rel="stylesheet" th:href="@{styles/global-inv-style.css}"/>
+    <script th:src="@{js/maps.js}"></script>
 </head>
 
 <body>
@@ -42,7 +43,7 @@
             <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
             <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
             <td>
-                <button th:onclick="closestDrugstore([[${drugstoreItem.id}]])" class="editButton">Pokaz info</button>
+                <button th:onclick="closestDrugstore([[${drugstoreItem.id}]], [[${currentAddress}]])" class="editButton">Pokaz info</button>
             </td>
         </tr>
     </table>
@@ -68,6 +69,12 @@
     <h3><span  id="cheapestDrugstore"></span></h3>
 </div>
 
+<div id="map"></div>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnW4YZA6T-0rsG1ZzAvK6lvSn10QaC-WI&callback=initMap&v=weekly"
+        defer
+></script>
+
 <div class="stupka">
     <p>eckson888 / kacper dega / zouuek</p>
 </div>
@@ -75,12 +82,14 @@
 </body>
 
 <script th:inline="javascript">
-    function closestDrugstore(drugstoreItemId)
+    function closestDrugstore(drugstoreItemId, currentDrugstoreAddress)
     {
         console.log(drugstoreItemId);
         let closestField = document.getElementById('closestDrugstore');
         let cheapestField = document.getElementById('cheapestDrugstore');
         let link = "http://localhost:8080/global-inventory/closest-drugstore/" + drugstoreItemId;
+
+        deleteMarkers();
 
         fetch(link)
             .then(res => res.json())
@@ -89,6 +98,9 @@
             {
                 closestField.textContent = "Najblizsza apteka: " + resArray[0];
                 cheapestField.textContent = "Najtansza apteka: " + resArray[1];
+                setHomeMarker(currentDrugstoreAddress);
+                codeAddress(resArray[0]);
+                codeAddress(resArray[1]);
                 console.log("Najblizsza apteka: " + resArray[0]);
                 console.log("Najtansza apteka: " + resArray[1]);
             } else {

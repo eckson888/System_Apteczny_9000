@@ -34,11 +34,12 @@ public class GlobalDrugstoreInventoryController {
 
 
     @GetMapping("")
-    public String main(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,  Model model) {
+    public String main(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, Model model) {
 
         Employee currentEmployee = employeeService.getCurrentEmployee();
-        List<DrugstoreItem> items = drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId(), page, size);
-        int totalItems = drugstoreItemService.countAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId());
+        Long currentDrugstoreId = employeeService.getCurrentDrugstoreId();
+        List<DrugstoreItem> items = drugstoreItemService.getAllExcludingCurrentDrugstoreId(currentDrugstoreId, page, size);
+        int totalItems = drugstoreItemService.countAllExcludingCurrentDrugstoreId(currentDrugstoreId);
         int totalPages = (int) Math.ceil((double) totalItems / size);
 
         // Add attributes to the model
@@ -47,6 +48,8 @@ public class GlobalDrugstoreInventoryController {
         model.addAttribute("totalPages", totalPages); // Total number of pages
         model.addAttribute("size", size); // Page size
         model.addAttribute("isSearch", 0); // TO MA WIEKSZY SENS NIZ SIE MOZE WYDAWAC
+        //TODO: jebany optional zostawic to tak jak jest albo to zrobic jakos sensownie
+        model.addAttribute("currentAddress", drugstoreService.getById(currentDrugstoreId).orElseThrow().getFullAddress());
 
         return "global-inventory";
     }
@@ -69,19 +72,23 @@ public class GlobalDrugstoreInventoryController {
             items = drugstoreItemService.getAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId(), page, size);
             totalItems = drugstoreItemService.countAllExcludingCurrentDrugstoreId(employeeService.getCurrentDrugstoreId());
         }
-        int totalPages = (int) Math.ceil ((double) totalItems / size);
+        int totalPages = (int) Math.ceil((double) totalItems / size);
         model.addAttribute("allDrugstoreItems", items);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("size", size);
         model.addAttribute("isSearch", 1);
+
+        Long currentDrugstoreId = employeeService.getCurrentDrugstoreId();
+        //TODO: tu również optional
+        model.addAttribute("currentAddress", drugstoreService.getById(currentDrugstoreId).orElseThrow().getFullAddress());
+
         return "global-inventory";
     }
 
     @GetMapping(path = "/closest-drugstore/{id}")
     @ResponseBody
-    public List<String> findClosestAndCheapestDrugstore(@PathVariable Long id, Model model)
-    {
+    public List<String> findClosestAndCheapestDrugstore(@PathVariable Long id, Model model) {
 
         Long currentDrugstoreID = employeeService.getCurrentDrugstoreId();
         String currentDrugstoreAddress = drugstoreService.getDrugstoreAddressById(currentDrugstoreID);
@@ -91,20 +98,18 @@ public class GlobalDrugstoreInventoryController {
 
         result.add(googleMapsService.findClosestDrugstore(currentDrugstoreAddress, drugstores));
 
-        List<DrugstoreItem> cheapestList = drugstoreItemService.getDrugstoreItemsByDrug(drugstoreItemService.getDrugstoreItemById(id),currentDrugstoreID);
+        List<DrugstoreItem> cheapestList = drugstoreItemService.getDrugstoreItemsByDrug(drugstoreItemService.getDrugstoreItemById(id), currentDrugstoreID);
 
         DrugstoreItem cheapestItem = cheapestList.get(0);
-        for(DrugstoreItem d: cheapestList)
-        {
-            if(d.getPrice().compareTo(cheapestItem.getPrice()) <0)
-            {
-                cheapestItem=d;
+        for (DrugstoreItem d : cheapestList) {
+            if (d.getPrice().compareTo(cheapestItem.getPrice()) < 0) {
+                cheapestItem = d;
             }
         }
 
-        String cheapestItemString = cheapestItem.getDrugstore().getFullAddress() +". Cena: " + cheapestItem.getPrice().toString()+"zł";
+        String cheapestItemString = cheapestItem.getDrugstore().getFullAddress() + ". Cena: " + cheapestItem.getPrice().toString() + "zł";
         result.add(cheapestItemString);
-        model.addAttribute("closestDrugstore",result);
+        model.addAttribute("closestDrugstore", result);
         return result;
     }
 
