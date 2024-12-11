@@ -34,6 +34,6 @@ public class EventLog {
 
     @Override
     public String toString() {
-        return timestamp + " | " + username + " | " + eventDescription;
+        return timestamp + " | " + username + " | " + drugstoreId + " | " + eventDescription;
     }
 }
