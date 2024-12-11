@@ -1,6 +1,7 @@
 package org.gopnik.service;
 
 import jakarta.transaction.Transactional;
+import org.gopnik.model.Employee;
 import org.gopnik.model.EventLog;
 import org.gopnik.repository.EmployeeRepository;
 import org.gopnik.repository.EventLogRepository;
@@ -20,8 +21,9 @@ public class EventLogService {
 
     @Transactional
     public void addEventLog(String eventDescription) {
-        EventLog tmp = new EventLog(employeeService.getCurrentEmployee().getUsername(), eventDescription);
-        eventLogRepository.save(tmp);
+        Employee currentUser = employeeService.getCurrentEmployee();
+        EventLog newLog = new EventLog(currentUser.getUsername(), currentUser.getDrugstoreId(), eventDescription);
+        eventLogRepository.save(newLog);
     }
 
     public List<EventLog> getAllLogs() {

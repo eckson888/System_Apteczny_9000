@@ -21,11 +21,14 @@ public class EventLog {
     @NotBlank
     private String username;
 
+    private Long drugstoreId;
+
     private String eventDescription;
 
-    public EventLog(String username, String eventDescription) {
+    public EventLog(String username, Long drugstoreId, String eventDescription) {
         this.timestamp = LocalDateTime.now();
         this.username = username;
+        this.drugstoreId = drugstoreId;
         this.eventDescription = eventDescription;
     }
 
