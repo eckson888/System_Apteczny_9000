@@ -28,6 +28,7 @@ public class EventLogService {
         eventLogRepository.save(newLog);
     }
 
+
     public List<EventLog> getAllLogs() {
         return this.eventLogRepository.findAll();
     }

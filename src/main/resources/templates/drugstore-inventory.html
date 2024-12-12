@@ -54,7 +54,12 @@
             <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
             <td th:text="${drugstoreItem.getQuantity}"></td>
             <td>
-                <a th:href="@{/drugstore-inventory/buy/{itemId}/1(itemId=${drugstoreItem.getId})}">Add to cart </a>
+                <span>
+                    <a th:href="@{/drugstore-inventory/buy/{itemId}/1(itemId=${drugstoreItem.getId})}">
+                    <img src="https://www.iconpacks.net/icons/2/free-add-to-cart-icon-3046-thumb.png" style="height: 100%; width: 10%;">
+                    </a>
+                </span>
+
             </td>
         </tr>
     </table>
