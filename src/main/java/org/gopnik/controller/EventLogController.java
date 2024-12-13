@@ -30,7 +30,7 @@ public class EventLogController {
         return "event-logs";
     }
 
-    @GetMapping(path = "/{date}")
+    @GetMapping(path = "/{targetDate}")
     @ResponseBody
     public List<String> getLogsFromDate(@PathVariable String targetDate, Model model) {
         LocalDate date = LocalDate.parse(targetDate, DateTimeFormatter.ISO_DATE);

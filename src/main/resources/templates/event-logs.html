@@ -4,24 +4,56 @@
     <meta charset="UTF-8">
     <title>Logs</title>
     <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
+    <link rel="stylesheet" th:href="@{styles/event-log-style.css}"/>
 </head>
 <body>
     <h2>JEŚLI TO CZYTASZ, JUŻ JEST ZA PÓŹNO</h2>
 
     <h3 th:text="${minDate}"></h3>
-    <input type="date" th:min="${minDate}" th:max="${#dates.format(#dates.createNow() , 'yyyy-MM-dd')}">
+
+    <th:block th:with="today=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></th:block>
+    <input type="date" id="datePicker" th:min="${minDate}" th:max="${today}"  th:value="${today}">
     <button onclick="reloadLogs()">ZAŁADUJ LOGI</button>
 
     <div id="logsContainer">
+<!--        TODO: TO NIZEJ TO DO WYJEBANIA CHYBA, EWENTUALNIE WCZYTYWAC LOGI DZISIEJSZE PRZY WEJSCIU NA STRONE-->
     <p th:each="eventLog: ${allLogs}" th:text="${eventLog.toString()}"></p>
     </div>
 
     <img th:src="@{/img/zlewozmywakfake.png}">
 </body>
 <script>
-//    TODO: ZROBIC WCZYTYWANIE LOGOW NA PODSTAWIE DATY, EWENTUALNIE POZNIEJ SPROBOWAC DODAC POBIERANIE LOGOW JAKO TXT
     function reloadLogs(){
+        let date = document.getElementById("datePicker").value;
+        document.getElementById("datePicker").value;
 
+        let logsContainer = document.getElementById("logsContainer");
+
+        let link = "http://localhost:8080/logs/" + date;
+
+        fetch(link)
+            .then(res => res.json())
+            .then((resArray) => {
+            if (Array.isArray(resArray))
+            {
+                logsContainer.innerHTML = "";
+
+                resArray.forEach(addLogFromArray);
+
+                if(resArray.length == 0)  logsContainer.innerHTML = "NO LOGS AT " + date;
+            } else {
+                logsContainer.innerHTMl = "<p>INVALID RESPONSE</p>";
+            }
+        })
+            .catch(err => {
+            logsContainer.innerHTMl = "<p>ERROR</p>";
+            console.error("Error fetching data: ", err);
+        });
+    }
+
+    function addLogFromArray(text){
+        let tagText = "<p>"+text+"</p>"
+        document.getElementById("logsContainer").innerHTML += tagText;
     }
 </script>
 </html>
