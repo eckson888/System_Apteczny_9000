@@ -18,6 +18,7 @@ html,body{
     width: 100%;
     color: black;
     border-bottom:1px solid gray;
+    background-color: #017979;
 }
 
 .textLogo{
@@ -54,16 +55,17 @@ html,body{
     float: right;
     transition-duration: 0.4s;
     text-decoration: none;
-    background-color: transparent;
+    background-color: #7badad;
     color: black;
     border: 2px solid black;
     font-size: 15px;
     cursor: pointer;
     border-radius: 10px;
+    font-family: monospace;
+    font-weight: bold;
 }
 .logoutButton:hover{
-    color: black;
-    background-color: white;
+    background-color: #4c9392;
     border: 2px, solid rgba(0, 0, 0, 1);
 }
 .returnButton{
@@ -78,13 +80,13 @@ html,body{
     border-radius:10px;
     float:left;
     transition-duration: 0.4s;
-    background-color: transparent;
+    background-color: #7badad;
     text-align:center;
 }
 
 .returnButton:hover{
     color: black;
-    background-color: white;
+    background-color: #4c9392;
     border: 2px, solid black;
 }
 

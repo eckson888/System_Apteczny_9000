@@ -22,7 +22,9 @@
 
     <form method="get" th:action="@{/drugstore-inventory/search}" class="searchForm_">
         <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
-        <button type="submit" class="searchButton">Search</button>
+        <span>
+        <button type="submit" class="searchButton">🔎︎</button>
+        </span>
     </form>
 
     <form th:action="@{/logout}" method="post">
