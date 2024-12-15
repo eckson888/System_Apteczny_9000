@@ -64,11 +64,52 @@ th {
 td{
     white-space: nowrap;
     padding:5px;
-    overflow:hidden;
+    overflow:auto;
     max-width:100px;
     height:40px;
+    text-overflow: clip clip;
 }
 
+td::-webkit-scrollbar {
+    height: 9px;
+    background-color:transparent;
+}
+
+td::-webkit-scrollbar-corner,
+td::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+td::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
+
+td::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(112, 112, 112);
+    transition: 0.5s;
+}
+
+td::-webkit-scrollbar-thumb:active {
+    background-color: rgb(128, 128, 128);
+} /*
+    TODO zrobić żeby jak sie najedzie na dany row tabeli to sie wtedy od razu wyswietlają te scrollbary !
+*/
+
+
+
+
+table td:nth-child(7){
+    width: 50px;
+}
+table td:nth-child(6){
+    width: 50px;
+}
+table td:nth-child(5){
+    width: 80px;
+}
 .content{
     display: flex;
     flex-direction: column;
@@ -119,4 +160,9 @@ td{
     margin-right: auto;
     flex-shrink:0;
 
+}
+.paging{
+    margin-top: 7px;
+    font-family: monospace;
+    font-size: 17px;
 }

@@ -36,7 +36,7 @@
 
 
 <div class="content">
-    <h2>Stan magazynowy w aptece: </h2>
+    <h2>Stan magazynowy</h2>
 
     <table>
         <tr>
@@ -56,11 +56,15 @@
             <td th:text="${drugstoreItem.getPrice} + ' zł'"></td>
             <td th:text="${drugstoreItem.getQuantity}"></td>
             <td>
-                <a th:href="@{/drugstore-inventory/buy/{itemId}/1(itemId=${drugstoreItem.getId})}">Add to cart </a>
+                  <span>
+                    <a th:href="@{/drugstore-inventory/buy/{itemId}/1(itemId=${drugstoreItem.getId})}">
+                    <img src="https://www.iconpacks.net/icons/2/free-add-to-cart-icon-3046-thumb.png" style="height: 100%; width: 50%; padding-right:5px; padding-top: 5px;">
+                    </a>
+                  </span>
             </td>
         </tr>
     </table>
-    <div>
+    <div class="paging">
         <span th:text="'Page ' + (${currentPage + 1}) + ' of ' + ${totalPages}"></span>
 
         <a th:if="${currentPage > 0}"
