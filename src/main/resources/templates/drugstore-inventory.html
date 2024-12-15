@@ -13,6 +13,9 @@
 <div class="navigationBar_">
 
     <div class="navigationThird">
+
+        <a class="logo">Stan magazynowy</a>
+
         <a class="returnButton" th:href="@{/main}">Powrót</a>
 
         <a class="addDrugButton" th:href="@{/drugstore-inventory/add}">Dodaj Lek</a>
@@ -36,10 +39,11 @@
 
 
 <div class="content">
-    <h2>Stan magazynowy</h2>
+
 
     <table>
-        <tr>
+        <tbody>
+        <tr class="headerRow">
             <th>Nazwa</th>
             <th>Common Nazwa</th>
             <th>Substancja aktywna</th>
@@ -48,7 +52,7 @@
             <th>Ilość</th>
             <th>Dodaj do zamówienia</th>
         </tr>
-        <tr th:each="drugstoreItem: ${drugstoreInventory}">
+        <tr th:each="drugstoreItem: ${drugstoreInventory}" class="contentRow">
             <td th:text="${drugstoreItem.getDrugName}"></td>
             <td th:text="${drugstoreItem.getDrugCommonName}"></td>
             <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
@@ -63,22 +67,25 @@
                   </span>
             </td>
         </tr>
+        </tbody>
     </table>
     <div class="paging">
-        <span th:text="'Page ' + (${currentPage + 1}) + ' of ' + ${totalPages}"></span>
-
-        <a th:if="${currentPage > 0}"
+        <a th:if="${currentPage > 0}" style="color: black; font-size:15px; text-decoration:none; margin-right:20px;"
            th:href="${isSearch} ?
                 @{/drugstore-inventory/search(keyword=${keyword}, page=${currentPage - 1})} :
                 @{/drugstore-inventory(page=${currentPage - 1})}">
-            Previous
+            < Poprzednia
         </a>
 
-        <a th:if="${currentPage < totalPages - 1}"
+        <span th:text="'Strona ' + (${currentPage + 1}) + ' z ' + ${totalPages}"></span>
+
+
+
+        <a th:if="${currentPage < totalPages - 1}" style="color: black; font-size: 15px; text-decoration:none; margin-left:20px"
            th:href="${isSearch} ?
                 @{/drugstore-inventory/search(keyword=${keyword}, page=${currentPage + 1})} :
                 @{/drugstore-inventory(page=${currentPage + 1})}">
-            Next
+            Następna >
         </a>
     </div>
 </div>
