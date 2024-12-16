@@ -70,9 +70,11 @@ td{
     height:40px;
     text-overflow: clip clip;
 }
-.contentRow:hover {
-    background-color: red; /*TODO zrobic zeby to kurwa dzialalo ja pierdole */
+
+tr:hover td{
+    background-color: #cdced1  !important;
 }
+
 td::-webkit-scrollbar {
     height: 9px;
     background-color:transparent;
@@ -122,6 +124,13 @@ table td:nth-child(5){
     align-content: center;
 }
 
+.cartImage{
+    height: 100%;
+    width: 50%;
+    padding-right:5px;
+    padding-top: 5px;
+    background-color:transparent;
+}
 
 .navigationBar_{
     display:flex;

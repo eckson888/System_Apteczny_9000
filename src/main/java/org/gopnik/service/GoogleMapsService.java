@@ -43,8 +43,8 @@ public class GoogleMapsService {
             }
 
             if (closestIndex != -1) {
-                String dystans = String.format("%.2f", shortestDistance / 1000).replace(',', '.') + " km";
-                return drugstores.get(closestIndex).getFullAddress() + " dystans = " + dystans;
+                String dystans = String.format("%.2f", shortestDistance / 1000).replace(',', '.') + " km.";
+                return drugstores.get(closestIndex).getFullAddress() + ". Dystans: " + dystans;
             } else {
                 return "nie udalo sie znalezc apteki";
             }

@@ -17,7 +17,7 @@
     <a class="returnButton" th:href="@{/main}">Powrót</a>
 
     <form method="get" th:action="@{/global-inventory/search}" class="searchForm">
-        <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
+        <input name="keyword" placeholder="Szukaj w innych aptekach..." th:value="${keyword}" type="text" class="searchInput">
         <button type="submit" class="searchButton">🔎︎</button>
     </form>
 
@@ -28,7 +28,6 @@
 </div>
 
 <div class="content">
-    <h2>Stan magazynowy w aptekach: </h2>
     <table>
         <tr>
             <th>Nazwa</th>
@@ -67,19 +66,26 @@
             Następna >
         </a>
     </div>
-    <h3><span  id="closestDrugstore"></span></h3>
-    <h3><span  id="cheapestDrugstore"></span></h3>
 </div>
 
-<div id="map"></div>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnW4YZA6T-0rsG1ZzAvK6lvSn10QaC-WI&callback=initMap&v=weekly"
-        defer
-></script>
+<div id="overlay" class="overlay" style="display: none;">
+    <div id="map" class="overlay-content">
+        <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnW4YZA6T-0rsG1ZzAvK6lvSn10QaC-WI&callback=initMap&v=weekly"
+                defer
+        ></script>
+    </div>
+    <div class="overlay-content">
+        <span class="close-button" onclick="closeOverlay()">×</span>
+        <p class="modalInfo"><span id="overlayClosestDrugstore"></span></p>
+        <p class="modalInfo"><span id="overlayCheapestDrugstore"></span></p>
+    </div>
+</div>
 
 <div class="stupka">
     <p>eckson888 / kacper dega / zouuek</p>
 </div>
+
 
 </body>
 
@@ -87,11 +93,17 @@
     function closestDrugstore(drugstoreItemId, currentDrugstoreAddress)
     {
         console.log(drugstoreItemId);
-        let closestField = document.getElementById('closestDrugstore');
-        let cheapestField = document.getElementById('cheapestDrugstore');
+
+        const overlay = document.getElementById('overlay');
+        const closestField = document.getElementById('overlayClosestDrugstore');
+        const cheapestField = document.getElementById('overlayCheapestDrugstore');
+        const mapDiv = document.getElementById('map');
+
         let link = "http://localhost:8080/global-inventory/closest-drugstore/" + drugstoreItemId;
 
         deleteMarkers();
+        closestField.textContent = "";
+        cheapestField.textContent = "";
 
         fetch(link)
             .then(res => res.json())
@@ -103,8 +115,6 @@
                 setHomeMarker(currentDrugstoreAddress);
                 codeAddress(resArray[0]);
                 codeAddress(resArray[1]);
-                console.log("Najblizsza apteka: " + resArray[0]);
-                console.log("Najtansza apteka: " + resArray[1]);
             } else {
                 closestField.textContent = "Invalid response";
                 cheapestField.textContent = "Invalid response";
@@ -115,6 +125,15 @@
             cheapestField.textContent = "ERROR";
             console.error("Error fetching data: ", err);
         });
+
+        overlay.style.display = "flex";
+
+    }
+
+    function closeOverlay() {
+        const overlay = document.getElementById('overlay');
+        overlay.style.display = "none";
+        deleteMarkers(); // Optionally reset the map
     }
 </script>
 </html>

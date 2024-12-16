@@ -27,7 +27,6 @@ public class CartService {
     private DrugstoreItemService drugstoreItemService;
     @Transactional
     public Cart getCart(){
-        log.info("!! wchodze do koszyka !!"); //wazne
         return employeeService.getCurrentEmployee().getCart();
     }
     @Transactional

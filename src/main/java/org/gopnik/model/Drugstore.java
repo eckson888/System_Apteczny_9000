@@ -32,6 +32,6 @@ public class Drugstore {
 
     public String getFullAddress()
     {
-        return this.city + "," + this.address;
+        return this.city + ", " + this.address;
     }
 }

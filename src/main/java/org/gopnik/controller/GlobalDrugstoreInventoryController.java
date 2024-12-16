@@ -107,7 +107,7 @@ public class GlobalDrugstoreInventoryController {
             }
         }
 
-        String cheapestItemString = cheapestItem.getDrugstore().getFullAddress() + ". Cena: " + cheapestItem.getPrice().toString() + "zł";
+        String cheapestItemString = cheapestItem.getDrugstore().getFullAddress() + ". Cena: " + cheapestItem.getPrice().toString() + "zł.";
         result.add(cheapestItemString);
         model.addAttribute("closestDrugstore", result);
         return result;

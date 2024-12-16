@@ -14,17 +14,18 @@
 
     <div class="navigationThird">
 
-        <a class="logo">Stan magazynowy</a>
-
         <a class="returnButton" th:href="@{/main}">Powrót</a>
 
         <a class="addDrugButton" th:href="@{/drugstore-inventory/add}">Dodaj Lek</a>
 
         <a class="sellButton" th:href="@{/drugstore-inventory/cart}">Sprzedaj</a>
+
+
+
     </div>
 
     <form method="get" th:action="@{/drugstore-inventory/search}" class="searchForm_">
-        <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
+        <input name="keyword" placeholder="Szukaj leku..." th:value="${keyword}" type="text" class="searchInput">
         <span>
         <button type="submit" class="searchButton">🔎︎</button>
         </span>
@@ -62,7 +63,7 @@
             <td>
                   <span>
                     <a th:href="@{/drugstore-inventory/buy/{itemId}/1(itemId=${drugstoreItem.getId})}">
-                    <img src="https://www.iconpacks.net/icons/2/free-add-to-cart-icon-3046-thumb.png" style="height: 100%; width: 50%; padding-right:5px; padding-top: 5px;">
+                    <img src="https://www.iconpacks.net/icons/2/free-add-to-cart-icon-3046-thumb.png" class="cartImage">
                     </a>
                   </span>
             </td>
