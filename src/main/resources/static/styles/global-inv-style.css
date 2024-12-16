@@ -64,22 +64,58 @@ table, td, tr{
 }
 
 table{
-    width:90%;
-    height:auto;
+    width: 90%;
+    height: auto;
+    margin-top: 33px;
 }
 
 th {
-    background-color: #b5b6bd;
+    background-color: #71a3a3;
 }
 
 td{
     white-space: nowrap;
     padding:5px;
-    overflow:hidden;
+    overflow:auto;
     max-width:100px;
     height:40px;
+    text-overflow: clip clip;
+}
+.contentRow:hover {
+    background-color: red; /*TODO zrobic zeby to kurwa dzialalo ja pierdole */
+}
+td::-webkit-scrollbar {
+    height: 9px;
+    background-color:transparent;
 }
 
+td::-webkit-scrollbar-corner,
+td::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+td::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
+
+td::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(112, 112, 112);
+    transition: 0.5s;
+}
+
+td::-webkit-scrollbar-thumb:active {
+    background-color: rgb(128, 128, 128);
+} /*
+    TODO zrobić żeby jak sie najedzie na dany row tabeli to sie wtedy od razu wyswietlają te scrollbary !
+*/
+
+
+table td:nth-child(5){
+    width: 50px;
+}
 .content{
     display: flex;
     flex-direction: column;
@@ -88,4 +124,19 @@ td{
     align-items: center;
     align-content: center;
 }
+.paging{
+    margin-top: 7px;
+    font-family: monospace;
+    font-size: 17px;
+}
+.infoButton{
+    cursor: pointer;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    margin: 0px 0px 5px 0px;
+    background: #ecedf0;
+}
+
 

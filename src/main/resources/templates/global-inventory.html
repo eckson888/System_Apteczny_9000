@@ -35,7 +35,7 @@
             <th>Common Nazwa</th>
             <th>Substancja aktywna</th>
             <th>Postać</th>
-            <th>Akcje</th>
+            <th>Info</th>
         </tr>
         <tr th:each="drugstoreItem: ${allDrugstoreItems}" id="row-${drugstoreItem.id}">
             <td th:text="${drugstoreItem.getDrugName}"></td>
@@ -43,26 +43,28 @@
             <td th:text="${drugstoreItem.getDrugActiveSubstance}"></td>
             <td th:text="${drugstoreItem.getDrugPharmaceuticalForm}"></td>
             <td>
-                <button th:onclick="closestDrugstore([[${drugstoreItem.id}]], [[${currentAddress}]])" class="editButton">Pokaz info</button>
+                <button th:onclick="closestDrugstore([[${drugstoreItem.id}]], [[${currentAddress}]])" class="infoButton"> 🛈 </button>
             </td>
         </tr>
     </table>
     <!--      TODO wyrownac ta jebana tabelke zeby kazda komurka byla ruwna -->
-    <div>
-        <span th:text="'Page ' + (${currentPage + 1}) + ' of ' + ${totalPages}"></span>
-
-        <a th:if="${currentPage > 0}"
+    <div class="paging">
+        <a th:if="${currentPage > 0}" style="color: black; font-size:15px; text-decoration:none; margin-right:20px;"
            th:href="${isSearch} ?
                 @{/global-inventory/search(keyword=${keyword}, page=${currentPage - 1})} :
                 @{/global-inventory(page=${currentPage - 1})}">
-            Previous
+            < Poprzednia
         </a>
 
-        <a th:if="${currentPage < totalPages - 1}"
+        <span th:text="'Strona ' + (${currentPage + 1}) + ' z ' + ${totalPages}"></span>
+
+
+
+        <a th:if="${currentPage < totalPages - 1}" style="color: black; font-size: 15px; text-decoration:none; margin-left:20px"
            th:href="${isSearch} ?
                 @{/global-inventory/search(keyword=${keyword}, page=${currentPage + 1})} :
                 @{/global-inventory(page=${currentPage + 1})}">
-            Next
+            Następna >
         </a>
     </div>
     <h3><span  id="closestDrugstore"></span></h3>
