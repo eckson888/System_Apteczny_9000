@@ -4,37 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Add drugstoreItem</title>
+    <title>Inwentaryzacja</title>
     <base href="/">
+    <link rel="stylesheet" th:href="@{styles/drug-form-style.css}"/>
     <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
-    <style>
-        .modal {
-    display: none;
-    position: fixed;
-    top: 10%;
-    left: 35%;
-    width: 60%;
-    height: 60%;
-    background-color: transparent;
-    padding-top: 50px;
-    margin: auto;
-    z-index: 1;
-}
 
-
-.modal-content {
-    background-color: #212121;
-    margin: 5% auto 15% auto;
-    animation: fadeBackground 0.3s;
-    animation-fill-mode: forwards;
-
-}
-       .clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-    </style>
 </head>
 <body>
 
@@ -71,23 +45,23 @@
     <form class="modal-content" method="post">
 
         <div class="container">
-            <h1>Dodaaawanie :D</h1>
+            <h1 class="modal-header-text">Dodaj nowy lek</h1>
             <div class="clearfix">
-                <button type="button" id="cancel"
-                        onclick="document.getElementById('id01').style.display='none'">Powrót
-                </button>
+
 
                 <form method="post">
                     <input type="text" hidden="hidden" id="drugId" th:name="drugId"/>
-                    <div>
-                        <label for="quantity">Quantity</label>
-                        <input type="number" step="1" min="0" placeholder="Quantity" th:field="*{drugstoreItem.quantity}"
-                               id="quantity" required>
+                    <div class="quantity-div">
+                        <label for="quantity" class="modal-label">Ilość:</label>
+                        <input type="number" step="1" min="0" placeholder="Ilość" th:field="*{drugstoreItem.quantity}" required class="modal-input" id="quantity">
                     </div>
-                    <div>
-                        <label for="Price">Price</label>
-                        <input type="number" step="0.01" min="0" placeholder="Price" th:field="*{drugstoreItem.price}" id="price" required>
+                    <div class="price-div">
+                        <label for="Price" class="modal-label">Cena:</label>
+                        <input type="number" step="0.01" min="0" placeholder="Price" th:field="*{drugstoreItem.price}" id="price" required class="modal-input">
                     </div>
+                    <button type="button" id="cancel"
+                            onclick="document.getElementById('id01').style.display='none'">Powrót
+                    </button>
                     <button type="submit">Dodaj</button>
                 </form>
 
