@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "logs")
@@ -26,7 +27,7 @@ public class EventLog {
     private String eventDescription;
 
     public EventLog(String username, Long drugstoreId, String eventDescription) {
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         this.username = username;
         this.drugstoreId = drugstoreId;
         this.eventDescription = eventDescription;
@@ -34,6 +35,6 @@ public class EventLog {
 
     @Override
     public String toString() {
-        return timestamp + " | " + username + " | " + drugstoreId + " | " + eventDescription;
+        return timestamp.toString().replace('T',' ') + " | " + username + " | " + drugstoreId + " | " + eventDescription;
     }
 }

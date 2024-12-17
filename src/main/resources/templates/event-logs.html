@@ -11,9 +11,10 @@
 
     <h3 th:text="${minDate}"></h3>
 
-    <th:block th:with="today=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></th:block>
+    <th:block th:with="today=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
     <input type="date" id="datePicker" th:min="${minDate}" th:max="${today}"  th:value="${today}">
     <button onclick="reloadLogs()">ZAŁADUJ LOGI</button>
+    <th:block>
 
     <div id="logsContainer">
 <!--        TODO: TO NIZEJ TO DO WYJEBANIA CHYBA, EWENTUALNIE WCZYTYWAC LOGI DZISIEJSZE PRZY WEJSCIU NA STRONE-->

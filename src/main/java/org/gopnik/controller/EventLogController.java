@@ -43,3 +43,4 @@ public class EventLogController {
 }
 
 //LocalDateTime.parse("2019-12-31T19:15:30");
+//https://dev.to/rpkr/different-ways-to-send-a-file-as-a-response-in-spring-boot-for-a-rest-api-43g7
