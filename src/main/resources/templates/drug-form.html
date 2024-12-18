@@ -12,9 +12,14 @@
 </head>
 <body>
 
-<div class="navigationBar">
+<div class="navigationBar_">
 
     <a class="returnButton" th:href="@{/drugstore-inventory}">Powrót</a>
+
+    <form method="get" th:action="@{/drugstore-inventory/add/search}" class="searchForm">
+        <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
+        <button type="submit" class="searchButton">🔎︎</button>
+    </form>
 
     <p  class="employeeInfo" th:text="${employeeInfo}"></p>
 
@@ -24,23 +29,28 @@
 
 </div>
 
-<form method="get" th:action="@{/drugstore-inventory/add/search}">
-    <input name="keyword" placeholder="Szukaj..." th:value="${keyword}" type="text" class="searchInput">
-    <button type="submit" class="searchButton">Search</button>
-</form>
+
 <table>
-    <tr th:each="drug : ${drugs}" class="itemRow">
+    <tr>
+        <th>Nazwa</th>
+        <th>Common Nazwa</th>
+        <th>Substancja aktywna</th>
+        <th>Postać</th>
+        <th> </th>
+    </tr>
+    <tr th:each="drug : ${drugs}" class="contentRow">
         <td th:text="${drug.name}"></td>
         <td th:text="${drug.commonName}"></td>
-        <td th:text="${drug.pharmaceuticalForm}"></td>
         <td th:text="${drug.activeSubstance}"></td>
+        <td th:text="${drug.pharmaceuticalForm}"></td>
         <td>
-            <button th:onclick="openModal([[${drug.id}]])" class="addButton">Dodaj</button>
+            <button th:onclick="openModal([[${drug.id}]])" class="addButton">+</button>
         </td>
     </tr>
 </table>
 
 <!--MODAL POZA TABELKA, CZEMU ON WGL BYŁ W ŚRODKU?????????-->
+<!--juz sie czlowiek kurwa pomylic nie moze zrob lepiej mądraliński-->
 <div id="id01" class="modal">
     <form class="modal-content" method="post">
 
@@ -53,16 +63,16 @@
                     <input type="text" hidden="hidden" id="drugId" th:name="drugId"/>
                     <div class="quantity-div">
                         <label for="quantity" class="modal-label">Ilość:</label>
-                        <input type="number" step="1" min="0" placeholder="Ilość" th:field="*{drugstoreItem.quantity}" required class="modal-input" id="quantity">
+                        <input type="number" step="1" min="0" th:field="*{drugstoreItem.quantity}" required class="modal-input" id="quantity">
                     </div>
                     <div class="price-div">
                         <label for="Price" class="modal-label">Cena:</label>
-                        <input type="number" step="0.01" min="0" placeholder="Price" th:field="*{drugstoreItem.price}" id="price" required class="modal-input">
+                        <input type="number" step="0.01" min="0" placeholder="PLN" th:field="*{drugstoreItem.price}" id="price" required class="modal-input">
                     </div>
-                    <button type="button" id="cancel"
-                            onclick="document.getElementById('id01').style.display='none'">Powrót
+                    <button type="button" id="cancel" class="cancelButton"
+                            onclick="document.getElementById('id01').style.display='none'">Anuluj
                     </button>
-                    <button type="submit">Dodaj</button>
+                    <button type="submit" class="submitButton">Dodaj</button>
                 </form>
 
             </div>
@@ -110,7 +120,7 @@
 <!--        <button type="submit" style="margin:5px">Add</button>-->
 <!--    </form>-->
 <!--</div>-->
-</body>
+
 
 <!--<script>-->
 <!--    document.getElementById('searchInput').addEventListener('input', function ()-->
