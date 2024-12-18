@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @Entity
@@ -35,6 +36,10 @@ public class EventLog {
 
     @Override
     public String toString() {
-        return timestamp.toString().replace('T',' ') + " | " + username + " | " + drugstoreId + " | " + eventDescription;
+        return timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | " + username + " | " + drugstoreId + " | " + eventDescription;
+    }
+
+    public String toCsv() {
+        return timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + ";" + username + ";" + drugstoreId + ";" + eventDescription;
     }
 }

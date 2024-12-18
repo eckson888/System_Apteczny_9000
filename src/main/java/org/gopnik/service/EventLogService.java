@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -32,8 +33,16 @@ public class EventLogService {
         return this.eventLogRepository.findAll();
     }
 
-    public List<EventLog> getLogsBetween(LocalDateTime begin, LocalDateTime end) {
-        return this.eventLogRepository.findByTimestampBetween(employeeService.getCurrentEmployee().getDrugstoreId(), begin, end);
+    public List<EventLog> getLogsBetween(LocalDateTime start, LocalDateTime end) {
+        return this.eventLogRepository.findByTimestampBetween(employeeService.getCurrentEmployee().getDrugstoreId(), start, end);
+    }
+
+    public List<EventLog> getLogsForDate(LocalDateTime targetDate) {
+
+        LocalDateTime start = targetDate.toLocalDate().atStartOfDay();
+        LocalDateTime end = targetDate.toLocalDate().atTime(23, 59, 59);
+
+        return this.eventLogRepository.findByTimestampBetween(employeeService.getCurrentEmployee().getDrugstoreId(), start, end);
     }
 
     public LocalDate getMinDate() {

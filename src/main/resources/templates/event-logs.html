@@ -17,16 +17,13 @@
     <th:block>
 
     <div id="logsContainer">
-<!--        TODO: TO NIZEJ TO DO WYJEBANIA CHYBA, EWENTUALNIE WCZYTYWAC LOGI DZISIEJSZE PRZY WEJSCIU NA STRONE-->
-    <p th:each="eventLog: ${allLogs}" th:text="${eventLog.toString()}"></p>
     </div>
 
     <img th:src="@{/img/zlewozmywakfake.png}">
 </body>
 <script>
     function reloadLogs(){
-        let date = document.getElementById("datePicker").value;
-        document.getElementById("datePicker").value;
+        const date = document.getElementById("datePicker").value;
 
         let logsContainer = document.getElementById("logsContainer");
 
@@ -39,6 +36,8 @@
             {
                 logsContainer.innerHTML = "";
 
+                logsContainer.innerHTML += `<a href="/logs/download/csv/${date}">Pobierz jako CSV</a><br>`;
+                logsContainer.innerHTML += `<a href="/logs/download/txt/${date}">Pobierz jako TXT</a><br>`;
                 resArray.forEach(addLogFromArray);
 
                 if(resArray.length == 0)  logsContainer.innerHTML = "NO LOGS AT " + date;
