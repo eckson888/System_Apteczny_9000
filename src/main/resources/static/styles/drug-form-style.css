@@ -1,4 +1,4 @@
-
+/*TODO paginacje na tej podstronce*/
 .modal {
     position: fixed;
     top: 0;
@@ -24,7 +24,8 @@
     width: 80%;
     max-width: 25%;
     text-align: center;
-    height: 50%;
+    height: 41%;
+    border-top: 35px solid #017979;
 
 }
 .clearfix::after {
@@ -40,8 +41,187 @@
     font-size: 25px;
 }
 .quantity-div{
-
+    margin: 5px 0px 3%;
 }
 .price-div{
+    margin-left: 10px;
+}
+.modal-input{
+    width: 150px;
+    border-radius: 15px;
+    padding: 3px 3px 3px 10px;
+    font-size: 24px;
+    font-family: monospace;
+}
+.cancelButton{
+    width: 150px;
+    padding: 13px;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    background-color: #F0544E;
+    color: white;
+    border: 2px solid black;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: monospace;
+    font-weight: bold;
+    margin: 70px auto 0px 80px;
+    float: left;
+
+}
+.cancelButton:hover{
+    background-color: #d14843;
+}
+.submitButton{
+    width: 150px;
+    padding: 13px;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    background-color: #04AA6D;
+    color: white;
+    border: 2px solid black;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: monospace;
+    font-weight: bold;
+    margin: 70px 80px 0px 0px;
+    float: right;
+}
+.submitButton:hover{
+    background-color: #03935e;
+}
+.returnButton{
+    float:left;
+}
+.navigationBar_{
+    display:flex;
+    justify-content:space-between;
+    align-content:center;
+    text-align:center;
+    align-items:center;
+    height: 10%;
+    width: 100%;
+    color: black;
+    border-bottom:1px solid gray;
+    background-color: #017979;
+}
+.searchInput{
+    width: 500px;
+    height: 40px;
+    border-radius: 15px 0px 0px 15px;
+    background-color: #318686;
+    border: 2px solid black;
+    font-size: 20px;
+    padding-left: 20px;
+    color: black;
+    font-family: monospace;
+}
+.searchInput::placeholder{
+    color: #90b0b0;
+}
+.searchInput:focus-visible{
+    outline: 0.5px solid #134040;
+    background-color: #4c9392;
+    transition-duration: 0.2s;
+}
+.searchButton{
+    margin-left: -10px;
+    font-size: 25px;
+    cursor: pointer;
+    height: 44.5px;
+    width: 60px;
+    padding-bottom: 14.5px;
+    text-decoration: none;
+    color: black;
+    border: 2px solid black;
+    border-radius: 0px 15px 15px 0px;
+    transition-duration: 0.4s;
+    background-color: #318686;
+    text-align: center;
+}
+.searchForm{
+    margin: auto;
+}
+table, td, tr{
+    background-color: #ecedf0;
+    text-align:center;
+    padding:5px;
+    border:solid 1px black;
+    border-collapse: collapse;
+    border-spacing:0px;
+}
+
+table{
+    width: 90%;
+    height: auto;
+    margin: 33px auto auto auto;
+}
+
+th {
+    background-color: #71a3a3;
+}
+
+td{
+    white-space: nowrap;
+    padding:5px;
+    overflow:auto;
+    max-width:100px;
+    height:40px;
+    text-overflow: clip clip;
+}
+
+tr:hover td{
+    background-color: #cdced1  !important;
+
+}
+td::-webkit-scrollbar {
+    height: 9px;
+    background-color:transparent;
+}
+
+td::-webkit-scrollbar-corner,
+td::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+td::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
+
+td::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(112, 112, 112);
+    transition: 0.5s;
+}
+
+td::-webkit-scrollbar-thumb:active {
+    background-color: rgb(128, 128, 128);
+} /*
+    TODO zrobić żeby jak sie najedzie na dany row tabeli to sie wtedy od razu wyswietlają te scrollbary !
+*/
+
+
+table td:nth-child(5){
+    width: 50px;
+}
+.addButton{
+    border: 2.5px solid black;
+    border-radius: 100%;
+    font-size: 22px;
+    background: transparent;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-weight: bold;
+    height: 28px;
+    width: 28px;
+}
+.addButton:hover{
+    cursor:pointer;
 
 }
