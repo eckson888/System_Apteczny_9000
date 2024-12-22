@@ -31,12 +31,8 @@
 
 </div>
 
-
-
-
-
 <div th:if="${cart.items.isEmpty()}">
-    <p>Koszyk jest pusty.</p>
+    <p class="emptyCartMessage">Koszyk jest pusty.</p>
 </div>
 <div th:unless="${cart.items.isEmpty()}">
     <table>
@@ -62,9 +58,6 @@
             <td th:text="${item.getQuantity}"></td>
             <!--            TODO tom stronke jakos zeby miala sens-->
             <td>
-<!--                <form th:action="@{/drugstore-inventory/cart/remove/{drugstoreItemId}(drugstoreItemId=${item.drugstoreItem.id})}" method="get">-->
-<!--                    <button type="submit">Usuń</button>-->
-<!--                </form>-->
                 <span>
                     <a th:href="@{/drugstore-inventory/cart/remove/{drugstoreItemId}(drugstoreItemId=${item.drugstoreItem.id})}">
                     <img src="https://cdn-icons-png.flaticon.com/512/3161/3161358.png" class="trashImage">
