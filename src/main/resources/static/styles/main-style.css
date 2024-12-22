@@ -10,9 +10,10 @@
 }
 
 .mainHref {
+    border-radius:10px;
     margin: 20px;
-    width: 25%;
-    height: 40%;
+    width: 28%;
+    height: 70%;
     background-color: black;
     border: 1px solid black;
     position: relative;
@@ -51,25 +52,20 @@
 
 
 .content .mainHref:nth-child(1) {
-    background-image: url("../img/zul-menel.gif");
+    background-image: url("../img/stan.jpg");
     background-size: cover;
     background-position: center;
 }
 
 .content .mainHref:nth-child(2) {
-    background-image: url("../img/jonkler-jonkler-cart.gif");
+    background-image: url("../img/magazyn.jpg");
     background-size: cover;
     background-position: center;
 }
 
 .content .mainHref:nth-child(3) {
-    background-image: url("../img/killer-upset.gif");
+    background-image: url("../img/logi.png");
     background-size: cover;
     background-position: center;
 }
 
-.content .mainHref:nth-child(4) {
-    background-image: url("../img/rjumen-laugh-man.gif");
-    background-size: cover;
-    background-position: center;
-}
