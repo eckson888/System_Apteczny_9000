@@ -16,10 +16,13 @@
 
     <img src="img/napis-logo.png" class="textLogo">
 
-    <div class="employeeInfo">
-        <img src="img/user.png" class="infoIcon">
-        <p  class="employeeText" th:text="${employeeName}"></p>
-    </div>
+<!--    TODO: TYMCZASOWE ROZWIĄZANIE ŻEBY POZBYĆ SIĘ KAFELKA -->
+    <a href="/drugstores">
+        <div class="employeeInfo" >
+            <img src="img/user.png" class="infoIcon">
+            <p  class="employeeText" th:text="${employeeName}"></p>
+        </div>
+    </a>
 
     <div class="employeeInfo">
         <img src="img/drugstore_icon.png" class="infoIcon">
@@ -34,21 +37,16 @@
 
 <div class="content">
     <a class="mainHref" href="/drugstore-inventory">
-        <img src="" class="mainImage">
+
         <span class="overlayText">Stan Apteki</span>
     </a>
     <a class="mainHref" href="/global-inventory">
-        <img src="" class="mainImage">
+
         <span class="overlayText">Stan innych Aptek</span>
     </a>
     <a class="mainHref" href="/logs">
-        <img src="" class="mainImage">
-        <span class="overlayText">Historia Sprzedaży</span>
-    </a>
 
-    <a class="mainHref" href="/drugstores">
-        <img src="" class="mainImage">
-        <span class="overlayText">Admin Panel</span>
+        <span class="overlayText">Historia Sprzedaży</span>
     </a>
 </div>
 
