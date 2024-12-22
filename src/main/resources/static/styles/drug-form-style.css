@@ -176,6 +176,8 @@ tr:hover td{
     background-color: #cdced1  !important;
 
 }
+
+
 td::-webkit-scrollbar {
     height: 9px;
     background-color:transparent;
@@ -211,7 +213,7 @@ table td:nth-child(5){
 .addButton{
     border: 2.5px solid black;
     border-radius: 100%;
-    font-size: 22px;
+    font-size: 20px;
     background: transparent;
     padding-left: 5px;
     padding-right: 5px;
@@ -220,6 +222,8 @@ table td:nth-child(5){
     font-weight: bold;
     height: 28px;
     width: 28px;
+    font-family:monospace;
+
 }
 .addButton:hover{
     cursor:pointer;

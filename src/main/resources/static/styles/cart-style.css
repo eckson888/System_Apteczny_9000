@@ -1,0 +1,120 @@
+table, td, tr{
+    background-color: #ecedf0;
+    text-align:center;
+    padding:5px;
+    border:solid 1px black;
+    border-collapse: collapse;
+    border-spacing:0px;
+}
+
+table{
+    width: 90%;
+    height: auto;
+    margin: 33px auto auto auto;
+}
+
+th {
+    background-color: #71a3a3;
+}
+
+td{
+    white-space: nowrap;
+    padding:5px;
+    overflow:auto;
+    max-width:100px;
+    height:40px;
+    text-overflow: clip clip;
+}
+
+tr:hover td{
+    background-color: #cdced1  !important;
+
+}
+
+
+td::-webkit-scrollbar {
+    height: 9px;
+    background-color:transparent;
+}
+
+td::-webkit-scrollbar-corner,
+td::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+td::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
+
+td::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(112, 112, 112);
+    transition: 0.5s;
+}
+
+td::-webkit-scrollbar-thumb:active {
+    background-color: rgb(128, 128, 128);
+} /*
+    TODO zrobić żeby jak sie najedzie na dany row tabeli to sie wtedy od razu wyswietlają te scrollbary !
+*/
+
+
+table td:nth-child(7){
+    width: 50px;
+}
+table td:nth-child(6){
+    width: 50px;
+}
+table td:nth-child(5){
+    width: 80px;
+}
+.navigationBar_{
+    display:flex;
+    justify-content:space-between;
+    align-content:center;
+    text-align:center;
+    align-items:center;
+    height: 10%;
+    width: 100%;
+    color: black;
+    border-bottom:1px solid gray;
+    background-color: #017979;
+}
+.trashImage{
+    width:70%;
+}
+p{
+    font-family:monospace;
+}
+.sumText{
+    font-size: 25px;
+}
+.confirmButtonDiv{
+    margin: 0px 30px 0px 30px;
+}
+.confirmButton{
+    margin: 0px 20px 0px 0px;
+    width:150px;
+    padding: 13px;
+    float: right;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    background-color: #7badad;
+    color: black;
+    border: 2px solid black;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: monospace;
+    font-weight: bold;
+}
+.confirmButton:hover{
+    color: black;
+    background-color: #4c9392;
+    border: 2px, solid rgba(0, 0, 0, 1);
+}
+.sumTextDiv{
+    margin-right:auto;
+}
