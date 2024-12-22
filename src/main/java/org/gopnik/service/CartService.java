@@ -25,46 +25,55 @@ public class CartService {
     private DrugstoreItemRepository drugstoreItemRepository;
     @Autowired
     private DrugstoreItemService drugstoreItemService;
+    @Autowired
+    private EventLogService eventLogService;
+
     @Transactional
-    public Cart getCart(){
+    public Cart getCart() {
         return employeeService.getCurrentEmployee().getCart();
     }
+
     @Transactional
-    public Cart addToCart(Long itemId, int quantity){
+    public Cart addToCart(Long itemId, int quantity) {
         Cart cart = getCart();
-        DrugstoreItem item = drugstoreItemRepository.getById(itemId).orElseThrow(()-> new RuntimeException("item not found"));
+        DrugstoreItem item = drugstoreItemRepository.getById(itemId).orElseThrow(() -> new RuntimeException("item not found"));
         cart.addItem(item, quantity);
         return cartRepository.save(cart);
     }
 
     @Transactional
-    public Cart removeFromCart(Long itemId){
+    public Cart removeFromCart(Long itemId) {
         Cart cart = getCart();
-        DrugstoreItem item = drugstoreItemRepository.getById(itemId).orElseThrow(()-> new RuntimeException("item not found"));
-        cart.removeItem(item,1);
+        DrugstoreItem item = drugstoreItemRepository.getById(itemId).orElseThrow(() -> new RuntimeException("item not found"));
+        cart.removeItem(item, 1);
         return cartRepository.save(cart);
     }
 
     @Transactional
-    public Cart sellAllItems(){
+    public Cart sellAllItems() {
         Cart cart = getCart();
         DrugstoreItem toBeSold;
         Integer quantitiesToSell;
         int initial_size = cart.getItems().size();
 
-        for(int i = 0;i<initial_size;i++)
-        {
+        String logDesc = String.format("Sold %d items, amount: %s PLN, items: ", initial_size, cart.getCartSum().toString());
+
+        for (int i = 0; i < initial_size; i++) {
             toBeSold = (cart.getItems().get(0).getDrugstoreItem());
             quantitiesToSell = (cart.getItems().get(0).getQuantity());
             log.info(String.valueOf(quantitiesToSell));
-            cart.removeItem(toBeSold,quantitiesToSell);
+            cart.removeItem(toBeSold, quantitiesToSell);
             drugstoreItemService.removeDrugstoreItem(toBeSold, quantitiesToSell);
+
+            logDesc += String.format("{ %s } ", toBeSold.toString());
         }
+
+        eventLogService.addEventLog(logDesc);
         return cartRepository.save(cart);
     }
 
     @Transactional
-    public Cart clearCart(){
+    public Cart clearCart() {
         Cart cart = getCart();
         while (!cart.getItems().isEmpty()) {
             CartItem tmp = cart.getItems().getFirst();
