@@ -62,8 +62,9 @@ public class DrugstoreItem {
     public void addQuantity(int amount) {
         this.quantity += amount;
     }
+
     @Override
-    public String toString(){
-        return String.format("id: %s nazwa: %s quantity: %s", getId(), getDrug().getName(), getQuantity());
+    public String toString() {
+        return String.format("id:%s name:\"%s\" quantity:%s price:%sPLN", getId(), getDrugName(), getQuantity(), getPrice());
     }
 }
