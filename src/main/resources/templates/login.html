@@ -23,6 +23,8 @@
         <div class="loginDiv">
             <button type="submit" class="loginButton">Zaloguj się</button>
         </div>
+
+<!--        TODO: ROZPEIRDALA SIE NP PRZY ZLYCH DANYCH LOGOWANIA -->
         <div th:if="${errorMessage}" th:text="${errorMessage}" class="msg"></div>
         <div th:if="${logoutMessage}" th:text="${logoutMessage}" class="msg"></div>
         <div th:if="${message}" th:text="${message}" class="msg"></div>
