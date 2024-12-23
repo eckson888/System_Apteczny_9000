@@ -14,7 +14,7 @@
 
 <div class="navigationBar">
 
-    <a class="returnButton" th:href="@{/main}">Powrót</a>
+    <a class="returnButton" th:href="@{/main}">◀ Powrót</a>
 
     <form method="get" th:action="@{/global-inventory/search}" class="searchForm">
         <input name="keyword" placeholder="Szukaj w innych aptekach..." th:value="${keyword}" type="text" class="searchInput">
@@ -31,7 +31,7 @@
     <table>
         <tr>
             <th>Nazwa</th>
-            <th>Common Nazwa</th>
+            <th>Nazwa powszechna</th>
             <th>Substancja aktywna</th>
             <th>Postać</th>
             <th>Info</th>
@@ -59,7 +59,7 @@
 
 
 
-        <a th:if="${currentPage < totalPages - 1}" style="color: black; font-size: 15px; text-decoration:none; margin-left:20px"
+        <a th:if="${currentPage < totalPages - 1}" style="color: black; text-decoration:none; margin-left:20px"
            th:href="${isSearch} ?
                 @{/global-inventory/search(keyword=${keyword}, page=${currentPage + 1})} :
                 @{/global-inventory(page=${currentPage + 1})}">

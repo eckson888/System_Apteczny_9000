@@ -14,11 +14,11 @@
 
     <div class="navigationThird">
 
-        <a class="returnButton" th:href="@{/main}">Powrót</a>
+        <a class="returnButton" th:href="@{/main}">◀ Powrót</a>
 
         <a class="addDrugButton" th:href="@{/drugstore-inventory/add}">Dodaj Lek</a>
 
-        <a class="sellButton" th:href="@{/drugstore-inventory/cart}">Sprzedaj</a>
+        <a class="sellButton" th:href="@{/drugstore-inventory/cart}">Zobacz Koszyk</a>
 
 
 
@@ -46,7 +46,7 @@
         <tbody>
         <tr class="headerRow">
             <th>Nazwa</th>
-            <th>Common Nazwa</th>
+            <th>Nazwa powszechna</th>
             <th>Substancja aktywna</th>
             <th>Postać</th>
             <th>Cena</th>
@@ -71,7 +71,7 @@
         </tbody>
     </table>
     <div class="paging">
-        <a th:if="${currentPage > 0}" style="color: black; font-size:15px; text-decoration:none; margin-right:20px;"
+        <a th:if="${currentPage > 0}" style="color: black; text-decoration:none; margin-right:20px;"
            th:href="${isSearch} ?
                 @{/drugstore-inventory/search(keyword=${keyword}, page=${currentPage - 1})} :
                 @{/drugstore-inventory(page=${currentPage - 1})}">

@@ -7,19 +7,30 @@
     <link rel="stylesheet" th:href="@{styles/event-log-style.css}"/>
 </head>
 <body>
-    <h2>JEŚLI TO CZYTASZ, JUŻ JEST ZA PÓŹNO</h2>
 
-    <h3 th:text="${minDate}"></h3>
+<div class="navigationBar" style="justify-content:space-between">
 
-    <th:block th:with="today=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
-    <input type="date" id="datePicker" th:min="${minDate}" th:max="${today}"  th:value="${today}">
+    <a class="returnButton" th:href="@{/main}">◀ Powrót</a>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logoutButton">Wyloguj się</button>
+    </form>
+
+</div>
+
+<h2>JEŚLI TO CZYTASZ, JUŻ JEST ZA PÓŹNO</h2>
+
+<h3 th:text="${minDate}"></h3>
+
+<th:block th:with="today=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+    <input type="date" id="datePicker" th:min="${minDate}" th:max="${today}" th:value="${today}">
     <button onclick="reloadLogs()">ZAŁADUJ LOGI</button>
     <th:block>
 
-    <div id="logsContainer">
-    </div>
+        <div id="logsContainer">
+        </div>
 
-    <img th:src="@{/img/zlewozmywakfake.png}">
+        <img th:src="@{/img/zlewozmywakfake.png}">
 </body>
 <script>
     function reloadLogs(){
