@@ -24,7 +24,7 @@ public class EventLog {
     private String username;
 
     private Long drugstoreId;
-
+    @Column(updatable = true, name="event_description", nullable = true, columnDefinition = "varchar(99999)") // najmniejszy varchar na umcsie
     private String eventDescription;
 
     public EventLog(String username, Long drugstoreId, String eventDescription) {

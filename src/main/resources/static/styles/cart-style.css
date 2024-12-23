@@ -92,7 +92,7 @@ p{
     font-size: 25px;
 }
 .confirmButtonDiv{
-    margin: 0px 30px 0px 30px;
+    margin: 0px 30px 0px 20px;
 }
 .confirmButton{
     margin: 0px 20px 0px 0px;
@@ -117,4 +117,9 @@ p{
 }
 .sumTextDiv{
     margin-right:auto;
+}
+.emptyCartMessage{
+    font-size: 24px;
+    color: #67686c;
+    margin: auto auto auto 4px;
 }
