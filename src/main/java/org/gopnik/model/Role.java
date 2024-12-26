@@ -19,4 +19,3 @@ public class Role {
         return name;
     }
 }
-//TODO: ZROBIC PODZIAL NA ROLE (ZEBY ADMINPANEL MIAL SENS)

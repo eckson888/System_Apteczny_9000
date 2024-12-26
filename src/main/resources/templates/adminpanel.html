@@ -5,7 +5,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <base href="/">
     <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
     <style>
         table, th, td {
@@ -15,12 +14,12 @@
             padding: 5px 10px;
         }
     </style>
-    <title>Drugstores</title>
+    <title>Adminpanel</title>
 </head>
 <body>
 <a th:href="@{/main}">◀ Powrót</a>
-<a th:href="@{/drugstores/add}">Dodaj aptekę</a>
-<a th:href="@{/drugstores/add-employee}">Dodaj pracusia</a>
+<a th:href="@{/adminpanel/add-drugstore}">Dodaj aptekę</a>
+<a th:href="@{/adminpanel/add-employee}">Dodaj pracusia</a>
 <h1>Lista aptek:</h1>
 <table>
     <tr>
@@ -33,7 +32,7 @@
         <td th:text="${drugstore.getAddress}"></td>
         <td th:text="${drugstore.getCity}"></td>
         <td>
-            <form th:action="@{/drugstores/delete}" method="post">
+            <form th:action="@{/adminpanel/delete}" method="post">
                 <input type="hidden" name="id" th:value="${drugstore.getId}"/>
                 <button type="submit">Usuń</button>
             </form>

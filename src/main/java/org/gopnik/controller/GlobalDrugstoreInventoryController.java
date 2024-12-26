@@ -48,7 +48,7 @@ public class GlobalDrugstoreInventoryController {
         model.addAttribute("totalPages", totalPages); // Total number of pages
         model.addAttribute("size", size); // Page size
         model.addAttribute("isSearch", 0); // TO MA WIEKSZY SENS NIZ SIE MOZE WYDAWAC
-        //TODO: jebany optional zostawic to tak jak jest albo to zrobic jakos sensownie
+
         model.addAttribute("currentAddress", drugstoreService.getById(currentDrugstoreId).orElseThrow().getFullAddress());
 
         return "global-inventory";
@@ -80,7 +80,7 @@ public class GlobalDrugstoreInventoryController {
         model.addAttribute("isSearch", 1);
 
         Long currentDrugstoreId = employeeService.getCurrentDrugstoreId();
-        //TODO: tu również optional
+
         model.addAttribute("currentAddress", drugstoreService.getById(currentDrugstoreId).orElseThrow().getFullAddress());
 
         return "global-inventory";
