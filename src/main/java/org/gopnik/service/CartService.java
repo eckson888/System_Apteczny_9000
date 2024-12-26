@@ -56,7 +56,7 @@ public class CartService {
         Integer quantitiesToSell;
         int initial_size = cart.getItems().size();
 
-        String logDesc = String.format("Sold %d items, amount: %s PLN, items: ", initial_size, cart.getCartSum().toString());
+        String sellLogDesc = String.format("Cart sold: %d items, amount: %s PLN", initial_size, cart.getCartSum().toString());
 
         for (int i = 0; i < initial_size; i++) {
             toBeSold = (cart.getItems().get(0).getDrugstoreItem());
@@ -65,10 +65,10 @@ public class CartService {
             cart.removeItem(toBeSold, quantitiesToSell);
             drugstoreItemService.removeDrugstoreItem(toBeSold, quantitiesToSell);
 
-            logDesc += String.format("{ %s } ", toBeSold.toString());
+            eventLogService.addEventLog("Sold: {" + toBeSold + "}");
         }
 
-        eventLogService.addEventLog(logDesc);
+        eventLogService.addEventLog(sellLogDesc);
         return cartRepository.save(cart);
     }
 

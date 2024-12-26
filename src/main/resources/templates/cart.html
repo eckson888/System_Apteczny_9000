@@ -16,7 +16,7 @@
     </div>
     <div class="confirmButtonDiv">
     <form th:action="@{/drugstore-inventory/cart/sell}" method="get">
-        <button type="submit" class="confirmButton">Zatwierdź</button>
+        <button type="submit" class="confirmButton">Zatwierdź Sprzedaż</button>
     </form>
     </div>
     <div class="sumTextDiv">
@@ -30,6 +30,8 @@
 
 
 </div>
+
+<!--TODO: MOZE ZROBIC DODAWANIE PO ILOSCI A NIE KLIKANIE TEGO SAMEGO PRZYISKU X RAZY-->
 
 <div th:if="${cart.items.isEmpty()}">
     <p class="emptyCartMessage">Koszyk jest pusty.</p>

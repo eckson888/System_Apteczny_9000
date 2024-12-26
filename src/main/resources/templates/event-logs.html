@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
     <link rel="stylesheet" th:href="@{styles/event-log-style.css}"/>
 </head>
-<body>
+<body onload="javascript:reloadLogs()">
 
 <div class="navigationBar" style="justify-content:space-between">
 
@@ -25,7 +25,7 @@
 <th:block th:with="today=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
     <input type="date" id="datePicker" th:min="${minDate}" th:max="${today}" th:value="${today}">
     <button onclick="reloadLogs()">ZAŁADUJ LOGI</button>
-    <th:block>
+    </th:block>
 
         <div id="logsContainer">
         </div>
