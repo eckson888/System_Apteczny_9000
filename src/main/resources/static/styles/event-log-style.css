@@ -13,6 +13,7 @@ textarea {
 }
 
 .content {
+    height: auto;
     min-height: 80%;
 }
 
