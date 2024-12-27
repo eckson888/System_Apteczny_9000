@@ -1,11 +1,104 @@
 textarea {
     width: 90%;
     field-sizing: content;
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 12px;
     font-size: 15px;
     resize: none;
     background-color: whitesmoke;
     color: black;
+    line-height: 1.5;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.content {
+    min-height: 80%;
+}
+
+.datePickerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: column;
+}
+
+/* DatePicker */
+#datePicker {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #017979;
+    border-radius: 12px;
+    background-color: #f5f7f9;
+    color: black;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#datePicker:hover {
+    border-color: #4c9392;
+}
+
+#datePicker:focus {
+    outline: none;
+    border-color: #4c9392;
+    box-shadow: 0 0 5px rgba(76, 147, 146, 0.6);
+}
+
+button {
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: #4c9392;
+    border: 2px solid black;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #017979;
+}
+
+.download-buttons {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.download-buttons a {
+    text-decoration: none;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: #4c9392;
+    border: 2px solid black;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.download-buttons a:hover {
+    background-color: #017979;
+}
+
+
+#logsContainer {
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: black;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
