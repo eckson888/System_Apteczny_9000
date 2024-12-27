@@ -59,7 +59,7 @@ public class DrugstoreItemService {
         }
 
         drugstoreItemRepository.save(item);
-        eventLogService.addEventLog("Added to inventory: {" + item.toString() + "}");
+        eventLogService.addEventLog("Added to inventory: { " + item.toString() + " }");
     }
 
     public List<DrugstoreItem> getDrugstoreItemsByDrug(DrugstoreItem drugstoreItem, Long drugstoreId) {

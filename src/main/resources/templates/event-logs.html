@@ -10,7 +10,7 @@
 
 <div class="navigationBar" style="justify-content:space-between">
 
-    <a class="returnButton" th:href="@{/main}">◀ Powrót</a>
+    <a class="returnButton" th:href="@{/main}">< Powrót</a>
 
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="logoutButton">Wyloguj się</button>
@@ -33,7 +33,7 @@
         <img th:src="@{/img/zlewozmywakfake.png}">
 </body>
 <script>
-    function reloadLogs(){
+    function reloadLogs() {
         const date = document.getElementById("datePicker").value;
 
         let logsContainer = document.getElementById("logsContainer");
@@ -43,15 +43,18 @@
         fetch(link)
             .then(res => res.json())
             .then((resArray) => {
-            if (Array.isArray(resArray))
-            {
+            if (Array.isArray(resArray)) {
+                if (resArray.length == 0) {
+                    logsContainer.innerHTML = "NO LOGS AT " + date;
+                    return;
+                }
+
                 logsContainer.innerHTML = "";
 
                 logsContainer.innerHTML += `<a href="/logs/download/csv/${date}">Pobierz jako CSV</a><br>`;
                 logsContainer.innerHTML += `<a href="/logs/download/txt/${date}">Pobierz jako TXT</a><br>`;
-                resArray.forEach(addLogFromArray);
 
-                if(resArray.length == 0)  logsContainer.innerHTML = "NO LOGS AT " + date;
+                logsContainer.innerHTML += `<textarea disabled>${resArray.join("\n")}</textarea>`;
             } else {
                 logsContainer.innerHTMl = "<p>INVALID RESPONSE</p>";
             }
@@ -60,11 +63,6 @@
             logsContainer.innerHTMl = "<p>ERROR</p>";
             console.error("Error fetching data: ", err);
         });
-    }
-
-    function addLogFromArray(text){
-        let tagText = "<p>"+text+"</p>"
-        document.getElementById("logsContainer").innerHTML += tagText;
     }
 </script>
 </html>

@@ -1,0 +1,11 @@
+textarea {
+    width: 90%;
+    field-sizing: content;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    resize: none;
+    background-color: whitesmoke;
+    color: black;
+}

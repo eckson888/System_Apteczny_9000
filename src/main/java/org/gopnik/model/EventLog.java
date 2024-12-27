@@ -36,7 +36,8 @@ public class EventLog {
 
     @Override
     public String toString() {
-        return timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | " + username + " | " + drugstoreId + " | " + eventDescription;
+        // TODO: ROZKMINIC JAK MAJA WYGLADAC LOGINY
+        return timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | " + String.format("%-5s",username) + " | " + drugstoreId + " | " + eventDescription;
     }
 
     public String toCsv() {

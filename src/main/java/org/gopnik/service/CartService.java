@@ -65,7 +65,7 @@ public class CartService {
             cart.removeItem(toBeSold, quantitiesToSell);
             drugstoreItemService.removeDrugstoreItem(toBeSold, quantitiesToSell);
 
-            eventLogService.addEventLog("Sold: {" + toBeSold + "}");
+            eventLogService.addEventLog("Sold: { " + toBeSold + " }");
         }
 
         eventLogService.addEventLog(sellLogDesc);
