@@ -14,7 +14,7 @@
 
     <div class="navigationThird">
 
-        <a class="returnButton" th:href="@{/main}">◀ Powrót</a>
+        <a class="returnButton" th:href="@{/main}">< Powrót</a>
 
         <a class="addDrugButton" th:href="@{/drugstore-inventory/add}">Dodaj Lek</a>
 
@@ -82,7 +82,7 @@
 
 
 
-        <a th:if="${currentPage < totalPages - 1}" style="color: black; font-size: 15px; text-decoration:none; margin-left:20px"
+        <a th:if="${currentPage < totalPages - 1}" style="color: black; text-decoration:none; margin-left:20px"
            th:href="${isSearch} ?
                 @{/drugstore-inventory/search(keyword=${keyword}, page=${currentPage + 1})} :
                 @{/drugstore-inventory(page=${currentPage + 1})}">
