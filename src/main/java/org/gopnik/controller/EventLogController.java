@@ -53,6 +53,10 @@ public class EventLogController {
 
         List<EventLog> entities = this.eventLogService.getLogsForDate(start);
 
+        if (entities.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
         String entitiesAsCsv = entities.stream()
                 .map(EventLog::toCsv)
                 .collect(Collectors.joining("\n"));
@@ -71,13 +75,16 @@ public class EventLogController {
                 .body(csvBytes);
     }
 
-    //TODO: CO GDY POBIERANIE JEST A LOGOW NIE MA TEGO DNIA
     @GetMapping("/download/txt/{targetDate}")
     public ResponseEntity<byte[]> downloadTxtFile(@PathVariable String targetDate) {
         LocalDate date = LocalDate.parse(targetDate, DateTimeFormatter.ISO_DATE);
         LocalDateTime start = date.atStartOfDay();
 
         List<EventLog> entities = this.eventLogService.getLogsForDate(start);
+
+        if (entities.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
 
         String entitiesAsTxt = entities.stream()
                 .map(EventLog::toString)
