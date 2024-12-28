@@ -77,7 +77,7 @@ public class EmployeeService {
         return this.employeeRepository.findAll();
     }
 
-
-
-
+    public List<Employee> getEmployeesForDrugstore(Long drugstoreId) {
+        return employeeRepository.findByDrugstoreId(drugstoreId);
+    }
 }
