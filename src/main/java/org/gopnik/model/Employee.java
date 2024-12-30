@@ -1,5 +1,6 @@
 package org.gopnik.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -33,8 +34,10 @@ public class Employee { // alias "DrugDealer"
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cart_id")
+    @JsonIgnore // udajemy ze tego nie widzimy
     private Cart cart;
 
 

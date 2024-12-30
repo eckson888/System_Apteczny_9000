@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/adminpanel")
 public class AdminpanelController {
@@ -52,4 +54,11 @@ public class AdminpanelController {
         employeeService.registerEmployee(employee);
         return "redirect:/adminpanel";
     }
+
+    @RequestMapping(path = "/employees/{drugstoreId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Employee> getEmployees(@PathVariable Long drugstoreId) {
+        return employeeService.getEmployeesForDrugstore(drugstoreId);
+    }
+
 }
