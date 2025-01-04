@@ -118,8 +118,9 @@ p{
 .sumTextDiv{
     margin-right:auto;
 }
-.emptyCartMessage{
-    font-size: 20px;
+.emptyCartMessage {
+    font-size: 24px;
     color: #67686c;
-    margin: auto auto auto 4px;
+    margin: 16px;
+    text-align: center;
 }

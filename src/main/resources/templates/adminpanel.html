@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Adminpanel</title>
+    <title>Panel Administratorski</title>
     <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
+    <link rel="stylesheet" th:href="@{styles/adminpanel-style.css}"/>
+    <script th:src="@{js/adminpanel.js}"></script>
+
     <style>
         table, th, td {
             border:1px solid black;
@@ -27,6 +30,7 @@
 
 </div>
 
+<!--TODO: ZROBIC TO NA NAVBARZE-->
 <a th:href="@{/main}">< Powrót</a>
 <a th:href="@{/adminpanel/add-drugstore}">Dodaj aptekę</a>
 <a th:href="@{/adminpanel/add-employee}">Dodaj pracusia</a>
@@ -38,6 +42,8 @@
             <th>ID</th>
             <th>Adres</th>
             <th>Miasto</th>
+            <th>Usuń</th>
+            <th>Pracownicy</th>
         </tr>
         <tr th:each="drugstore: ${drugstoreList}">
             <td th:text="${drugstore.getId}"></td>
@@ -49,12 +55,34 @@
                     <button type="submit">Usuń</button>
                 </form>
             </td>
+            <td>
+                <button class="employeesButton" th:onclick="getEmployees([[${drugstore.id}]])">👤</button>
+            </td>
         </tr>
     </table>
+
+    <div id="employees">
+        <table id="employeeTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Drugstore ID</th>
+                <th>Roles</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 
 <div class="stupka">
     <p>eckson888 / kacper dega / zouuek</p>
 </div>
+
 </body>
 </html>

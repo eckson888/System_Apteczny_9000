@@ -10,7 +10,7 @@ function reloadLogs() {
         .then((resArray) => {
         if (Array.isArray(resArray)) {
             if (resArray.length == 0) {
-                logsContainer.innerHTML = "\n<h2> NO LOGS AT " + date + "</h2>";
+                logsContainer.innerHTML = "\n<h2> BRAK ZDARZEŃ DNIA: " + date + "</h2>";
                 return;
             }
 
