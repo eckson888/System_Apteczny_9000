@@ -7,16 +7,6 @@
     <link rel="stylesheet" th:href="@{styles/style-for-all.css}"/>
     <link rel="stylesheet" th:href="@{styles/adminpanel-style.css}"/>
     <script th:src="@{js/adminpanel.js}"></script>
-
-    <style>
-        table, th, td {
-            border:1px solid black;
-        }
-        th,td {
-            padding: 5px 10px;
-        }
-    </style>
-
 </head>
 <body>
 
@@ -52,7 +42,7 @@
             <td>
                 <form th:action="@{/adminpanel/delete}" method="post">
                     <input type="hidden" name="id" th:value="${drugstore.getId}"/>
-                    <button type="submit">Usuń</button>
+                    <button type="submit" class="deleteButton">❌</button>
                 </form>
             </td>
             <td>
@@ -61,7 +51,7 @@
         </tr>
     </table>
 
-    <div id="employees">
+    <div id="employees" class="employeesDiv">
         <table id="employeeTable">
             <thead>
             <tr>

@@ -36,7 +36,7 @@ public class EventLog {
 
     @Override
     public String toString() {
-        // TODO: ROZKMINIC JAK MAJA WYGLADAC LOGINY
+        // TODO: ROZKMINIC JAK MAJA WYGLADAC LOGINY (np. na stala ilosc znakow wtedy logi nie beda sie rozjezdzac)
         return timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | " + String.format("%-5s",username) + " | " + drugstoreId + " | " + eventDescription;
     }
 
