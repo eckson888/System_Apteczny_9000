@@ -12,18 +12,19 @@
 
 <div class="navigationBar">
 
-    <a class="returnButton" th:href="@{/main}">< Powrót</a>
+    <div>
+        <a class="returnButton" th:href="@{/main}">< Powrót</a>
+
+        <a href="/adminpanel/add-drugstore" class="returnButton">Dodaj aptekę</a>
+
+        <a href="/adminpanel/add-employee" class="returnButton">Dodaj pracownika</a>
+    </div>
 
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="logoutButton">Wyloguj się</button>
     </form>
 
 </div>
-
-<!--TODO: ZROBIC TO NA NAVBARZE-->
-<a th:href="@{/main}">< Powrót</a>
-<a th:href="@{/adminpanel/add-drugstore}">Dodaj aptekę</a>
-<a th:href="@{/adminpanel/add-employee}">Dodaj pracusia</a>
 
 <div class="content">
     <h1>Lista aptek:</h1>

@@ -1,3 +1,7 @@
+.navigationBar{
+    justify-content: space-between;
+}
+
 .employeesDiv {
     width: 50%;
     display: flex;
